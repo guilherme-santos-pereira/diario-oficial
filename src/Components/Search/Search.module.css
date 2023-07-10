@@ -1,0 +1,18 @@
+.container {
+}
+
+.input {
+  background-color: var(--secondary-button-color);
+  border: none;
+  width: 25rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+}
+
+.button {
+  height: 2.5rem;
+  width: 7.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--primary-button-color);
+}

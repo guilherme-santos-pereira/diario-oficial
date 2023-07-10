@@ -1,4 +1,5 @@
 import React from "react";
+import { AiOutlineUser } from "react-icons/ai";
 import styles from "./Header.module.css";
 
 const Header = () => {
@@ -7,7 +8,9 @@ const Header = () => {
       <div className={styles.container}>
         <div className={styles.logo}>Logo</div>
         <div className={styles.main}>Content</div>
-        <div className={styles.account}>Account</div>
+        <div className={styles.account}>
+          <AiOutlineUser size={32} />
+        </div>
       </div>
     </header>
   );

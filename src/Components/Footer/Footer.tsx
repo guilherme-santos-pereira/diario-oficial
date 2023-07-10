@@ -6,7 +6,7 @@ const Footer = () => {
     <div className={styles.container}>
       <div className={styles.copyright}>Copyright</div>
       <div className={styles.about}>About</div>
-      <div className={styles.faq}>FAQ</div>
+      <div className={styles.contact}>Contatos</div>
     </div>
   );
 };
