@@ -1,0 +1,22 @@
+@import "../../colors.css";
+
+.header {
+  background-color: var(--secondary-color);
+  height: 10rem;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo {
+  margin: 5rem 0 0 2rem;
+}
+.main {
+  margin: 5rem 0;
+}
+.account {
+  margin: 5rem 2rem 0 0;
+}
