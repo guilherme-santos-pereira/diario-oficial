@@ -1,4 +1,23 @@
 .container {
+  display: flex;
+  justify-content: center;
+}
+
+.calendar {
+  margin: 0 2rem;
+}
+
+.date {
+  height: 2.5rem;
+  padding: 0 1rem;
+  width: 7rem;
+  background-color: var(--secondary-button-color);
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.date:first-child {
+  margin: 0 1.25rem 0 0;
 }
 
 .input {
@@ -7,6 +26,8 @@
   width: 25rem;
   height: 2.5rem;
   border-radius: 0.5rem;
+  padding: 0 0 0 1rem;
+  font-size: medium;
 }
 
 .button {
@@ -14,5 +35,8 @@
   width: 7.5rem;
   border: none;
   border-radius: 0.5rem;
+  margin: 0 2rem;
   background-color: var(--primary-button-color);
+  box-shadow: 0.1rem 0.1rem 0.1rem rgb(0 0 0, 0.1);
+  font-size: medium;
 }

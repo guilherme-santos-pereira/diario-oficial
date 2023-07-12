@@ -1,15 +1,13 @@
 import React from "react";
-import { AiOutlineUser } from "react-icons/ai";
 import styles from "./Header.module.css";
+import image from "../../Assets/logo_diario_oficial_branco.png";
 
 const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <div className={styles.logo}>Logo</div>
-        <div className={styles.main}>Content</div>
-        <div className={styles.account}>
-          <AiOutlineUser size={32} />
+        <div className={styles.logo}>
+          <img src={image} className={styles.image} />
         </div>
       </div>
     </header>

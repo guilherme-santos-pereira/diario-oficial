@@ -1,0 +1,44 @@
+.container {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.genericTable {
+  width: 100%;
+}
+
+.headerTable {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.tableHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.columnHeader {
+  display: table-row;
+}
+
+.columnTitle {
+  display: table-cell;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.tableBody {
+  display: table-row-group;
+}
+
+.tableRow {
+  display: table-row;
+}
+
+.tableCell {
+  display: table-cell;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PATH } from "../../PATH";
+import { PATH } from "../PATH";
 
 const username = sessionStorage.getItem("username");
 const password = sessionStorage.getItem("password");
