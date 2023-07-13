@@ -3,6 +3,7 @@
 .header {
   background-color: var(--secondary-color);
   height: 7.5rem;
+  box-shadow: 0px 10px 10px -10px #505050;
 }
 
 .container {

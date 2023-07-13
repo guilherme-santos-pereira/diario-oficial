@@ -1,4 +1,4 @@
-import React, { useState, KeyboardEvent } from "react";
+import React, { useState } from "react";
 import styles from "./Search.module.css";
 import Input from "../Forms/Input";
 import Button from "../Forms/Button";
@@ -10,6 +10,7 @@ const Search = () => {
     keyword: [],
     code: "",
     type: "",
+    searchType: false,
   });
 
   const [inputValue, setInputValue] = useState("");
@@ -42,16 +43,7 @@ const Search = () => {
     handleChange(e);
   };
 
-  // const handleInputKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-  //   const inputValue = e.currentTarget.value; // Retrieve the input value
-  //   if (e.key === "Enter" && inputValue.trim() !== "") {
-  //     setKeywords((prevKeywords) => [...prevKeywords, inputValue.trim()]);
-  //     setInputValue("");
-  //     e.preventDefault(); // Prevent form submission
-  //   }
-  // };
-
-  const handleInputKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const inputValue = e.currentTarget.value.trim();
     if (e.key === "Enter" && inputValue !== "") {
       setKeywords((prevKeywords) => [...prevKeywords, inputValue]);
@@ -59,7 +51,7 @@ const Search = () => {
         ...prevRange,
         keyword: [...prevRange.keyword, inputValue],
       }));
-      setInputValue("");
+      e.currentTarget.value = "";
       e.preventDefault();
     }
   };
@@ -71,14 +63,6 @@ const Search = () => {
     handleChange({ target: { name: "type", value: option } });
   };
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
-  //   const { name, value } = e.target;
-  //   setSelectedRange((prev: any) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
-  // };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value } = e.target;
 
@@ -89,17 +73,21 @@ const Search = () => {
   };
 
   const handleSubmit = () => {
-    console.log("keywords: ", keywords);
-    const handleKeywords = keywords;
     setSelectedRange((prevRange: any) => ({
       ...prevRange,
-      keyword: handleKeywords.map((item) => item),
+      keyword: [...keywords],
     }));
-    console.log("selectedRange: ", selectedRange);
   };
 
   const removeKeyword = (keyword: string) => {
-    setKeywords((prevKeywords) => prevKeywords.filter((k) => k !== keyword));
+    setKeywords((prevKeywords) => {
+      const updatedKeywords = [...prevKeywords];
+      const index = updatedKeywords.indexOf(keyword);
+      if (index !== -1) {
+        updatedKeywords.splice(index, 1);
+      }
+      return updatedKeywords;
+    });
   };
 
   return (
@@ -122,17 +110,22 @@ const Search = () => {
         <Input
           className={styles.input}
           name="keyword"
-          // onChange={handleChange}
           onKeyPress={handleInputKeyPress}
           placeholder="Palavra chave"
         />
-        <textarea
-          className={styles.selected}
-          name="selected"
-          value={keywords.join(", ")}
-          onChange={handleChange}
-          readOnly
-        />
+        <div className={styles.selected}>
+          {keywords.map((keyword) => (
+            <div key={keyword} className={styles.keyword}>
+              {keyword}
+              <button
+                className={styles.removeButton}
+                onClick={() => removeKeyword(keyword)}
+              >
+                X
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className={styles.type}>
@@ -169,10 +162,20 @@ const Search = () => {
         </div>
       </div>
       <div className={styles.calendar}>
-        <div>
-          <p>Busca exata?</p>
+        <div className={styles.info}>
+          <label>Busca exata?</label>
           <div>
-            <Input type="checkbox" />
+            <Input
+              name="searchType"
+              value={selectedRange.searchType}
+              onClick={() =>
+                setSelectedRange((prev: any) => ({
+                  ...prev,
+                  searchType: !selectedRange.searchType,
+                }))
+              }
+              type="checkbox"
+            />
             <label>Exato</label>
           </div>
         </div>
@@ -180,17 +183,6 @@ const Search = () => {
           Pesquisar
         </Button>
       </div>
-      {/* {keywords.map((keyword) => (
-        <div key={keyword} className={styles.keyword}>
-          {keyword}
-          <button
-            className={styles.removeButton}
-            onClick={() => removeKeyword(keyword)}
-          >
-            X
-          </button>
-        </div>
-      ))} */}
     </div>
   );
 };
