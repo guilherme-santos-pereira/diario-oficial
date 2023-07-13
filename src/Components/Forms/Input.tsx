@@ -4,11 +4,15 @@ import styles from "./Input.module.css";
 interface iInput {
   className?: any;
   name?: string;
+  value?: any;
   content?: any;
   onClick?: any;
   onChange?: any;
+  onFocus?: any;
+  onBlur?: any;
   type?: any;
   placeholder?: string;
+  onKeyPress?: any;
 }
 
 const Input: React.FC<iInput> = ({ className, onClick, ...props }) => {
