@@ -13,6 +13,7 @@ interface iInput {
   type?: any;
   placeholder?: string;
   onKeyPress?: any;
+  id?: any;
 }
 
 const Input: React.FC<iInput> = ({ className, onClick, ...props }) => {
