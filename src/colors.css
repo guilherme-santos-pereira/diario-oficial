@@ -6,6 +6,7 @@
   --secondary-button-color: #f5f5f5;
 
   --primary-button-color-hover: #5c732e;
+  --secondary-button-color-hover: #e1a69f;
 
   /* Secondary color */
   --ailos-orange: #ffa300;
@@ -15,4 +16,6 @@
 
   --primary-color-disabled: #ffd9d2;
   --primary-text-color-disabled: #3c4759;
+
+  --shadow-color: #505050;
 }

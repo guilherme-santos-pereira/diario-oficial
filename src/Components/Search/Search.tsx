@@ -56,8 +56,9 @@ const Search = () => {
     }
   };
 
-  const handleOptionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleOptionClick = (e: any) => {
     const option = e.currentTarget.value;
+    console.log("option: ", option);
     setInputValue(option);
     setShowOptions(false);
     handleChange({ target: { name: "type", value: option } });
@@ -72,7 +73,14 @@ const Search = () => {
     }));
   };
 
+  const handleBlur = () => {
+    setTimeout(() => {
+      setShowOptions(false);
+    }, 75);
+  };
+
   const handleSubmit = () => {
+    console.log("selectedRange: ", selectedRange);
     setSelectedRange((prevRange: any) => ({
       ...prevRange,
       keyword: [...keywords],
@@ -118,7 +126,7 @@ const Search = () => {
             <div key={keyword} className={styles.keyword}>
               {keyword}
               <button
-                className={styles.removeButton}
+                className={styles.remove}
                 onClick={() => removeKeyword(keyword)}
               >
                 X
@@ -130,7 +138,7 @@ const Search = () => {
 
       <div className={styles.type}>
         <Input
-          className={styles.inputCode}
+          className={styles.code}
           name="code"
           onChange={handleChange}
           placeholder="Código do diário"
@@ -139,17 +147,17 @@ const Search = () => {
           <Input
             type="text"
             name="type"
-            className={styles.inputCode}
+            className={styles.code}
             value={inputValue}
             onFocus={handleInputChange}
-            onBlur={handleOptionClick}
+            onBlur={handleBlur}
             placeholder="Tipo"
           />
           {showOptions && (
             <div className={styles.list}>
               {options.map((option) => (
                 <button
-                  className={styles.options}
+                  className={styles.option}
                   key={option}
                   value={option}
                   onClick={handleOptionClick}
@@ -164,7 +172,11 @@ const Search = () => {
       <div className={styles.calendar}>
         <div className={styles.info}>
           <label>Busca exata?</label>
-          <div>
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
             <Input
               name="searchType"
               value={selectedRange.searchType}
