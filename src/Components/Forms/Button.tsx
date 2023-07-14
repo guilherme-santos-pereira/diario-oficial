@@ -6,6 +6,7 @@ interface iButton {
   content?: any;
   onClick?: any;
   children?: string;
+  type?: any;
 }
 
 const Button: React.FC<iButton> = ({

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "./Search.module.css";
 import Input from "../Forms/Input";
 import Button from "../Forms/Button";
+import ChoiceList from "../ChoiceList/ChoiceList";
+import { v4 as uuidv4 } from "uuid";
 
 const Search = () => {
   const [selectedRange, setSelectedRange] = useState<any>({
@@ -9,11 +11,10 @@ const Search = () => {
     end: new Date(),
     keyword: [],
     code: "",
-    type: "",
+    type: [],
     searchType: false,
   });
 
-  const [inputValue, setInputValue] = useState("");
   const [showOptions, setShowOptions] = useState(false);
   const options = [
     "Portaria",
@@ -43,25 +44,14 @@ const Search = () => {
     handleChange(e);
   };
 
-  const handleInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const inputValue = e.currentTarget.value.trim();
-    if (e.key === "Enter" && inputValue !== "") {
-      setKeywords((prevKeywords) => [...prevKeywords, inputValue]);
-      setSelectedRange((prevRange: any) => ({
-        ...prevRange,
-        keyword: [...prevRange.keyword, inputValue],
-      }));
-      e.currentTarget.value = "";
-      e.preventDefault();
-    }
-  };
-
   const handleOptionClick = (e: any) => {
     const option = e.currentTarget.value;
-    console.log("option: ", option);
-    setInputValue(option);
-    setShowOptions(false);
-    handleChange({ target: { name: "type", value: option } });
+    if (!selectedRange.type.includes(option)) {
+      setSelectedRange((prevRange: any) => ({
+        ...prevRange,
+        type: [].concat(...selectedRange.type, option),
+      }));
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
@@ -98,6 +88,13 @@ const Search = () => {
     });
   };
 
+  const removeType = (type: string) => {
+    setSelectedRange((prevRange: any) => ({
+      ...prevRange,
+      type: prevRange.type.filter((t: string) => t !== type),
+    }));
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.calendar}>
@@ -114,60 +111,49 @@ const Search = () => {
           onChange={handleChange}
         />
       </div>
-      <div>
-        <Input
-          className={styles.input}
-          name="keyword"
-          onKeyPress={handleInputKeyPress}
-          placeholder="Palavra chave"
-        />
-        <div className={styles.selected}>
-          {keywords.map((keyword) => (
-            <div key={keyword} className={styles.keyword}>
-              {keyword}
-              <button
-                className={styles.remove}
-                onClick={() => removeKeyword(keyword)}
-              >
-                X
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
+      <ChoiceList
+        placeholder="Palavra-chave"
+        field="keyword"
+        list={keywords}
+        setList={setKeywords}
+        setSelectedRange={setSelectedRange}
+      />
 
       <div className={styles.type}>
+        <ChoiceList
+          placeholder="Tipo"
+          field="type"
+          list={selectedRange.type}
+          setList={setSelectedRange}
+          setSelectedRange={setSelectedRange}
+          isType
+          onFocus={handleInputChange}
+          onBlur={handleBlur}
+        />
         <Input
           className={styles.code}
           name="code"
           onChange={handleChange}
           placeholder="Código do diário"
         />
-        <div>
-          <Input
-            type="text"
-            name="type"
-            className={styles.code}
-            value={inputValue}
-            onFocus={handleInputChange}
-            onBlur={handleBlur}
-            placeholder="Tipo"
-          />
-          {showOptions && (
-            <div className={styles.list}>
-              {options.map((option) => (
-                <button
-                  className={styles.option}
-                  key={option}
-                  value={option}
-                  onClick={handleOptionClick}
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        {showOptions && (
+          <div className={styles.list}>
+            {options.map((option) => (
+              <button
+                className={`${styles.option} ${
+                  selectedRange.type.includes(option)
+                    ? styles.selectedOption
+                    : ""
+                }`}
+                key={uuidv4()}
+                value={option}
+                onClick={handleOptionClick}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
       <div className={styles.calendar}>
         <div className={styles.info}>

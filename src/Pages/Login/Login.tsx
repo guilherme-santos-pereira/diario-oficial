@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Login.module.css";
 import Input from "../../Components/Forms/Input";
+import Button from "../../Components/Forms/Button";
 
 const Login = () => {
   return (
@@ -31,7 +32,9 @@ const Login = () => {
         </a>
         {/* </div> */}
         <div className={styles.formGroup}>
-          <button type="submit">Login</button>
+          <Button className={styles.button} type="submit">
+            Login
+          </Button>
         </div>
       </form>
     </div>
