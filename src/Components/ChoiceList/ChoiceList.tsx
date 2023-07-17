@@ -12,6 +12,7 @@ interface iChoiceList {
   onFocus?: any;
   onBlur?: any;
   value?: any;
+  readOnly?: boolean;
 }
 
 const ChoiceList: React.FC<iChoiceList> = ({
@@ -24,6 +25,7 @@ const ChoiceList: React.FC<iChoiceList> = ({
   onFocus,
   onBlur,
   value,
+  readOnly,
 }) => {
   const handleInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const inputValue = e.currentTarget.value.trim();
@@ -96,6 +98,7 @@ const ChoiceList: React.FC<iChoiceList> = ({
         onFocus={isType ? onFocus : null}
         onBlur={isType ? onBlur : null}
         value={value}
+        readOnly={readOnly}
       />
       <div className={styles.selected}>
         {list?.map((item: string) => (

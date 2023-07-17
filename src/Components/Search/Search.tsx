@@ -116,7 +116,7 @@ const Search = () => {
           isType
           onFocus={handleInputChange}
           onBlur={handleBlur}
-          value=""
+          readOnly
         />
         {showOptions && (
           <div className={`${styles.list} ${styles.optionsList}`}>

@@ -14,6 +14,7 @@ interface iInput {
   placeholder?: string;
   onKeyPress?: any;
   id?: any;
+  readOnly?: boolean;
 }
 
 const Input: React.FC<iInput> = ({ className, onClick, ...props }) => {

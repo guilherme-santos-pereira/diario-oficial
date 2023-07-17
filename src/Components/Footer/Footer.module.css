@@ -1,12 +1,37 @@
+@import "../../colors.css";
+
 .container {
+  position: relative;
   display: flex;
   justify-content: space-between;
   width: 100%;
+  min-height: 3rem;
+  max-height: 5rem;
   margin-top: auto;
+  background-color: var(--terciary-color);
 }
+
+.expanded {
+  background-color: var(--terciary-color);
+  max-height: 20rem;
+}
+
 .copyright {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  margin: 0 2rem 2rem;
 }
+
 .about {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
 }
+
 .contact {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  margin: 0 2rem 2rem;
 }

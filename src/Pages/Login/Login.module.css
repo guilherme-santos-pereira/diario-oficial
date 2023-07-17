@@ -41,7 +41,7 @@
 
 .forgotPassword {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   color: var(--shadow-color);
   text-align: right;
   margin-bottom: 10px;
