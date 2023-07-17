@@ -41,7 +41,6 @@ const Search = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setShowOptions(true);
-    handleChange(e);
   };
 
   const handleOptionClick = (e: any) => {
@@ -56,11 +55,20 @@ const Search = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value } = e.target;
+    console.log("value: ", value);
+    setSelectedRange((prev: any) => {
+      if (Array.isArray(prev[name])) {
+        return {
+          ...prev,
+          [name]: [...prev[name], value],
+        };
+      }
 
-    setSelectedRange((prev: any) => ({
-      ...prev,
-      [name]: value,
-    }));
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
   };
 
   const handleBlur = () => {
@@ -71,28 +79,6 @@ const Search = () => {
 
   const handleSubmit = () => {
     console.log("selectedRange: ", selectedRange);
-    setSelectedRange((prevRange: any) => ({
-      ...prevRange,
-      keyword: [...keywords],
-    }));
-  };
-
-  const removeKeyword = (keyword: string) => {
-    setKeywords((prevKeywords) => {
-      const updatedKeywords = [...prevKeywords];
-      const index = updatedKeywords.indexOf(keyword);
-      if (index !== -1) {
-        updatedKeywords.splice(index, 1);
-      }
-      return updatedKeywords;
-    });
-  };
-
-  const removeType = (type: string) => {
-    setSelectedRange((prevRange: any) => ({
-      ...prevRange,
-      type: prevRange.type.filter((t: string) => t !== type),
-    }));
   };
 
   return (
@@ -117,6 +103,7 @@ const Search = () => {
         list={keywords}
         setList={setKeywords}
         setSelectedRange={setSelectedRange}
+        onBlur={handleChange}
       />
 
       <div className={styles.type}>
@@ -129,15 +116,10 @@ const Search = () => {
           isType
           onFocus={handleInputChange}
           onBlur={handleBlur}
-        />
-        <Input
-          className={styles.code}
-          name="code"
-          onChange={handleChange}
-          placeholder="Código do diário"
+          value=""
         />
         {showOptions && (
-          <div className={styles.list}>
+          <div className={`${styles.list} ${styles.optionsList}`}>
             {options.map((option) => (
               <button
                 className={`${styles.option} ${
@@ -156,6 +138,12 @@ const Search = () => {
         )}
       </div>
       <div className={styles.calendar}>
+        <Input
+          className={styles.code}
+          name="code"
+          onChange={handleChange}
+          placeholder="Código do diário"
+        />
         <div className={styles.info}>
           <label>Busca exata?</label>
           <div
@@ -163,18 +151,20 @@ const Search = () => {
               display: "flex",
             }}
           >
-            <Input
-              name="searchType"
-              value={selectedRange.searchType}
-              onClick={() =>
-                setSelectedRange((prev: any) => ({
-                  ...prev,
-                  searchType: !selectedRange.searchType,
-                }))
-              }
-              type="checkbox"
-            />
-            <label>Exato</label>
+            <div className={styles.checkbox}>
+              <Input
+                name="searchType"
+                value={selectedRange.searchType}
+                onClick={() =>
+                  setSelectedRange((prev: any) => ({
+                    ...prev,
+                    searchType: !selectedRange.searchType,
+                  }))
+                }
+                type="checkbox"
+              />
+              <label>Exato</label>
+            </div>
           </div>
         </div>
         <Button className={styles.button} onClick={handleSubmit}>

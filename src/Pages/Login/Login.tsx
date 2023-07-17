@@ -9,7 +9,9 @@ const Login = () => {
       <form className={styles.loginForm}>
         <h2 className={styles.title}>Login</h2>
         <div className={styles.formGroup}>
-          <label htmlFor="username">Username:</label>
+          <label className={styles.label} htmlFor="username">
+            Username:
+          </label>
           <Input
             className={styles.input}
             type="text"
@@ -18,7 +20,9 @@ const Login = () => {
           />
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="password">Password:</label>
+          <label className={styles.label} htmlFor="password">
+            Password:
+          </label>
           <Input
             className={styles.input}
             type="password"

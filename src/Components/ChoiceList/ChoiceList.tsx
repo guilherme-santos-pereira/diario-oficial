@@ -11,6 +11,7 @@ interface iChoiceList {
   field: string;
   onFocus?: any;
   onBlur?: any;
+  value?: any;
 }
 
 const ChoiceList: React.FC<iChoiceList> = ({
@@ -22,6 +23,7 @@ const ChoiceList: React.FC<iChoiceList> = ({
   field,
   onFocus,
   onBlur,
+  value,
 }) => {
   const handleInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const inputValue = e.currentTarget.value.trim();
@@ -38,23 +40,49 @@ const ChoiceList: React.FC<iChoiceList> = ({
 
   const handleOptionClick = (e: any) => {
     const option = e.currentTarget.value;
-    console.log("option: ", option);
-    if (!list[field].includes(option)) {
+    if (!Array.isArray(list[field])) {
       setList((prev: any) => ({
         ...prev,
-        [field]: [].concat(...list[field], option),
+        [field]: [option],
+      }));
+    } else if (!list[field].includes(option)) {
+      setList((prev: any) => ({
+        ...prev,
+        [field]: [...list[field], option],
       }));
     }
   };
 
+  const removeKeyword = (keyword: string) => {
+    setList((prev: any) => {
+      const updatedKeywords = [...prev];
+      const index = updatedKeywords.indexOf(keyword);
+      if (index !== -1) {
+        updatedKeywords.splice(index, 1);
+      }
+      return updatedKeywords;
+    });
+    setSelectedRange((prev: any) => ({
+      ...prev,
+      keyword: list,
+    }));
+  };
+
   const removeItem = (property: string) => {
     setList((prev: any) => {
-      const updated = [...prev];
-      const index = updated?.indexOf(property);
-      if (index !== -1) {
-        updated.splice(index, 1);
+      let updated;
+
+      if (Array.isArray(prev[field])) {
+        updated = prev[field].filter((item: string) => item !== property);
+      } else {
+        updated = { ...prev };
+        delete updated[field];
       }
-      return updated;
+
+      return {
+        ...prev,
+        [field]: updated,
+      };
     });
   };
 
@@ -63,16 +91,20 @@ const ChoiceList: React.FC<iChoiceList> = ({
       <Input
         className={styles.input}
         onKeyPress={isType ? handleOptionClick : handleInputKeyPress}
-        name="keyword"
+        name={field}
         placeholder={placeholder}
         onFocus={isType ? onFocus : null}
         onBlur={isType ? onBlur : null}
+        value={value}
       />
       <div className={styles.selected}>
-        {list.map((item: string) => (
+        {list?.map((item: string) => (
           <div key={item} className={styles.item}>
             {item}
-            <button className={styles.remove} onClick={() => removeItem(item)}>
+            <button
+              className={styles.remove}
+              onClick={() => (isType ? removeItem(item) : removeKeyword(item))}
+            >
               X
             </button>
           </div>
