@@ -30,6 +30,15 @@
   font-size: medium;
 }
 
+.input:hover,
+.date:hover {
+  background-color: var(--secondary-button-color-hover);
+}
+.input:disabled,
+.date:disabled {
+  background-color: var(--secondary-button-color-disabled);
+}
+
 .selected {
   display: flex;
   background-color: var(--secondary-button-color);
@@ -125,4 +134,12 @@
   background-color: var(--primary-button-color);
   box-shadow: 0.1rem 0.1rem 0.1rem rgb(0 0 0, 0.1);
   font-size: medium;
+}
+
+.button:hover {
+  background-color: var(--primary-button-color-hover);
+}
+
+.button:disabled {
+  background-color: var(--primary-button-color-disabled);
 }

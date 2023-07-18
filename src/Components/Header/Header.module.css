@@ -1,7 +1,7 @@
 @import "../../colors.css";
 
 .header {
-  background-color: var(--secondary-color);
+  background-color: var(--terciary-color);
   height: 7.5rem;
   box-shadow: 0px 10px 10px -10px var(--shadow-color);
 }

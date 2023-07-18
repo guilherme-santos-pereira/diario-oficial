@@ -9,6 +9,13 @@
   font-size: medium;
 }
 
+.input:hover {
+  background-color: var(--secondary-button-color-hover);
+}
+.input:disabled {
+  background-color: var(--secondary-button-color-disabled);
+}
+
 .selected {
   display: flex;
   background-color: var(--secondary-button-color);

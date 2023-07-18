@@ -26,12 +26,20 @@
 }
 
 .input {
+  background-color: var(--secondary-button-color);
   border-radius: 0.5rem;
   margin: 0 0 1rem 0;
   width: 15rem;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 3px;
+}
+
+.input:hover {
+  background-color: var(--secondary-button-color-hover);
+}
+.input:disabled {
+  background-color: var(--secondary-button-color-disabled);
 }
 
 .label {
@@ -62,5 +70,9 @@
 }
 
 .button:hover {
-  background-color: var(--secondary-button-color-hover);
+  background-color: var(--primary-button-color-hover);
+}
+
+.button:disabled {
+  background-color: var(--primary-button-color-disabled);
 }
