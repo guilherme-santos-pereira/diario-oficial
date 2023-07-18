@@ -1,37 +1,76 @@
 @import "../../colors.css";
 
-.container {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  min-height: 3rem;
-  max-height: 5rem;
-  margin-top: auto;
-  background-color: var(--terciary-color);
+/* Hide the scrollbar */
+.footer::-webkit-scrollbar {
+  width: 0.4rem; /* Adjust the width as needed */
+  background-color: transparent; /* Set the background color to match the container */
 }
 
-.expanded {
-  background-color: var(--terciary-color);
-  max-height: 20rem;
+/* Track */
+.footer::-webkit-scrollbar-track {
+  background-color: transparent; /* Set the background color to match the container */
+}
+
+/* Handle */
+.footer::-webkit-scrollbar-thumb {
+  background-color: #ddd; /* Set the color of the scrollbar handle */
+  border-radius: 0.2rem; /* Adjust the border radius as needed */
+}
+
+/* On hover */
+.footer::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb; /* Set the color of the scrollbar handle on hover */
+}
+
+.footer {
+  background-color: #f1f1f1;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  max-height: 10rem;
+  overflow-y: auto;
+}
+
+.container {
+  max-width: 100%;
+  text-align: center;
 }
 
 .copyright {
-  display: flex;
-  flex-direction: column;
-  padding: 2rem 0;
-  margin: 0 2rem 2rem;
+  margin: 1.5rem 0 0;
 }
 
-.about {
-  display: flex;
-  flex-direction: column;
-  padding: 2rem 0;
+.container p {
+  font-size: 14px;
+  color: #555;
 }
 
-.contact {
+.topics {
+  list-style-type: none;
+  text-align: center;
   display: flex;
-  flex-direction: column;
-  padding: 2rem 0;
-  margin: 0 2rem 2rem;
+  justify-content: space-between;
+  margin: 0 7.5rem;
+}
+
+.description {
+  max-width: 30rem;
+}
+
+.redirect {
+  color: var(--primary-text-color);
+}
+
+.navLinks button {
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}
+
+.navLinks button:hover {
+  text-decoration: underline;
 }

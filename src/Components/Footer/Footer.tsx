@@ -1,43 +1,92 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./Footer.module.css";
 
 const Footer = () => {
-  const [expanded, setExpanded] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      console.log("teste");
-      if (windowHeight + scrollTop >= documentHeight) {
-        setExpanded(true);
-      } else {
-        setExpanded(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
-    <footer
-      className={`${styles.container} ${expanded ? styles.expanded : ""}`}
-    >
-      <div className={styles.copyright}>
-        Copyright
-        <div>Copyright content</div>
-      </div>
-      <div className={styles.about}>
-        About
-        <div>About content</div>
-      </div>
-      <div className={styles.contact}>
-        Contacts
-        <div>Contacts content</div>
+    <footer className={styles.footer}>
+      <div className={styles.container}>
+        {/* <p className={styles.copyright}>
+          &copy; {new Date().getFullYear()} diário oficial. Todos os direitos
+          reservados.
+        </p> */}
+        <div className={styles.topics}>
+          <div className={styles.content}>
+            <h4>Sobre</h4>
+            <p className={styles.description}>
+              &copy; {new Date().getFullYear()} diário oficial. Todos os
+              direitos reservados. <br />
+              <br />
+              <strong>Objetivo:</strong> Atualizar a comunidade de forma pratica
+              sobre as noticias que acontecem na defensoria publica de SC <br />
+              <strong>Novos posts:</strong> Dias úteis: 00:00 <br />
+            </p>
+          </div>
+          <div className={styles.content}>
+            <h4>Redes sociais</h4>
+            <p className={styles.description}>
+              <strong>Instagram:</strong>
+              {"  "}
+              <a
+                className={styles.redirect}
+                href="https://www.instagram.com/defensoriasc/"
+                target="_blanck"
+              >
+                @defensoriasc
+              </a>{" "}
+              <br />
+              <strong>Facebook:</strong>
+              {"  "}
+              <a
+                className={styles.redirect}
+                href="https://www.facebook.com/defensoriasc"
+                target="_blanck"
+              >
+                defensoriasc
+              </a>{" "}
+              <br />
+              <strong>Youtube:</strong>
+              {"  "}
+              <a
+                className={styles.redirect}
+                href="https://www.youtube.com/channel/UCsiXdbsU9_EVJlVfq8iNZkQ"
+                target="_blanck"
+              >
+                Canal
+              </a>{" "}
+              <br />
+              <strong>Twitter:</strong>
+              {"  "}
+              <a
+                className={styles.redirect}
+                href="https://www.twitter.com/defensoriaDPESC"
+                target="_blanck"
+              >
+                defensoriaDPESC
+              </a>{" "}
+              <br />
+              <strong>LinkedIn:</strong>
+              {"  "}
+              <a
+                className={styles.redirect}
+                href="https://www.linkedin.com/company/defensoria-pública-do-estado-de-santa-catarina/?viewAsMember=true"
+                target="_blanck"
+              >
+                Defensoria pública do estado de Santa Catarina
+              </a>{" "}
+              <br />
+            </p>
+          </div>
+          <div className={styles.content}>
+            <h4>Contato</h4>
+            <p className={styles.description}>
+              <strong>Email:</strong> exemplo@defensoria.gov.br <br />
+              <strong>Endereço:</strong> Av. Rio Branco, nº 919, Ed. Centro
+              Executivo Rio Branco, Centro, Florianópolis/SC, 88015-205 <br />
+              <strong>Telefone:</strong>{" "}
+              <div>(48) 3665-6370 / (48) 3665-6589 / (48) 3665-6654</div>
+            </p>
+          </div>
+        </div>
       </div>
     </footer>
   );

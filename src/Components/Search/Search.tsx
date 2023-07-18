@@ -119,7 +119,7 @@ const Search = () => {
           readOnly
         />
         {showOptions && (
-          <div className={`${styles.list} ${styles.optionsList}`}>
+          <div className={styles.list}>
             {options.map((option) => (
               <button
                 className={`${styles.option} ${
