@@ -1,0 +1,109 @@
+@import "../../colors.css";
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.5rem 0 0;
+}
+
+.postContainer {
+  margin: 0 0 3rem 0;
+  display: flex;
+  justify-content: center;
+  width: 60vw;
+}
+
+.tableContainer {
+  width: 100%;
+}
+
+.tableHeader {
+  font-weight: bold;
+}
+
+.tableCell {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.link {
+  text-decoration: none;
+  max-height: 100%;
+  color: #007bff;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.input,
+.date {
+  background-color: var(--secondary-button-color);
+  display: flex;
+  border: none;
+  width: 7.5rem;
+  height: 3rem;
+  margin: 0 1.5rem;
+  border-radius: 0.5rem;
+  padding: 0 0.75rem;
+  font-size: medium;
+}
+
+.date {
+  width: 7rem;
+  padding: 0 1rem;
+}
+
+.file {
+  display: none;
+}
+
+.option {
+  width: 10rem;
+}
+
+.input:hover,
+.date:hover {
+  background-color: var(--secondary-button-color-hover);
+}
+.input:disabled,
+.date:disabled {
+  background-color: var(--secondary-button-color-disabled);
+}
+
+.button {
+  height: 2.5rem;
+  width: 7.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  margin: 0 1.5rem;
+  background-color: var(--primary-button-color);
+  box-shadow: 0.1rem 0.1rem 0.1rem rgb(0 0 0, 0.1);
+  font-size: medium;
+}
+
+.fakeInput {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 10rem;
+  border: none;
+  border-radius: 0.5rem;
+  /* padding: 0 0 0 1rem; */
+  margin: 0 1.5rem;
+  background-color: var(--primary-button-color);
+  box-shadow: 0.1rem 0.1rem 0.1rem rgb(0 0 0, 0.1);
+  font-size: medium;
+}
+
+.button:hover,
+.fakeInput:hover {
+  background-color: var(--primary-button-color-hover);
+}
+
+.button:disabled,
+.fakeInput:disabled {
+  background-color: var(--primary-button-color-disabled);
+}

@@ -17,17 +17,19 @@ const Home = () => {
     },
   ];
   const columns = [
-    { title: "publicado", property: "date" },
-    { title: "id", property: "id" },
+    { title: "Publicado", property: "date" },
+    { title: "ID", property: "id" },
     { title: "Assuntos", property: "subject" },
-    { title: "actions", property: "file" },
+    { title: "Arquivo", property: "file" },
   ];
 
   return (
     <div className={styles.container}>
       <Search />
-      {!data ? (
-        <Table title="Lista de diarios" data={data} columns={columns} />
+      {data ? (
+        <div className={styles.table}>
+          <Table data={data} columns={columns} />
+        </div>
       ) : (
         <News className={styles.news} />
       )}

@@ -55,7 +55,6 @@ const Search = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value } = e.target;
-    console.log("value: ", value);
     setSelectedRange((prev: any) => {
       if (Array.isArray(prev[name])) {
         return {

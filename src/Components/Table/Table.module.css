@@ -1,5 +1,5 @@
 .container {
-  display: table;
+  /* display: table; */
   width: 100%;
   border-collapse: collapse;
 }
@@ -21,24 +21,32 @@
 
 .columnHeader {
   display: table-row;
+  margin: 0 0 1rem;
 }
 
 .columnTitle {
   display: table-cell;
   padding: 10px;
   font-weight: bold;
+  padding: 0 2rem;
 }
 
 .tableBody {
-  display: table-row-group;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  flex-direction: column;
 }
 
 .tableRow {
-  display: table-row;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .tableCell {
   display: table-cell;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  padding: 0 2rem 1rem 0;
+  margin: 0 0 1rem;
 }

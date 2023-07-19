@@ -30,11 +30,9 @@ const Login = () => {
             name="password"
           />
         </div>
-        {/* <div className={styles.forgotPassword}> */}
         <a href="/forgot-password" className={styles.forgotPassword}>
           Forgot password?
         </a>
-        {/* </div> */}
         <div className={styles.formGroup}>
           <Button className={styles.button} type="submit">
             Login
