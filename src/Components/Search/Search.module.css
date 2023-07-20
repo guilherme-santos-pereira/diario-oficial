@@ -89,18 +89,21 @@
 
 .list {
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   background-color: var(--secondary-button-color);
-  margin: 3rem 0.75rem 0.75rem 0;
-  width: 26rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  margin: 3rem 13rem 0.75rem 0;
+  width: 20.5rem;
   height: 15rem;
   position: absolute;
-  flex-direction: column;
   z-index: 1;
   overflow-y: auto;
-  padding: 5rem 0 0;
+}
+
+.list::-webkit-scrollbar {
+  width: 0.4rem;
+  background-color: transparent;
 }
 
 .option {

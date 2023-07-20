@@ -64,7 +64,7 @@ const Post = () => {
     "circular",
   ];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = () => {
     setShowOptions(true);
   };
 
@@ -120,13 +120,10 @@ const Post = () => {
           </div>
         )}
         <Input className={styles.date} type="date" placeholder="Select Date" />
-        <a href="/post" className={styles.link}>
-          Template
-        </a>
-        <Button className={styles.button}>Submit</Button>
+        <Button className={styles.button}>Agendar</Button>
       </div>
 
-      <div className={styles.postContainer}>
+      <div className={styles.table}>
         <Table columns={columns} data={data} />
       </div>
     </div>

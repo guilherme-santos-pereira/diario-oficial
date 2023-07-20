@@ -59,6 +59,35 @@
   display: none;
 }
 
+.list {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--secondary-button-color);
+  border-radius: 0 0 0.5rem 0.5rem;
+  margin: 3rem 9.5rem 0.75rem 0;
+  width: 26rem;
+  height: 15rem;
+  position: absolute;
+  z-index: 1;
+  overflow-y: auto;
+}
+
+.list::-webkit-scrollbar {
+  width: 0.4rem;
+  background-color: transparent;
+}
+
+.option {
+  width: 16rem;
+  height: 6rem;
+  margin: 0.5rem 0;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+}
+
 .option {
   width: 10rem;
 }
@@ -73,7 +102,7 @@
 }
 
 .button {
-  height: 2.5rem;
+  height: 3rem;
   width: 7.5rem;
   border: none;
   border-radius: 0.5rem;
@@ -106,4 +135,11 @@
 .button:disabled,
 .fakeInput:disabled {
   background-color: var(--primary-button-color-disabled);
+}
+
+.table {
+  display: flex;
+  justify-content: center;
+  width: 60vw;
+  margin: 5rem 0 3rem 0;
 }
