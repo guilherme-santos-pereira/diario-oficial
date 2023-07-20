@@ -28,7 +28,7 @@ const Home = () => {
       <Search />
       {data ? (
         <div className={styles.table}>
-          <Table data={data} columns={columns} />
+          <Table title="Posts encontrados" data={data} columns={columns} />
         </div>
       ) : (
         <News className={styles.news} />

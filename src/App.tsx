@@ -5,7 +5,8 @@ import Home from "./Pages/Home/Home";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import Login from "./Pages/Login/Login";
-import Post from "./Pages/Post/Post";
+import Status from "./Pages/Status/Status";
+import Posts from "./Pages/Posts/Posts";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/post" element={<Post />} />
+            <Route path="/status" element={<Status />} />
+            <Route path="/posts" element={<Posts />} />
           </Routes>
         </main>
         <Footer />

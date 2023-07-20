@@ -1,5 +1,8 @@
+.content {
+  width: 100%;
+}
+
 .container {
-  /* display: table; */
   width: 100%;
   border-collapse: collapse;
 }
@@ -9,9 +12,10 @@
 }
 
 .headerTable {
+  display: flex;
   font-weight: bold;
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 1.25rem;
 }
 
 .tableHeader {

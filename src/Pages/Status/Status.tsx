@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import styles from "./Post.module.css";
+import styles from "./Status.module.css";
 import Input from "../../Components/Forms/Input";
 import Button from "../../Components/Forms/Button";
 import ChoiceList from "../../Components/SelectedList/SelectedList";
 import Table from "../../Components/Table/Table";
 import { v4 as uuidv4 } from "uuid";
 
-const Post = () => {
+const Status = () => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [selectedRange, setSelectedRange] = useState<any>({
     file: File,
@@ -124,10 +124,10 @@ const Post = () => {
       </div>
 
       <div className={styles.table}>
-        <Table columns={columns} data={data} />
+        <Table title="Status dos diários" columns={columns} data={data} />
       </div>
     </div>
   );
 };
 
-export default Post;
+export default Status;

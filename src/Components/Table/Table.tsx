@@ -9,7 +9,7 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = ({ title, columns, data }) => {
   return (
-    <>
+    <div className={styles.content}>
       {title && <div className={styles.headerTable}>{title}</div>}
       <div className={styles.container}>
         <div className={styles.tableHeader}>
@@ -31,7 +31,7 @@ const Table: React.FC<TableProps> = ({ title, columns, data }) => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
