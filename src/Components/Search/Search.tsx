@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./Search.module.css";
 import Input from "../Forms/Input";
 import Button from "../Forms/Button";
-import ChoiceList from "../ChoiceList/ChoiceList";
+import ChoiceList from "../SelectedList/SelectedList";
 import { v4 as uuidv4 } from "uuid";
 
 const Search = () => {
@@ -37,7 +37,6 @@ const Search = () => {
     "Súmulas",
     "circular",
   ];
-  const [keywords, setKeywords] = useState<string[]>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setShowOptions(true);

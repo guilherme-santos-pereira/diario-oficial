@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./Post.module.css";
 import Input from "../../Components/Forms/Input";
 import Button from "../../Components/Forms/Button";
-import ChoiceList from "../../Components/ChoiceList/ChoiceList";
+import ChoiceList from "../../Components/SelectedList/SelectedList";
 import Table from "../../Components/Table/Table";
 import { v4 as uuidv4 } from "uuid";
 

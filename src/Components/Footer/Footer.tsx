@@ -79,7 +79,7 @@ const Footer = () => {
               <strong>Endereço:</strong> Av. Rio Branco, nº 919, Ed. Centro
               Executivo Rio Branco, Centro, Florianópolis/SC, 88015-205 <br />
               <strong>Telefone:</strong>{" "}
-              <div>(48) 3665-6370 / (48) 3665-6589 / (48) 3665-6654</div>
+              <>(48) 3665-6370 / (48) 3665-6589 / (48) 3665-6654</>
             </p>
           </div>
         </div>
