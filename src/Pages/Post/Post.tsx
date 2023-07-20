@@ -96,11 +96,10 @@ const Post = () => {
           field="type"
           list={selectedRange.type}
           setList={setSelectedRange}
-          setSelectedRange={setSelectedRange}
-          isType
           onFocus={handleInputChange}
           onBlur={handleBlur}
           readOnly
+          isType
         />
         {showOptions && (
           <div className={styles.list}>

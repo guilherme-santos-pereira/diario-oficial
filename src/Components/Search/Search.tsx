@@ -99,9 +99,8 @@ const Search = () => {
       <ChoiceList
         placeholder="Palavra-chave"
         field="keyword"
-        list={keywords}
-        setList={setKeywords}
-        setSelectedRange={setSelectedRange}
+        list={selectedRange.keyword}
+        setList={setSelectedRange}
         onBlur={handleChange}
       />
 
@@ -111,10 +110,9 @@ const Search = () => {
           field="type"
           list={selectedRange.type}
           setList={setSelectedRange}
-          setSelectedRange={setSelectedRange}
-          isType
           onFocus={handleInputChange}
           onBlur={handleBlur}
+          isType
           readOnly
         />
         {showOptions && (
