@@ -5,6 +5,8 @@ import Button from "../../Components/Forms/Button";
 import ChoiceList from "../../Components/SelectedList/SelectedList";
 import Table from "../../Components/Table/Table";
 import { v4 as uuidv4 } from "uuid";
+import Error from "../../Components/Error/Error";
+import Loading from "../../Components/Loading/Loading";
 
 const Status = () => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
@@ -83,7 +85,12 @@ const Status = () => {
       }));
     }
   };
+  const loading = false;
+  const error = true;
 
+  if (loading) return <Loading size="5rem" type="spin" label="Carregando" />;
+
+  if (error) return <Error size="3rem" label={`Erro ${error}`} />;
   return (
     <div className={styles.container}>
       <div className={styles.postContainer}>

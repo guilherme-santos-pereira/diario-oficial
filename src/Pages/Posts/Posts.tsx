@@ -1,3 +1,5 @@
+import Error from "../../Components/Error/Error";
+import Loading from "../../Components/Loading/Loading";
 import Table from "../../Components/Table/Table";
 import styles from "./Posts.module.css";
 
@@ -29,6 +31,13 @@ const Posts = () => {
     { title: "Data", property: "date" },
     { title: "Arquivo", property: "file" },
   ];
+
+  const loading = false;
+  const error = true;
+
+  if (loading) return <Loading size="5rem" type="spin" label="Carregando" />;
+
+  if (error) return <Error size="3rem" label={`Erro ${error}`} />;
 
   return (
     <div className={styles.content}>
