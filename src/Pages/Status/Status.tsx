@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Status.module.css";
 import Input from "../../Components/Forms/Input";
 import Button from "../../Components/Forms/Button";
@@ -10,6 +10,7 @@ import Loading from "../../Components/Loading/Loading";
 
 const Status = () => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
+  const [page, setPage] = useState<number | string>();
   const [selectedRange, setSelectedRange] = useState<any>({
     file: File,
     type: [],
@@ -85,6 +86,11 @@ const Status = () => {
       }));
     }
   };
+
+  useEffect(() => {
+    // dispatch(fetchExample(page));
+  }, []);
+
   const loading = false;
   const error = false;
 
@@ -131,7 +137,13 @@ const Status = () => {
       </div>
 
       <div className={styles.table}>
-        <Table title="Status dos diários" columns={columns} data={data} />
+        <Table
+          title="Status dos diários"
+          columns={columns}
+          data={data}
+          setPage={setPage}
+          page={page}
+        />
       </div>
     </div>
   );

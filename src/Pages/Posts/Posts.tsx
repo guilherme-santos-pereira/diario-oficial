@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
 import Table from "../../Components/Table/Table";
@@ -32,6 +33,12 @@ const Posts = () => {
     { title: "Arquivo", property: "file" },
   ];
 
+  const [page, setPage] = useState<number | string>();
+
+  useEffect(() => {
+    // dispatch(fetchExample(page));
+  }, []);
+
   const loading = false;
   const error = false;
 
@@ -42,7 +49,13 @@ const Posts = () => {
   return (
     <div className={styles.content}>
       <div className={styles.table}>
-        <Table title="Últimos diários" columns={columns} data={data} />
+        <Table
+          title="Últimos diários"
+          columns={columns}
+          data={data}
+          setPage={setPage}
+          page={page}
+        />
       </div>
     </div>
   );

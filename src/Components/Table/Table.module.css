@@ -1,3 +1,4 @@
+/* Table.module.css */
 .content {
   width: 100%;
 }
@@ -53,4 +54,49 @@
   padding: 10px;
   padding: 0 2rem 1rem 0;
   margin: 0 0 1rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Use flexbox to display the custom pagination items (previous and next buttons) beside each other */
+.customPagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Remove the default marker and add some space between the custom pagination items */
+.customPagination li {
+  display: flex;
+  list-style-type: none;
+  margin-right: 10px;
+}
+
+.button,
+.backButton {
+  height: 2rem;
+  width: 5.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--first-button-color);
+  box-shadow: 0.1rem 0.1rem 0.1rem rgb(0 0 0, 0.1);
+  font-size: medium;
+}
+
+.backButton {
+  margin: 0 1.5rem 0 0;
+}
+
+.button:hover,
+.backButton:hover {
+  background-color: var(--first-button-color-hover);
+}
+
+.button:disabled,
+.backButton:disabled {
+  background-color: var(--first-button-color-disabled);
 }

@@ -50,11 +50,6 @@ const Header = () => {
               Defensoria pública
             </a>
           </div>
-          <div>
-            <a className={styles.route} href="/">
-              Outro site
-            </a>
-          </div>
         </div>
       </div>
     </header>
