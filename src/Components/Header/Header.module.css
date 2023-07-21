@@ -1,20 +1,38 @@
 @import "../../colors.css";
 
 .header {
-  background-color: var(--terciary-color);
+  display: flex;
+  align-items: center;
   height: 7.5rem;
+  width: 100vw;
+  padding: 0 1rem;
+  background-color: var(--third-color);
   box-shadow: 0px 10px 10px -10px var(--shadow-color);
 }
 
 .container {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
 }
 
 .logo {
   margin: 0.5rem 0 0 1rem;
 }
+
 .image {
   height: 6.5rem;
   width: 20rem;
+}
+
+.navigation {
+  display: flex;
+}
+
+.route {
+  text-decoration: none;
+  font-size: 1.2rem;
+  margin: 0 2.5rem 0 0;
+  color: var(--first-text-color);
 }

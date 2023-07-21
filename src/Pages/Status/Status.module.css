@@ -39,7 +39,7 @@
 
 .input,
 .date {
-  background-color: var(--secondary-button-color);
+  background-color: var(--second-button-color);
   display: flex;
   border: none;
   width: 7.5rem;
@@ -63,7 +63,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: var(--secondary-button-color);
+  background-color: var(--second-button-color);
   border-radius: 0 0 0.5rem 0.5rem;
   margin: 3rem 9.5rem 0.75rem 0;
   width: 26rem;
@@ -94,11 +94,11 @@
 
 .input:hover,
 .date:hover {
-  background-color: var(--secondary-button-color-hover);
+  background-color: var(--second-button-color-hover);
 }
 .input:disabled,
 .date:disabled {
-  background-color: var(--secondary-button-color-disabled);
+  background-color: var(--second-button-color-disabled);
 }
 
 .button {
@@ -107,7 +107,7 @@
   border: none;
   border-radius: 0.5rem;
   margin: 0 1.5rem;
-  background-color: var(--primary-button-color);
+  background-color: var(--first-button-color);
   box-shadow: 0.1rem 0.1rem 0.1rem rgb(0 0 0, 0.1);
   font-size: medium;
 }
@@ -122,19 +122,19 @@
   border-radius: 0.5rem;
   /* padding: 0 0 0 1rem; */
   margin: 0 1.5rem;
-  background-color: var(--primary-button-color);
+  background-color: var(--first-button-color);
   box-shadow: 0.1rem 0.1rem 0.1rem rgb(0 0 0, 0.1);
   font-size: medium;
 }
 
 .button:hover,
 .fakeInput:hover {
-  background-color: var(--primary-button-color-hover);
+  background-color: var(--first-button-color-hover);
 }
 
 .button:disabled,
 .fakeInput:disabled {
-  background-color: var(--primary-button-color-disabled);
+  background-color: var(--first-button-color-disabled);
 }
 
 .table {

@@ -1,5 +1,5 @@
 .input {
-  background-color: var(--secondary-button-color);
+  background-color: var(--second-button-color);
   display: flex;
   border: none;
   width: 25rem;
@@ -10,15 +10,15 @@
 }
 
 .input:hover {
-  background-color: var(--secondary-button-color-hover);
+  background-color: var(--second-button-color-hover);
 }
 .input:disabled {
-  background-color: var(--secondary-button-color-disabled);
+  background-color: var(--second-button-color-disabled);
 }
 
 .selected {
   display: flex;
-  background-color: var(--secondary-button-color);
+  background-color: var(--second-button-color);
   border: none;
   margin: 0.75rem 0 0 0;
   border-radius: 0.5rem;

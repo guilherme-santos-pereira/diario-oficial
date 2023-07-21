@@ -61,7 +61,7 @@
 }
 
 .redirect {
-  color: var(--primary-text-color);
+  color: var(--first-text-color);
 }
 
 .navLinks button {

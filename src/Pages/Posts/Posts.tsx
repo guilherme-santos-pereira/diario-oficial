@@ -33,7 +33,7 @@ const Posts = () => {
   ];
 
   const loading = false;
-  const error = true;
+  const error = false;
 
   if (loading) return <Loading size="5rem" type="spin" label="Carregando" />;
 
