@@ -149,3 +149,13 @@
   width: 60vw;
   margin: 5rem 0 3rem 0;
 }
+
+.lastColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule,
+.code {
+  width: 8rem;
+}

@@ -7,28 +7,24 @@ import styles from "./Posts.module.css";
 const Posts = () => {
   const data = [
     {
-      id: "27042002",
-      status: "Diario de hoje",
+      name: "Diario de hoje",
       date: "11/07/2023",
       file: "Arquivo",
     },
     {
-      id: "27042002",
-      status: "Diario de hoje",
-      date: "11/07/2023",
+      name: "Diario de hoje",
+      date: "12/08/2023",
       file: "Arquivo",
     },
     {
-      id: "27042002",
-      status: "Diario de hoje",
-      date: "11/07/2023",
+      name: "Diario de hoje",
+      date: "13/09/2023",
       file: "Arquivo",
     },
   ];
 
   const columns = [
-    { title: "ID", property: "id" },
-    { title: "Status", property: "status" },
+    { title: "Name", property: "name" },
     { title: "Data", property: "date" },
     { title: "Arquivo", property: "file" },
   ];

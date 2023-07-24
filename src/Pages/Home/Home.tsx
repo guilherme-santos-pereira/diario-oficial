@@ -13,16 +13,14 @@ const Home = () => {
   const [page, setPage] = useState<number | string>();
   const data = [
     {
+      name: "Diario de hoje",
       date: "11/07/2023",
-      id: "27042002",
-      subject: "Diario de hoje",
       file: "Arquivo",
     },
   ];
   const columns = [
+    { title: "Name", property: "name" },
     { title: "Publicado", property: "date" },
-    { title: "ID", property: "id" },
-    { title: "Assuntos", property: "subject" },
     { title: "Arquivo", property: "file" },
   ];
   const regulation =

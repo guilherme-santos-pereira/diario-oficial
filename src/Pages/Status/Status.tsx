@@ -18,23 +18,21 @@ const Status = () => {
     type: [],
     date: new Date(),
     time: "",
+    code: "",
   });
 
   const data = [
     {
-      id: "27042002",
       status: "Diario de hoje",
       date: "11/07/2023",
       file: "Arquivo",
     },
     {
-      id: "27042002",
       status: "Diario de hoje",
       date: "11/07/2023",
       file: "Arquivo",
     },
     {
-      id: "27042002",
       status: "Diario de hoje",
       date: "11/07/2023",
       file: "Arquivo",
@@ -42,8 +40,7 @@ const Status = () => {
   ];
 
   const columns = [
-    { title: "ID", property: "id" },
-    { title: "Status", property: "status" },
+    { title: "Name", property: "name" },
     { title: "Data", property: "date" },
     { title: "Arquivo", property: "file" },
   ];
@@ -183,9 +180,20 @@ const Status = () => {
             placeholder="Horario"
           />
         </div>
-        <Button className={styles.button} onClick={handleSubmit}>
-          Agendar
-        </Button>
+        <div className={styles.lastColumn}>
+          <Input
+            className={`${styles.input} ${styles.code}`}
+            placeholder="Código"
+            onChange={handleChange}
+            name="code"
+          />
+          <Button
+            className={`${styles.button} ${styles.schedule}`}
+            onClick={handleSubmit}
+          >
+            Agendar
+          </Button>
+        </div>
       </div>
 
       <div className={styles.table}>

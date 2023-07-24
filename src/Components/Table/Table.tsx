@@ -23,6 +23,8 @@ const Table: React.FC<TableProps> = ({
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  const handleTemplate = () => {};
+
   const handlePageChange = (page: number) => {
     console.log("a");
     setPage(page);
@@ -46,7 +48,7 @@ const Table: React.FC<TableProps> = ({
       <div className={styles.header}>
         {title && <div className={styles.headerTable}>{title}</div>}
         {downloadButton && (
-          <Button className={styles.downloadButton}>
+          <Button className={styles.downloadButton} onClick={handleTemplate}>
             <MdDownload size={24} />
           </Button>
         )}
