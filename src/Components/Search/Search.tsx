@@ -4,6 +4,7 @@ import Input from "../Forms/Input";
 import Button from "../Forms/Button";
 import ChoiceList from "../SelectedList/SelectedList";
 import { v4 as uuidv4 } from "uuid";
+import { optionsType } from "../Helper";
 
 const Search = () => {
   const [selectedRange, setSelectedRange] = useState<any>({
@@ -16,29 +17,8 @@ const Search = () => {
   });
 
   const [showOptions, setShowOptions] = useState(false);
-  const options = [
-    "Portaria",
-    "Ato",
-    "Relatório",
-    "Edital",
-    "Extrato",
-    "Provimento",
-    "Manifestação",
-    "Deliberação",
-    "Resolução",
-    "Licitação",
-    "Contrato",
-    "Errata de Publicação",
-    "Dispensa de Licitação",
-    "Inexigibilidade de Licitação",
-    "Avisos",
-    "Resultados",
-    "Concursos",
-    "Súmulas",
-    "circular",
-  ];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = () => {
     setShowOptions(true);
   };
 
@@ -116,7 +96,7 @@ const Search = () => {
         />
         {showOptions && (
           <div className={styles.list}>
-            {options.map((option) => (
+            {optionsType.map((option) => (
               <button
                 className={`${styles.option} ${
                   selectedRange.type.includes(option)

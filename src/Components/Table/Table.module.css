@@ -14,6 +14,11 @@
   overflow: hidden;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .headerTable {
   display: flex;
   align-items: center;
@@ -75,7 +80,8 @@
 }
 
 .button,
-.backButton {
+.backButton,
+.downloadButton {
   height: 2rem;
   width: 5.2rem;
   border: none;
@@ -84,17 +90,28 @@
   box-shadow: 0.1rem 0.1rem 0.1rem rgb(0 0 0, 0.1);
   font-size: medium;
 }
+.downloadButton {
+  border-radius: 5rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1rem 0.75rem 0;
+}
 
 .backButton {
   margin: 0 1.5rem 0 0;
 }
 
 .button:hover,
-.backButton:hover {
+.backButton:hover,
+.downloadButton:hover {
   background-color: var(--first-button-color-hover);
 }
 
 .button:disabled,
-.backButton:disabled {
+.backButton:disabled,
+.downloadButton:disabled {
   background-color: var(--first-button-color-disabled);
 }

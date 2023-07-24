@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./Table.module.css";
 import Pagination from "rc-pagination";
 import Button from "../Forms/Button";
+import { MdDownload } from "react-icons/md";
 
 interface TableProps {
   title?: string;
@@ -9,6 +10,7 @@ interface TableProps {
   data: any;
   setPage: any;
   page: any;
+  downloadButton?: boolean;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -17,19 +19,17 @@ const Table: React.FC<TableProps> = ({
   data,
   setPage,
   page,
+  downloadButton,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  // This function will be called when the page changes
   const handlePageChange = (page: number) => {
     console.log("a");
     setPage(page);
-    // You can also fetch new data from the server or update your component's state based on the new page value.
   };
 
   const customItemRender = (current: number, type: string) => {
     if (type === "page") {
-      // Show the current page number only
       return current === currentPage ? <span>{current}</span> : null;
     }
     if (type === "prev") {
@@ -43,7 +43,14 @@ const Table: React.FC<TableProps> = ({
 
   return (
     <div className={styles.content}>
-      {title && <div className={styles.headerTable}>{title}</div>}
+      <div className={styles.header}>
+        {title && <div className={styles.headerTable}>{title}</div>}
+        {downloadButton && (
+          <Button className={styles.downloadButton}>
+            <MdDownload size={24} />
+          </Button>
+        )}
+      </div>
       <div className={styles.container}>
         <div className={styles.tableHeader}>
           {columns.map((column: any, index: any) => (

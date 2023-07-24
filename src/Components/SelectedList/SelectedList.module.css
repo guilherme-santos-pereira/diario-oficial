@@ -19,6 +19,7 @@
 .selected {
   display: flex;
   background-color: var(--second-button-color);
+  position: absolute;
   border: none;
   margin: 0.75rem 0 0 0;
   border-radius: 0.5rem;

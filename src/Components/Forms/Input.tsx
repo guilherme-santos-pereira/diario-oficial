@@ -15,6 +15,10 @@ interface iInput {
   onKeyPress?: any;
   id?: any;
   readOnly?: boolean;
+  min?: string;
+  max?: string;
+  step?: string;
+  pattern?: string;
 }
 
 const Input: React.FC<iInput> = ({ className, onClick, ...props }) => {

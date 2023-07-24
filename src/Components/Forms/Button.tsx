@@ -5,7 +5,7 @@ interface iButton {
   className?: any;
   content?: any;
   onClick?: any;
-  children?: string;
+  children?: any;
   type?: any;
   htmlFor?: any;
 }

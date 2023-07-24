@@ -60,23 +60,6 @@ const ChoiceList: React.FC<iChoiceList> = ({
     });
   };
 
-  // Check if the list is empty, and if so, don't render the div
-  if (list.length === 0) {
-    return (
-      <Input
-        className={`${styles.input} ${className}`}
-        onKeyPress={handleAddItem}
-        name={field}
-        placeholder={placeholder}
-        onFocus={isType ? onFocus : null}
-        onBlur={isType ? onBlur : null}
-        value={value}
-        readOnly={readOnly}
-        {...props}
-      />
-    );
-  }
-
   return (
     <div>
       <Input
@@ -91,16 +74,21 @@ const ChoiceList: React.FC<iChoiceList> = ({
         {...props}
       />
 
-      <div className={styles.selected}>
-        {list.map((item: string) => (
-          <div key={uuidv4()} className={`${styles.item} ${classNameDiv}`}>
-            {item}
-            <button className={styles.remove} onClick={() => removeItem(item)}>
-              X
-            </button>
-          </div>
-        ))}
-      </div>
+      {list.length > 0 && (
+        <div className={styles.selected}>
+          {list.map((item: string) => (
+            <div key={uuidv4()} className={`${styles.item} ${classNameDiv}`}>
+              {item}
+              <button
+                className={styles.remove}
+                onClick={() => removeItem(item)}
+              >
+                X
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

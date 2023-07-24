@@ -7,8 +7,8 @@ const Header = () => {
   const isAdmin = true;
   const navigate = useNavigate();
   const paths = [
-    { label: "Posts", path: "/posts" },
-    { label: "Status", path: "/status" },
+    { label: "Últimos diários", path: "/posts" },
+    { label: "Agendamentos", path: "/status" },
   ];
   const { pathname, origin }: any = window.location;
   const [currentPath, setCurrentPath] = useState<any>(
