@@ -48,7 +48,11 @@ const Table: React.FC<TableProps> = ({
       <div className={styles.header}>
         {title && <div className={styles.headerTable}>{title}</div>}
         {downloadButton && (
-          <Button className={styles.downloadButton} onClick={handleTemplate}>
+          <Button
+            className={styles.downloadButton}
+            onClick={handleTemplate}
+            alt="Baixar template"
+          >
             <MdDownload size={24} />
           </Button>
         )}

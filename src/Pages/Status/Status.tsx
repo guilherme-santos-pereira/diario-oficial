@@ -23,17 +23,17 @@ const Status = () => {
 
   const data = [
     {
-      status: "Diario de hoje",
+      name: "Diario de hoje",
       date: "11/07/2023",
       file: "Arquivo",
     },
     {
-      status: "Diario de hoje",
+      name: "Diario de hoje",
       date: "11/07/2023",
       file: "Arquivo",
     },
     {
-      status: "Diario de hoje",
+      name: "Diario de hoje",
       date: "11/07/2023",
       file: "Arquivo",
     },
@@ -115,6 +115,13 @@ const Status = () => {
 
   const handleSubmit = () => {
     console.log("selectedRange:", selectedRange);
+    setSelectedRange({
+      file: File,
+      type: [],
+      date: new Date(),
+      time: "",
+      code: "",
+    });
   };
 
   const loading = false;
@@ -170,6 +177,7 @@ const Status = () => {
             className={styles.date}
             type="date"
             name="date"
+            value={selectedRange.date}
             onChange={handleChange}
           />
           <Input
@@ -184,6 +192,7 @@ const Status = () => {
           <Input
             className={`${styles.input} ${styles.code}`}
             placeholder="Código"
+            value={selectedRange.code}
             onChange={handleChange}
             name="code"
           />
