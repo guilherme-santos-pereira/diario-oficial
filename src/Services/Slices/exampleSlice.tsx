@@ -53,8 +53,8 @@ export const fetchExample =
   ) => {
     dispatch(getExample());
     try {
-      const response = await services.getExample();
-      dispatch(getExampleSuccess(response));
+      // const response = await services.getExample();
+      // dispatch(getExampleSuccess(response));
     } catch (err) {
       console.log("err: ", err);
       dispatch(getExampleFailure());

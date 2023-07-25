@@ -7,6 +7,7 @@ import Footer from "./Components/Footer/Footer";
 import Login from "./Pages/Login/Login";
 import Status from "./Pages/Status/Status";
 import Posts from "./Pages/Posts/Posts";
+import ProtectedRoute from "./Auth/protectedRoute";
 
 function App() {
   return (
@@ -17,8 +18,14 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/status" element={<Status />} />
-            <Route path="/posts" element={<Posts />} />
+            <Route
+              path="/status"
+              element={<ProtectedRoute Component={Status} path="/status" />}
+            />
+            <Route
+              path="/posts"
+              element={<ProtectedRoute Component={Posts} path="/posts" />}
+            />
           </Routes>
         </main>
         <Footer />
