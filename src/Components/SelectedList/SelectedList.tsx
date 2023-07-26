@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./SelectedList.module.css";
 import Input from "../Forms/Input";
 import { v4 as uuidv4 } from "uuid";
@@ -9,12 +9,11 @@ interface iChoiceList {
   placeholder?: string;
   isType?: boolean;
   field: string;
-  onFocus?: any;
-  onBlur?: any;
   value?: any;
   readOnly?: boolean;
   className?: any;
   classNameDiv?: any;
+  options?: string[];
 }
 
 const ChoiceList: React.FC<iChoiceList> = ({
@@ -23,14 +22,14 @@ const ChoiceList: React.FC<iChoiceList> = ({
   placeholder,
   isType,
   field,
-  onFocus,
-  onBlur,
   value,
   readOnly,
   className,
   classNameDiv,
+  options,
   ...props
 }) => {
+  const [showOptions, setShowOptions] = useState<boolean>(false);
   const handleAddItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const inputValue = e.currentTarget.value.trim();
     if (e.key === "Enter" && inputValue !== "") {
@@ -61,6 +60,26 @@ const ChoiceList: React.FC<iChoiceList> = ({
     });
   };
 
+  const handleInputChange = () => {
+    setShowOptions(true);
+  };
+
+  const handleBlur = () => {
+    setTimeout(() => {
+      setShowOptions(false);
+    }, 75);
+  };
+
+  const handleOption = (e: any) => {
+    const option = e.currentTarget.value;
+    if (!list[field]?.includes(option)) {
+      setList((prevRange: any) => ({
+        ...prevRange,
+        [field]: [].concat(...list[field], option),
+      }));
+    }
+  };
+
   return (
     <div>
       <Input
@@ -68,12 +87,29 @@ const ChoiceList: React.FC<iChoiceList> = ({
         onKeyPress={handleAddItem}
         name={field}
         placeholder={placeholder}
-        onFocus={isType ? onFocus : null}
-        onBlur={isType ? onBlur : null}
+        onFocus={isType && handleInputChange}
+        onBlur={isType && handleBlur}
         value={value}
         readOnly={readOnly}
         {...props}
       />
+
+      {showOptions && (
+        <div className={styles.list}>
+          {options?.map((option: any) => (
+            <button
+              className={`${styles.option} ${
+                list[field]?.includes(option) ? styles.selectedOption : ""
+              }`}
+              key={uuidv4()}
+              value={option}
+              onClick={handleOption}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      )}
 
       {list.length > 0 && (
         <div className={styles.selected}>

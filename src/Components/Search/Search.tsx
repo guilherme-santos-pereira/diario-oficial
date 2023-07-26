@@ -3,7 +3,6 @@ import styles from "./Search.module.css";
 import Input from "../Forms/Input";
 import Button from "../Forms/Button";
 import ChoiceList from "../SelectedList/SelectedList";
-import { v4 as uuidv4 } from "uuid";
 import { optionsType } from "../Helper";
 
 const Search = () => {
@@ -15,22 +14,6 @@ const Search = () => {
     type: [],
     searchType: false,
   });
-
-  const [showOptions, setShowOptions] = useState(false);
-
-  const handleInputChange = () => {
-    setShowOptions(true);
-  };
-
-  const handleOptionClick = (e: any) => {
-    const option = e.currentTarget.value;
-    if (!selectedRange.type.includes(option)) {
-      setSelectedRange((prevRange: any) => ({
-        ...prevRange,
-        type: [].concat(...selectedRange.type, option),
-      }));
-    }
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value } = e.target;
@@ -47,12 +30,6 @@ const Search = () => {
         [name]: value,
       };
     });
-  };
-
-  const handleBlur = () => {
-    setTimeout(() => {
-      setShowOptions(false);
-    }, 75);
   };
 
   const handleSubmit = () => {
@@ -80,7 +57,6 @@ const Search = () => {
         field="keyword"
         list={selectedRange.keyword}
         setList={setSelectedRange}
-        onBlur={handleChange}
       />
 
       <div className={styles.type}>
@@ -89,29 +65,10 @@ const Search = () => {
           field="type"
           list={selectedRange.type}
           setList={setSelectedRange}
-          onFocus={handleInputChange}
-          onBlur={handleBlur}
+          options={optionsType}
           isType
           readOnly
         />
-        {showOptions && (
-          <div className={styles.list}>
-            {optionsType.map((option) => (
-              <button
-                className={`${styles.option} ${
-                  selectedRange.type.includes(option)
-                    ? styles.selectedOption
-                    : ""
-                }`}
-                key={uuidv4()}
-                value={option}
-                onClick={handleOptionClick}
-              >
-                {option}
-              </button>
-            ))}
-          </div>
-        )}
       </div>
       <div className={styles.calendar}>
         <Input

@@ -4,14 +4,12 @@ import Input from "../../Components/Forms/Input";
 import Button from "../../Components/Forms/Button";
 import ChoiceList from "../../Components/SelectedList/SelectedList";
 import Table from "../../Components/Table/Table";
-import { v4 as uuidv4 } from "uuid";
 import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
 import { MdUpload } from "react-icons/md";
 import { handleKeyPress, optionsType } from "../../Components/Helper";
 
 const Status = () => {
-  const [showOptions, setShowOptions] = useState<boolean>(false);
   const [page, setPage] = useState<number | string>();
   const [selectedRange, setSelectedRange] = useState<any>({
     file: File,
@@ -44,16 +42,6 @@ const Status = () => {
     { title: "Data", property: "date" },
     { title: "Arquivo", property: "file" },
   ];
-
-  const handleInputChange = () => {
-    setShowOptions(true);
-  };
-
-  const handleBlur = () => {
-    setTimeout(() => {
-      setShowOptions(false);
-    }, 75);
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value } = e.target;
@@ -99,16 +87,6 @@ const Status = () => {
     }));
   };
 
-  const handleOption = (e: any) => {
-    const option = e.currentTarget.value;
-    if (!selectedRange.type.includes(option)) {
-      setSelectedRange((prevRange: any) => ({
-        ...prevRange,
-        type: [].concat(...selectedRange.type, option),
-      }));
-    }
-  };
-
   useEffect(() => {
     // dispatch(fetchExample(page));
   }, []);
@@ -152,29 +130,10 @@ const Status = () => {
           field="type"
           list={selectedRange.type}
           setList={setSelectedRange}
-          onFocus={handleInputChange}
-          onBlur={handleBlur}
+          options={optionsType}
           isType
           readOnly
         />
-        {showOptions && (
-          <div className={styles.list}>
-            {optionsType.map((option: any) => (
-              <button
-                className={`${styles.option} ${
-                  selectedRange.type.includes(option)
-                    ? styles.selectedOption
-                    : ""
-                }`}
-                key={uuidv4()}
-                value={option}
-                onClick={handleOption}
-              >
-                {option}
-              </button>
-            ))}
-          </div>
-        )}
         <div>
           <Input
             className={styles.date}

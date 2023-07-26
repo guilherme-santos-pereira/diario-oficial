@@ -16,6 +16,34 @@
   background-color: var(--second-button-color-disabled);
 }
 
+.list {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--second-button-color);
+  border-radius: 0 0 0.5rem 0.5rem;
+  width: 26rem;
+  height: 15rem;
+  position: absolute;
+  z-index: 1;
+  overflow-y: auto;
+}
+
+.list::-webkit-scrollbar {
+  width: 0.4rem;
+  background-color: transparent;
+}
+
+.option {
+  width: 16rem;
+  height: 6rem;
+  margin: 0.5rem 0;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+}
+
 .selected {
   display: flex;
   background-color: var(--second-button-color);

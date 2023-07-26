@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./News.module.css";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 
@@ -9,12 +9,8 @@ interface iNews {
 }
 
 const News: React.FC<iNews> = ({ className }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const {data, error, loading} = useSelector(state: any => state.newsSlice)
-
-  useEffect(() => {
-    // dispatch<any>(fetchNews())
-  });
 
   const title = "TITULO";
   const description =

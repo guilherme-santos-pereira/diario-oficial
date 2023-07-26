@@ -22,7 +22,7 @@ const Table: React.FC<TableProps> = ({
   page,
   downloadButton,
 }) => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage] = useState<number>(1);
 
   const handleTemplate = () => {};
 
@@ -71,7 +71,7 @@ const Table: React.FC<TableProps> = ({
             <div key={rowIndex} className={styles.tableRow}>
               {columns.map((column: any, columnIndex: any) => (
                 <div key={columnIndex} className={styles.tableCell}>
-                  {column.property == "date"
+                  {column.property === "date"
                     ? exhibitionDateFormat(row[column.property])
                     : row[column.property]}
                 </div>

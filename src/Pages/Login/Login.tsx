@@ -6,7 +6,7 @@ import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMe } from "../../Services/Slices/meSlice";
-import { Navigate, redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { isLoggedIn } from "../../Auth/auth";
 import { handleKeyPress } from "../../Components/Helper";
 
@@ -43,7 +43,7 @@ const Login = () => {
       isLoggedIn(true);
       navigate("/status");
     }
-  }, [data.files]);
+  }, [data.files, navigate]);
 
   const loading = false;
   const error = false;
