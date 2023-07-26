@@ -3,7 +3,7 @@ export const logout = (navigate: any) => {
   navigate("/login");
 };
 
-export const isLoggedIn = () => {
-  return sessionStorage.getItem("credentials") ? true : false;
+export const isLoggedIn = (isLogged?: boolean) => {
+  return sessionStorage.getItem("credentials") || isLogged ? true : false;
   // return true;
 };

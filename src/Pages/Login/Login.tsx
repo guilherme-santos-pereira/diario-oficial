@@ -7,6 +7,7 @@ import Loading from "../../Components/Loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMe } from "../../Services/Slices/meSlice";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
+import { isLoggedIn } from "../../Auth/auth";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -34,10 +35,14 @@ const Login = () => {
     });
     dispatch<any>(fetchMe(form));
   };
+  console.log("data: ", data);
 
   useEffect(() => {
-    data && navigate("/status");
-  }, [data]);
+    if (data.files) {
+      isLoggedIn(true);
+      navigate("/status");
+    }
+  }, [data.files]);
 
   const loading = false;
   const error = false;

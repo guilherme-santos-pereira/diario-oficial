@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import Table from "../../Components/Table/Table";
 import Loading from "../../Components/Loading/Loading";
 import Error from "../../Components/Error/Error";
-import { fetchExample } from "../../Services/Slices/exampleSlice";
 
 const Home = () => {
   // const { data } = useSelector((state: any) => state.diarysSlice);
