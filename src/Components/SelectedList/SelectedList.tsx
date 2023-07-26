@@ -40,6 +40,7 @@ const ChoiceList: React.FC<iChoiceList> = ({
       }));
       e.currentTarget.value = "";
       e.preventDefault();
+      console.log("list: ", list);
     }
   };
 

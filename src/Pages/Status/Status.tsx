@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
 import { MdUpload } from "react-icons/md";
-import { optionsType } from "../../Components/Helper";
+import { handleKeyPress, optionsType } from "../../Components/Helper";
 
 const Status = () => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
@@ -133,7 +133,10 @@ const Status = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.postContainer}>
+      <div
+        className={styles.postContainer}
+        onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
+      >
         <label className={styles.fakeInput} htmlFor="file">
           <MdUpload size={24} />
         </label>

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMe } from "../../Services/Slices/meSlice";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
 import { isLoggedIn } from "../../Auth/auth";
+import { handleKeyPress } from "../../Components/Helper";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -52,7 +53,10 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.loginForm}>
+      <div
+        className={styles.loginForm}
+        onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
+      >
         <h2 className={styles.title}>Login</h2>
         <div className={styles.formGroup}>
           <label className={styles.label} htmlFor="username">

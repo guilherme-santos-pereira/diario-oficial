@@ -3,6 +3,7 @@ import styles from "./Table.module.css";
 import Pagination from "rc-pagination";
 import Button from "../Forms/Button";
 import { MdDownload } from "react-icons/md";
+import { exhibitionDateFormat } from "../Helper";
 
 interface TableProps {
   title?: string;
@@ -70,7 +71,9 @@ const Table: React.FC<TableProps> = ({
             <div key={rowIndex} className={styles.tableRow}>
               {columns.map((column: any, columnIndex: any) => (
                 <div key={columnIndex} className={styles.tableCell}>
-                  {row[column.property]}
+                  {column.property == "date"
+                    ? exhibitionDateFormat(row[column.property])
+                    : row[column.property]}
                 </div>
               ))}
             </div>

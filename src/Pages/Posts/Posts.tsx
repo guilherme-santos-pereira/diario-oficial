@@ -8,17 +8,17 @@ const Posts = () => {
   const data = [
     {
       name: "Diario de hoje",
-      date: "11/07/2023",
+      date: "06/25/2023",
       file: "Arquivo",
     },
     {
       name: "Diario de hoje",
-      date: "12/08/2023",
+      date: "07/26/2023",
       file: "Arquivo",
     },
     {
       name: "Diario de hoje",
-      date: "13/09/2023",
+      date: "08/27/2023",
       file: "Arquivo",
     },
   ];
