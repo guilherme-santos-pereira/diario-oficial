@@ -9,16 +9,19 @@ import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
 import { MdUpload } from "react-icons/md";
 import { optionsType } from "../../Components/Helper";
+import { fetchDiary } from "../../Services/Slices/diarySlice";
+import { useDispatch } from "react-redux";
 
 const Status = () => {
+  const dispatch = useDispatch();
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [page, setPage] = useState<number | string>();
   const [selectedRange, setSelectedRange] = useState<any>({
     file: File,
-    type: [],
+    post_type: [],
     date: new Date(),
-    time: "",
-    code: "",
+    hour: "",
+    number: "",
   });
 
   const data = [
@@ -79,7 +82,7 @@ const Status = () => {
     if (numericValue === "") {
       setSelectedRange((prev: any) => ({
         ...prev,
-        time: "",
+        hour: "",
       }));
       return;
     }
@@ -95,16 +98,16 @@ const Status = () => {
 
     setSelectedRange((prev: any) => ({
       ...prev,
-      time: formattedValue,
+      hour: formattedValue,
     }));
   };
 
   const handleOption = (e: any) => {
     const option = e.currentTarget.value;
-    if (!selectedRange.type.includes(option)) {
+    if (!selectedRange.post_type.includes(option)) {
       setSelectedRange((prevRange: any) => ({
         ...prevRange,
-        type: [].concat(...selectedRange.type, option),
+        post_type: [].concat(...selectedRange.post_type, option),
       }));
     }
   };
@@ -114,13 +117,13 @@ const Status = () => {
   }, []);
 
   const handleSubmit = () => {
-    console.log("selectedRange:", selectedRange);
+    dispatch<any>(fetchDiary(selectedRange));
     setSelectedRange({
       file: File,
-      type: [],
+      post_type: [],
       date: new Date(),
-      time: "",
-      code: "",
+      hour: "",
+      number: "",
     });
   };
 
@@ -138,6 +141,7 @@ const Status = () => {
           <MdUpload size={24} />
         </label>
         <Input
+          key="fileInput"
           className={styles.file}
           type="file"
           id="file"
@@ -146,8 +150,8 @@ const Status = () => {
         />
         <ChoiceList
           placeholder="Tipo"
-          field="type"
-          list={selectedRange.type}
+          field="post_type"
+          list={selectedRange.post_type}
           setList={setSelectedRange}
           onFocus={handleInputChange}
           onBlur={handleBlur}
@@ -159,7 +163,7 @@ const Status = () => {
             {optionsType.map((option: any) => (
               <button
                 className={`${styles.option} ${
-                  selectedRange.type.includes(option)
+                  selectedRange.post_type.includes(option)
                     ? styles.selectedOption
                     : ""
                 }`}
@@ -182,8 +186,8 @@ const Status = () => {
           />
           <Input
             className={styles.time}
-            name="time"
-            value={selectedRange.time}
+            name="hour"
+            value={selectedRange.hour}
             onChange={handleTime}
             placeholder="Horario"
           />
@@ -191,10 +195,10 @@ const Status = () => {
         <div className={styles.lastColumn}>
           <Input
             className={`${styles.input} ${styles.code}`}
-            placeholder="Código"
-            value={selectedRange.code}
+            name="number"
+            value={selectedRange.number}
             onChange={handleChange}
-            name="code"
+            placeholder="Código"
           />
           <Button
             className={`${styles.button} ${styles.schedule}`}

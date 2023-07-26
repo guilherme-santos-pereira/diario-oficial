@@ -35,7 +35,6 @@ const Login = () => {
     });
     dispatch<any>(fetchMe(form));
   };
-  console.log("data: ", data);
 
   useEffect(() => {
     if (data.files) {
