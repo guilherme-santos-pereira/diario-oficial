@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import Search from "../../Components/Search/Search";
 import News from "../../Components/News/News";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Table from "../../Components/Table/Table";
 import Loading from "../../Components/Loading/Loading";
 import Error from "../../Components/Error/Error";
 
 const Home = () => {
-  // const { data } = useSelector((state: any) => state.diarysSlice);
+  // const data = useSelector((state: any) => state.diarysSlice);
   const [page, setPage] = useState<number | string>();
   const data = [
     {
@@ -28,7 +28,7 @@ const Home = () => {
   const error = false;
 
   useEffect(() => {
-    // dispatch(fetchExample(page));
+    // dispatch<any>(fetchPublic());
   }, []);
 
   if (loading) return <Loading size="5rem" type="spin" label="Carregando" />;

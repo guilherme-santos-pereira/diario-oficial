@@ -71,9 +71,7 @@ const Table: React.FC<TableProps> = ({
             <div key={rowIndex} className={styles.tableRow}>
               {columns.map((column: any, columnIndex: any) => (
                 <div key={columnIndex} className={styles.tableCell}>
-                  {column.property === "date"
-                    ? exhibitionDateFormat(row[column.property])
-                    : row[column.property]}
+                  {row[column.property]}
                 </div>
               ))}
             </div>

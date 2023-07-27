@@ -1,46 +1,53 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
 import Table from "../../Components/Table/Table";
 import styles from "./Posts.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPublic } from "../../Services/Slices/publicSlice";
+import { handleExtract } from "../../Components/Helper";
+
+interface iContent {
+  file_name: string;
+  presigned_url: string;
+}
+
+interface iExtracted {
+  edition: string;
+  date: string;
+  presigned_url: string;
+}
 
 const Posts = () => {
-  const data = [
-    {
-      name: "Diario de hoje",
-      date: "06/25/2023",
-      file: "Arquivo",
-    },
-    {
-      name: "Diario de hoje",
-      date: "07/26/2023",
-      file: "Arquivo",
-    },
-    {
-      name: "Diario de hoje",
-      date: "08/27/2023",
-      file: "Arquivo",
-    },
-  ];
+  const dispatch = useDispatch();
+  const [extracted, setExtracted] = useState<iExtracted[]>([]); // Initialize as an array
+  const { data, loading, error } = useSelector(
+    (state: any) => state.publicSlice
+  );
 
   const columns = [
-    { title: "Name", property: "name" },
+    { title: "Edição", property: "edition" },
     { title: "Data", property: "date" },
-    { title: "Arquivo", property: "file" },
+    { title: "Arquivo", property: "" },
   ];
 
-  const [page, setPage] = useState<number | string>();
-
   useEffect(() => {
-    // dispatch(fetchExample(page));
+    dispatch<any>(fetchPublic());
   }, []);
 
-  const loading = false;
-  const error = false;
+  useEffect(() => {
+    if (data) {
+      handleExtract(data, setExtracted);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    console.log("extracted: ", extracted);
+  }, [extracted]);
 
   if (loading) return <Loading size="5rem" type="spin" label="Carregando" />;
 
-  if (error) return <Error size="5rem" label={`Erro ${error}`} />;
+  if (error) return <Error size="5rem" label={`Erro ${error.status}`} />;
 
   return (
     <div className={styles.content}>
@@ -48,9 +55,9 @@ const Posts = () => {
         <Table
           title="Últimos diários"
           columns={columns}
-          data={data}
-          setPage={setPage}
-          page={page}
+          data={extracted}
+          setPage={undefined}
+          page={undefined}
         />
       </div>
     </div>

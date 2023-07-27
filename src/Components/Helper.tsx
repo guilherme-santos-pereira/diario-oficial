@@ -1,3 +1,8 @@
+interface iContent {
+  file_name: string;
+  presigned_url: string;
+}
+
 export const optionsType = [
   "Portaria",
   "Ato",
@@ -57,4 +62,28 @@ export function handleKeyPress(
   if (event.key === key && !differentArray.includes(event.target.name)) {
     handleSubmit();
   }
+}
+
+export function handleExtract(data: iContent[], setContent: any) {
+  data.forEach((content: iContent) => {
+    const split = content?.file_name?.split("---");
+    let date, edition, hour;
+    if (split.length === 3) {
+      date = split[1].split("=")[1].replace(/-/g, "/");
+      edition = split[2].split("=")[1].replace(".pdf", "");
+      hour = split[0].split("=")[1];
+    } else if (split.length === 2) {
+      date = split[0].split("=")[1].replace(/-/g, "/");
+      edition = split[1].split("=")[1].replace(".pdf", "");
+      hour = "";
+    }
+    const extractedInfo = {
+      date,
+      edition,
+      hour,
+      presigned_url: content.presigned_url,
+    };
+
+    setContent((prev: any) => [...prev, extractedInfo]);
+  });
 }
