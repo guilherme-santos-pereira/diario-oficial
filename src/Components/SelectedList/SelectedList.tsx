@@ -1,9 +1,145 @@
+// import React, { useState } from "react";
+// import styles from "./SelectedList.module.css";
+// import Input from "../Forms/Input";
+// import { v4 as uuidv4 } from "uuid";
+
+// interface iSelectedList {
+//   setList: any;
+//   list: any;
+//   placeholder?: string;
+//   isType?: boolean;
+//   field: string;
+//   value?: any;
+//   readOnly?: boolean;
+//   className?: any;
+//   classNameDiv?: any;
+//   options?: string[];
+// }
+
+// const SelectedList: React.FC<iSelectedList> = ({
+//   setList,
+//   list = [],
+//   placeholder,
+//   isType,
+//   field,
+//   value,
+//   readOnly,
+//   className,
+//   classNameDiv,
+//   options,
+//   ...props
+// }) => {
+//   const [showOptions, setShowOptions] = useState<boolean>(false);
+//   const handleAddItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
+//     const inputValue = e.currentTarget.value.trim();
+//     if (e.key === "Enter" && inputValue !== "") {
+//       setList((prev: any) => ({
+//         ...prev,
+//         [field]: [...(prev[field] || []), inputValue],
+//       }));
+//       e.currentTarget.value = "";
+//       e.preventDefault();
+//       console.log("list: ", list);
+//     }
+//   };
+
+//   const removeItem = (keyword: string) => {
+//     setList((prev: any) => {
+//       const updatedKeywords = Array.isArray(prev[field])
+//         ? [...prev[field]]
+//         : [];
+//       const index = updatedKeywords.indexOf(keyword);
+//       if (index !== -1) {
+//         updatedKeywords.splice(index, 1);
+//       }
+
+//       return {
+//         ...prev,
+//         [field]: updatedKeywords,
+//       };
+//     });
+//   };
+
+//   const handleInputChange = () => {
+//     setShowOptions(true);
+//   };
+
+//   const handleBlur = () => {
+//     setTimeout(() => {
+//       setShowOptions(false);
+//     }, 75);
+//   };
+
+//   const handleOption = (e: any) => {
+//     const option = e.currentTarget.value;
+//     console.log("option: ", option);
+//     if (!list[field]?.includes(option)) {
+//       setList((prevRange: any) => ({
+//         ...prevRange,
+//         [field]: [].concat(...list[field], option),
+//       }));
+//       console.log("list: ", list);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <Input
+//         className={`${styles.input} ${className}`}
+//         onKeyPress={handleAddItem}
+//         name={field}
+//         placeholder={placeholder}
+//         onFocus={isType && handleInputChange}
+//         onBlur={isType && handleBlur}
+//         value={value}
+//         readOnly={readOnly}
+//         {...props}
+//       />
+
+//       {showOptions && (
+//         <div className={styles.list}>
+//           {options?.map((option: any) => (
+//             <button
+//               className={`${styles.option} ${
+//                 list[field]?.includes(option) ? styles.selectedOption : ""
+//               }`}
+//               key={uuidv4()}
+//               value={option}
+//               onClick={handleOption}
+//             >
+//               {option}
+//             </button>
+//           ))}
+//         </div>
+//       )}
+
+//       {list.length > 0 && (
+//         <div className={styles.selected}>
+//           {list[field]?.map((item: string) => (
+//             <div key={uuidv4()} className={`${styles.item} ${classNameDiv}`}>
+//               {item}
+//               <button
+//                 className={styles.remove}
+//                 onClick={() => removeItem(item)}
+//               >
+//                 X
+//               </button>
+//             </div>
+//           ))}
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default SelectedList;
+
 import React, { useState } from "react";
 import styles from "./SelectedList.module.css";
 import Input from "../Forms/Input";
 import { v4 as uuidv4 } from "uuid";
 
-interface iChoiceList {
+interface iSelectedList {
   setList: any;
   list: any;
   placeholder?: string;
@@ -16,7 +152,7 @@ interface iChoiceList {
   options?: string[];
 }
 
-const ChoiceList: React.FC<iChoiceList> = ({
+const SelectedList: React.FC<iSelectedList> = ({
   setList,
   list = [],
   placeholder,
@@ -30,6 +166,7 @@ const ChoiceList: React.FC<iChoiceList> = ({
   ...props
 }) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
+
   const handleAddItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const inputValue = e.currentTarget.value.trim();
     if (e.key === "Enter" && inputValue !== "") {
@@ -72,11 +209,13 @@ const ChoiceList: React.FC<iChoiceList> = ({
 
   const handleOption = (e: any) => {
     const option = e.currentTarget.value;
+    console.log("option: ", option);
     if (!list[field]?.includes(option)) {
       setList((prevRange: any) => ({
         ...prevRange,
-        [field]: [].concat(...list[field], option),
+        [field]: [].concat(...prevRange[field], option),
       }));
+      console.log("list: ", list); // Note: This may still show the old value of `list`
     }
   };
 
@@ -111,9 +250,9 @@ const ChoiceList: React.FC<iChoiceList> = ({
         </div>
       )}
 
-      {list.length > 0 && (
+      {list[field]?.length > 0 && (
         <div className={styles.selected}>
-          {list.map((item: string) => (
+          {list[field]?.map((item: string) => (
             <div key={uuidv4()} className={`${styles.item} ${classNameDiv}`}>
               {item}
               <button
@@ -130,4 +269,4 @@ const ChoiceList: React.FC<iChoiceList> = ({
   );
 };
 
-export default ChoiceList;
+export default SelectedList;

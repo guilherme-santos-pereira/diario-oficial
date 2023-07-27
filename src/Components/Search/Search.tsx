@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styles from "./Search.module.css";
 import Input from "../Forms/Input";
 import Button from "../Forms/Button";
-import ChoiceList from "../SelectedList/SelectedList";
-import { optionsType } from "../Helper";
+import SelectedList from "../SelectedList/SelectedList";
+import { handleKeyPress, optionsType } from "../Helper";
 
 const Search = () => {
   const [selectedRange, setSelectedRange] = useState<any>({
@@ -37,7 +37,12 @@ const Search = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onKeyUp={(e) =>
+        handleKeyPress(e, handleSubmit, "Enter", ["keyword", "type"])
+      }
+    >
       <div className={styles.calendar}>
         <Input
           className={styles.date}
@@ -52,18 +57,18 @@ const Search = () => {
           onChange={handleChange}
         />
       </div>
-      <ChoiceList
+      <SelectedList
         placeholder="Palavra-chave"
         field="keyword"
-        list={selectedRange.keyword}
+        list={selectedRange}
         setList={setSelectedRange}
       />
 
       <div className={styles.type}>
-        <ChoiceList
+        <SelectedList
           placeholder="Tipo"
           field="type"
-          list={selectedRange.type}
+          list={selectedRange}
           setList={setSelectedRange}
           options={optionsType}
           isType

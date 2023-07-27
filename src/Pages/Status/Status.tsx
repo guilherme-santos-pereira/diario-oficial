@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./Status.module.css";
 import Input from "../../Components/Forms/Input";
 import Button from "../../Components/Forms/Button";
-import ChoiceList from "../../Components/SelectedList/SelectedList";
+import SelectedList from "../../Components/SelectedList/SelectedList";
 import Table from "../../Components/Table/Table";
 import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
@@ -113,7 +113,7 @@ const Status = () => {
     <div className={styles.container}>
       <div
         className={styles.postContainer}
-        onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
+        onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter", "type")}
       >
         <label className={styles.fakeInput} htmlFor="file">
           <MdUpload size={24} />
@@ -125,10 +125,10 @@ const Status = () => {
           name="file"
           onChange={handleChange}
         />
-        <ChoiceList
+        <SelectedList
           placeholder="Tipo"
           field="type"
-          list={selectedRange.type}
+          list={selectedRange}
           setList={setSelectedRange}
           options={optionsType}
           isType
