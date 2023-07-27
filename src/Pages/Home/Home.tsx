@@ -33,7 +33,7 @@ const Home = () => {
 
   if (loading) return <Loading size="5rem" type="spin" label="Carregando" />;
 
-  if (error) return <Error size="3rem" label={`Erro ${error}`} />;
+  if (error) return <Error size="5rem" label={`Erro ${error}`} />;
 
   return (
     <div className={styles.container}>

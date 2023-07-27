@@ -22,7 +22,7 @@ const News: React.FC<iNews> = ({ className }) => {
     return <Loading size="5rem" type="spin" label="Carregando" />;
   }
   if (error) {
-    return <Error size="3rem" label={`Erro ${error}`} />;
+    return <Error size="5rem" label={`Erro ${error}`} />;
   }
   return (
     <div className={`${styles.container} ${className}`}>
