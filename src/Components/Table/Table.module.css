@@ -57,6 +57,19 @@
   align-items: center;
 }
 
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem 0;
+}
+
+.download {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  border-radius: 5rem !important;
+}
+
 .tableCell {
   flex: 1;
   padding: 10px;

@@ -38,9 +38,12 @@ const services = {
       })
       .catch((err: any) => console.log(err));
   },
-  getPublic: async () => {
+  getPublic: async (page: string) => {
     return axios
-      .get(PATH.base + "/all-posts/", defaultHeaders)
+      .get(
+        `${PATH.base}/all-posts/${page ? `?page=${page}` : ""}`,
+        defaultHeaders
+      )
       .then((data: any) => {
         return data;
       })
