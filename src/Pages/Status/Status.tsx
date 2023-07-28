@@ -8,8 +8,11 @@ import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
 import { MdUpload } from "react-icons/md";
 import { handleKeyPress, optionsType } from "../../Components/Helper";
+import { fetchPost } from "../../Services/Slices/postSlice";
+import { useDispatch } from "react-redux";
 
 const Status = () => {
+  const dispatch = useDispatch();
   const [page, setPage] = useState<number | string>();
   const [selectedRange, setSelectedRange] = useState<any>({
     file: File,
@@ -92,7 +95,15 @@ const Status = () => {
   }, []);
 
   const handleSubmit = () => {
-    console.log("selectedRange:", selectedRange);
+    const formData = new FormData();
+    formData.append("type", JSON.stringify(selectedRange.type).toString());
+    formData.append("date", selectedRange.date.toString());
+    formData.append("time", selectedRange.time.toString());
+    formData.append("code", selectedRange.code.toString());
+    formData.append("file", selectedRange.file);
+
+    dispatch(fetchPost(formData));
+
     setSelectedRange({
       file: File,
       type: [],
@@ -110,74 +121,74 @@ const Status = () => {
   if (error) return <Error size="5rem" label={`Erro ${error}`} />;
 
   return (
-    <div className={styles.container}>
-      <div
-        className={styles.postContainer}
-        onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter", "type")}
-      >
-        <label className={styles.fakeInput} htmlFor="file">
-          <MdUpload size={24} />
-        </label>
-        <Input
-          className={styles.file}
-          type="file"
-          id="file"
-          name="file"
-          onChange={handleChange}
-        />
-        <SelectedList
-          placeholder="Tipo"
-          field="type"
-          list={selectedRange}
-          setList={setSelectedRange}
-          options={optionsType}
-          isType
-          readOnly
-        />
-        <div>
+      <div className={styles.container}>
+        <div
+            className={styles.postContainer}
+            onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter", "type")}
+        >
+          <label className={styles.fakeInput} htmlFor="file">
+            <MdUpload size={24} />
+          </label>
           <Input
-            className={styles.date}
-            type="date"
-            name="date"
-            value={selectedRange.date}
-            onChange={handleChange}
+              className={styles.file}
+              type="file"
+              id="file"
+              name="file"
+              onChange={handleChange}
           />
-          <Input
-            className={styles.time}
-            name="time"
-            value={selectedRange.time}
-            onChange={handleTime}
-            placeholder="Horario"
+          <SelectedList
+              placeholder="Tipo"
+              field="type"
+              list={selectedRange}
+              setList={setSelectedRange}
+              options={optionsType}
+              isType
+              readOnly
           />
+          <div>
+            <Input
+                className={styles.date}
+                type="date"
+                name="date"
+                value={selectedRange.date}
+                onChange={handleChange}
+            />
+            <Input
+                className={styles.time}
+                name="time"
+                value={selectedRange.time}
+                onChange={handleTime}
+                placeholder="Horario"
+            />
+          </div>
+          <div className={styles.lastColumn}>
+            <Input
+                className={`${styles.input} ${styles.code}`}
+                placeholder="Código"
+                value={selectedRange.code}
+                onChange={handleChange}
+                name="code"
+            />
+            <Button
+                className={`${styles.button} ${styles.schedule}`}
+                onClick={handleSubmit}
+            >
+              Agendar
+            </Button>
+          </div>
         </div>
-        <div className={styles.lastColumn}>
-          <Input
-            className={`${styles.input} ${styles.code}`}
-            placeholder="Código"
-            value={selectedRange.code}
-            onChange={handleChange}
-            name="code"
-          />
-          <Button
-            className={`${styles.button} ${styles.schedule}`}
-            onClick={handleSubmit}
-          >
-            Agendar
-          </Button>
-        </div>
-      </div>
 
-      <div className={styles.table}>
-        <Table
-          title="Status dos agendamentos"
-          columns={columns}
-          data={data}
-          setPage={setPage}
-          page={page}
-          downloadButton
-        />
+        <div className={styles.table}>
+          <Table
+              title="Status dos agendamentos"
+              columns={columns}
+              data={data}
+              setPage={setPage}
+              page={page}
+              downloadButton
+          />
+        </div>
       </div>
-    </div>
   );
 };
 
