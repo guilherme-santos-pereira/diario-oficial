@@ -41,7 +41,7 @@ const Table: React.FC<TableProps> = ({
 
   const customItemRender = (current: number, type: string) => {
     if (type === "page") {
-      return current === currentPage ? <span>{current}</span> : null;
+      return current === currentPage ? <span>{page}</span> : null;
     }
     if (type === "prev") {
       return <Button className={styles.backButton}>Voltar</Button>;

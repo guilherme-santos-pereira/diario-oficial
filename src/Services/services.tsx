@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { PATH } from "../PATH";
 
 const username = sessionStorage.getItem("username");
@@ -22,7 +22,6 @@ const services = {
             },
           }
         : defaultHeaders;
-    console.log("headers:", headers);
     return axios
       .get(PATH.base + "/all-files/", headers)
       .then((data: any) => {
@@ -48,6 +47,26 @@ const services = {
         return data;
       })
       .catch((err: any) => console.log(err));
+  },
+  doPost: async (body: FormData, username?: string, password?: string) => {
+    const encodedCredentials = btoa(`${username}:${password}`);
+    const headers: AxiosRequestConfig["headers"] = {};
+
+    if (username && password) {
+      headers.Authorization = "Basic " + encodedCredentials;
+    } else {
+      headers.Authorization = defaultHeaders.headers.Authorization;
+    }
+
+    try {
+      const response = await axios.post(PATH.base + "/do-post/", body, {
+        headers,
+      });
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
   },
 };
 

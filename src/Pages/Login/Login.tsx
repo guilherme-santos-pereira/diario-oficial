@@ -39,11 +39,11 @@ const Login = () => {
   console.log("data: ", data);
 
   useEffect(() => {
-    if (data.files) {
+    if (data.results) {
       isLoggedIn(true);
       navigate("/status");
     }
-  }, [data.files, navigate]);
+  }, [data.results, navigate]);
 
   const loading = false;
   const error = false;

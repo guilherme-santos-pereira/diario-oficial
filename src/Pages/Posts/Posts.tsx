@@ -32,14 +32,15 @@ const Posts = () => {
   ];
 
   useEffect(() => {
-    dispatch<any>(fetchPublic(page !== 1 ? page.toString() : ""));
+    dispatch<any>(fetchPublic(page.toString()));
   }, [page]);
+
   useEffect(() => {
-    if (data.results) {
+    if (data) {
       setExtracted([]);
       handleExtract(data.results, setExtracted);
     }
-  }, [data.results]);
+  }, [data]);
 
   if (loading) return <Loading size="5rem" type="spin" label="Carregando" />;
 
