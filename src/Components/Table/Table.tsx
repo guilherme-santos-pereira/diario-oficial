@@ -12,6 +12,7 @@ interface TableProps {
   setPage: any;
   page: any;
   downloadButton?: boolean;
+  total?: number;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -21,11 +22,12 @@ const Table: React.FC<TableProps> = ({
   setPage,
   page,
   downloadButton,
+  total,
 }) => {
   const [currentPage] = useState<number>(1);
 
+  console.log("total: ", total);
   const handleDownloadFile = (file: string) => {
-    console.log("file: ", file);
     // Assuming 'file' is the URL you want to download
     const a = document.createElement("a");
     a.href = file;
@@ -99,8 +101,8 @@ const Table: React.FC<TableProps> = ({
         <Pagination
           current={page}
           onChange={handlePageChange}
-          total={data.length}
-          pageSize={1}
+          total={total}
+          pageSize={3} // i think its to allow or not the next button
           className={styles.customPagination}
           itemRender={customItemRender}
         />

@@ -20,11 +20,11 @@ interface iExtracted {
 
 const Posts = () => {
   const dispatch = useDispatch();
-  const [extracted, setExtracted] = useState<iExtracted[]>([]); // Initialize as an array
+  const [extracted, setExtracted] = useState<iExtracted[]>([]);
+  const [page, setPage] = useState<number>(1);
   const { data, loading, error } = useSelector(
     (state: any) => state.publicSlice
   );
-  console.log("data: ", data);
   const columns = [
     { title: "Edição", property: "edition" },
     { title: "Data", property: "date" },
@@ -32,18 +32,14 @@ const Posts = () => {
   ];
 
   useEffect(() => {
-    dispatch<any>(fetchPublic());
-  }, []);
-
+    dispatch<any>(fetchPublic(page !== 1 ? page.toString() : ""));
+  }, [page]);
   useEffect(() => {
     if (data.results) {
+      setExtracted([]);
       handleExtract(data.results, setExtracted);
     }
   }, [data.results]);
-
-  useEffect(() => {
-    console.log("extracted: ", extracted);
-  }, [extracted]);
 
   if (loading) return <Loading size="5rem" type="spin" label="Carregando" />;
 
@@ -56,8 +52,9 @@ const Posts = () => {
           title="Últimos diários"
           columns={columns}
           data={extracted}
-          setPage={undefined}
-          page={undefined}
+          setPage={setPage}
+          page={page}
+          total={data.count}
         />
       </div>
     </div>
