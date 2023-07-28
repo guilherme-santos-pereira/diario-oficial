@@ -24,11 +24,11 @@ const Posts = () => {
   const { data, loading, error } = useSelector(
     (state: any) => state.publicSlice
   );
-
+  console.log("data: ", data);
   const columns = [
     { title: "Edição", property: "edition" },
     { title: "Data", property: "date" },
-    { title: "Arquivo", property: "" },
+    { title: "Arquivo", property: "presigned_url" },
   ];
 
   useEffect(() => {
@@ -36,10 +36,10 @@ const Posts = () => {
   }, []);
 
   useEffect(() => {
-    if (data) {
-      handleExtract(data, setExtracted);
+    if (data.results) {
+      handleExtract(data.results, setExtracted);
     }
-  }, [data]);
+  }, [data.results]);
 
   useEffect(() => {
     console.log("extracted: ", extracted);

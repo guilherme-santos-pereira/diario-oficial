@@ -24,10 +24,16 @@ const Table: React.FC<TableProps> = ({
 }) => {
   const [currentPage] = useState<number>(1);
 
-  const handleTemplate = () => {};
+  const handleDownloadFile = (file: string) => {
+    console.log("file: ", file);
+    // Assuming 'file' is the URL you want to download
+    const a = document.createElement("a");
+    a.href = file;
+    a.download = "downloadedFile.pdf"; // Change the filename as needed
+    a.click();
+  };
 
   const handlePageChange = (page: number) => {
-    console.log("a");
     setPage(page);
   };
 
@@ -51,7 +57,7 @@ const Table: React.FC<TableProps> = ({
         {downloadButton && (
           <Button
             className={styles.downloadButton}
-            onClick={handleTemplate}
+            onClick={handleDownloadFile}
             alt="Baixar template"
           >
             <MdDownload size={24} />
@@ -70,8 +76,19 @@ const Table: React.FC<TableProps> = ({
           {data.map((row: any, rowIndex: any) => (
             <div key={rowIndex} className={styles.tableRow}>
               {columns.map((column: any, columnIndex: any) => (
-                <div key={columnIndex} className={styles.tableCell}>
-                  {row[column.property]}
+                <div key={columnIndex} className={styles.row}>
+                  {column.property === "presigned_url" ? (
+                    <Button
+                      onClick={() => handleDownloadFile(row[column.property])}
+                      className={`${styles.button} ${styles.download}`}
+                    >
+                      <MdDownload size={24} />
+                    </Button>
+                  ) : (
+                    <div className={styles.tableCell}>
+                      {row[column.property]}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
