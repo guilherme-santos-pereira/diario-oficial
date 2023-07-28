@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Status.module.css";
 import Input from "../../Components/Forms/Input";
 import Button from "../../Components/Forms/Button";
@@ -41,7 +41,7 @@ const Status = () => {
   ];
 
   const columns = [
-    { title: "Name", property: "name" },
+    { title: "Nome", property: "name" },
     { title: "Data", property: "date" },
     { title: "Arquivo", property: "file" },
   ];
@@ -90,27 +90,33 @@ const Status = () => {
     }));
   };
 
-  useEffect(() => {
-    // dispatch(fetchExample(page));
-  }, []);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const handleSubmit = () => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    setSelectedFile(file);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!selectedFile) {
+      console.error("No file selected");
+      return;
+    }
+
     const formData = new FormData();
-    formData.append("type", JSON.stringify(selectedRange.type).toString());
-    formData.append("date", selectedRange.date.toString());
-    formData.append("time", selectedRange.time.toString());
-    formData.append("code", selectedRange.code.toString());
-    formData.append("file", selectedRange.file);
+    formData.append("file", selectedFile);
+    formData.append("post_type", "Ato,Portaria");
+    formData.append("date", "28-07-2023");
+    formData.append("time", "08:40");
+    formData.append("number", "01120");
 
-    dispatch(fetchPost(formData));
-
-    setSelectedRange({
-      file: File,
-      type: [],
-      date: new Date(),
-      time: "",
-      code: "",
-    });
+    try {
+      await dispatch<any>(fetchPost(formData));
+    } catch (err) {
+      console.log("err: ", err);
+    }
   };
 
   const loading = false;
@@ -134,7 +140,7 @@ const Status = () => {
               type="file"
               id="file"
               name="file"
-              onChange={handleChange}
+              onChange={handleFileChange}
           />
           <SelectedList
               placeholder="Tipo"
