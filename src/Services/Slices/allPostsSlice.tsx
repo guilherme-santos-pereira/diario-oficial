@@ -1,33 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 import services from "../services";
 
-interface PublicState {
+interface AllPostsState {
   data: any[];
   loading: boolean;
   error: boolean;
 }
 
-const initialState: PublicState = {
+const initialState: AllPostsState = {
   data: [],
   loading: false,
   error: false,
 };
 
-const publicSlice = createSlice({
-  name: "public",
+const allPostsSlice = createSlice({
+  name: "allPosts",
   initialState,
   reducers: {
-    getPublic: (state) => {
+    getAllPosts: (state) => {
       state.loading = true;
       state.error = false;
       state.data = [];
     },
-    getPublicSuccess: (state, actions) => {
+    getAllPostsSuccess: (state, actions) => {
       state.loading = false;
       state.error = false;
       state.data = actions.payload;
     },
-    getPublicFailure: (state) => {
+    getAllPostsFailure: (state) => {
       state.loading = false;
       state.error = true;
       state.data = [];
@@ -35,28 +35,28 @@ const publicSlice = createSlice({
   },
 });
 
-export const { getPublic, getPublicSuccess, getPublicFailure } =
-  publicSlice.actions;
+export const { getAllPosts, getAllPostsSuccess, getAllPostsFailure } =
+  allPostsSlice.actions;
 
-export default publicSlice.reducer;
+export default allPostsSlice.reducer;
 
-export const fetchPublic =
+export const fetchAllPosts =
   (page: string) =>
   async (
     dispatch: (arg0: {
       payload: any;
       type:
-        | "public/getPublic"
-        | "public/getPublicSuccess"
-        | "public/getPublicFailure";
+        | "allPosts/getAllPosts"
+        | "allPosts/getAllPostsSuccess"
+        | "allPosts/getAllPostsFailure";
     }) => void
   ) => {
-    dispatch(getPublic());
+    dispatch(getAllPosts());
     try {
-      const response = await services.getPublic(page);
-      dispatch(getPublicSuccess(response));
+      const response = await services.getAllPosts(page);
+      dispatch(getAllPostsSuccess(response.data));
     } catch (err) {
       console.log("err: ", err);
-      dispatch(getPublicFailure());
+      dispatch(getAllPostsFailure());
     }
   };

@@ -8,27 +8,37 @@ import Loading from "../../Components/Loading/Loading";
 import Error from "../../Components/Error/Error";
 
 const Home = () => {
-  // const data = useSelector((state: any) => state.diarysSlice);
+  const dispatch = useDispatch();
+  // const data = useSelector((state: any) => state.publicSlice);
   const [page, setPage] = useState<number | string>();
-  const data = [
-    {
-      name: "Diario de hoje",
-      date: "11/07/2023",
-      file: "Arquivo",
-    },
-  ];
+  const [selectedRange, setSelectedRange] = useState<any>({
+    start: new Date(),
+    end: new Date(),
+    keyword: [],
+    code: "",
+    type: [],
+    searchType: false,
+  });
   const columns = [
     { title: "Name", property: "name" },
     { title: "Publicado", property: "date" },
     { title: "Arquivo", property: "file" },
   ];
+  const data = {
+    count: 4,
+    results: {
+      name: "ediçaõ 151",
+      date: "27/04/2002",
+      file: "aaaa",
+    },
+  };
   const regulation =
     "O Diário Oficial Eletrônico da Defensoria Pública do Estado de Santa Catarina é o instrumento oficial de publicação, divulgação e comunicação dos seus atos processuais e administrativos. Foi instituído pela Lei Complementar nº 805/202 de 1º de julho de 2022, e regulamentado pelos Atos DPG nº 059/2022, de 04 de outubro de 2022 e nº 072/2022, de 21 de novembro de 2022.";
   const loading = false;
   const error = false;
 
   useEffect(() => {
-    // dispatch<any>(fetchPublic());
+    // dispatch<any>(fetchNews()); // noticia do dia
   }, []);
 
   if (loading) return <Loading size="5rem" type="spin" label="Carregando" />;
@@ -39,7 +49,7 @@ const Home = () => {
     <div className={styles.container}>
       <p className={styles.regulation}>{regulation}</p>
       <Search />
-      {data ? (
+      {!data ? (
         <div className={styles.table}>
           <Table
             title="Posts encontrados"
@@ -47,6 +57,7 @@ const Home = () => {
             columns={columns}
             setPage={setPage}
             page={page}
+            // total={data.count}
           />
         </div>
       ) : (

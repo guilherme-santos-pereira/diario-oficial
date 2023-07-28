@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import meSlice from "./Slices/meSlice";
-import publicSlice from "./Slices/publicSlice";
+import AllPostsSlice from "./Slices/allPostsSlice";
 
 const reducer = combineReducers({
   meSlice,
-  publicSlice,
+  AllPostsSlice,
 });
 
 export const store = configureStore({ reducer });

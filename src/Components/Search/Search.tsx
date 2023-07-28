@@ -4,6 +4,8 @@ import Input from "../Forms/Input";
 import Button from "../Forms/Button";
 import SelectedList from "../SelectedList/SelectedList";
 import { handleKeyPress, optionsType } from "../Helper";
+import { fetchPublic } from "../../Services/Slices/publicSlice";
+import { useDispatch } from "react-redux";
 
 const Search = () => {
   const [selectedRange, setSelectedRange] = useState<any>({
@@ -14,6 +16,7 @@ const Search = () => {
     type: [],
     searchType: false,
   });
+  const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value } = e.target;
@@ -33,7 +36,7 @@ const Search = () => {
   };
 
   const handleSubmit = () => {
-    console.log("selectedRange: ", selectedRange);
+    dispatch<any>(fetchPublic(selectedRange));
   };
 
   return (

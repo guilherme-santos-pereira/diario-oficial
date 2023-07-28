@@ -37,7 +37,7 @@ const services = {
       })
       .catch((err: any) => console.log(err));
   },
-  getPublic: async (page: string) => {
+  getAllPosts: async (page: string) => {
     return axios
       .get(
         `${PATH.base}/all-posts/${page ? `?page=${page}` : ""}`,
@@ -67,6 +67,15 @@ const services = {
       console.log(err);
       throw err;
     }
+  },
+  getPublic: async (body: any) => {
+    console.log("body: ", body);
+    // return axios
+    //   .get(`${PATH.base}/search-files/`, defaultHeaders)
+    //   .then((data: any) => {
+    //     return data;
+    //   })
+    //   .catch((err: any) => console.log(err));
   },
 };
 
