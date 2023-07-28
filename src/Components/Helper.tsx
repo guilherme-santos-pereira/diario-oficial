@@ -65,7 +65,7 @@ export function handleKeyPress(
 }
 
 export function handleExtract(data: iContent[], setContent: any) {
-  data.forEach((content: iContent) => {
+  data?.forEach((content: iContent) => {
     const split = content?.file_name?.split("---");
     let date, edition, hour;
     if (split.length === 3) {

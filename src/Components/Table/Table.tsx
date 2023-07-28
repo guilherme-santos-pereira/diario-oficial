@@ -12,6 +12,7 @@ interface TableProps {
   setPage: any;
   page: any;
   downloadButton?: boolean;
+  total?: number;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -21,19 +22,26 @@ const Table: React.FC<TableProps> = ({
   setPage,
   page,
   downloadButton,
+  total,
 }) => {
   const [currentPage] = useState<number>(1);
 
-  const handleTemplate = () => {};
+  console.log("data: ", data);
+  const handleDownloadFile = (file: string) => {
+    // Assuming 'file' is the URL you want to download
+    const a = document.createElement("a");
+    a.href = file;
+    a.download = "downloadedFile.pdf"; // Change the filename as needed
+    a.click();
+  };
 
   const handlePageChange = (page: number) => {
-    console.log("a");
     setPage(page);
   };
 
   const customItemRender = (current: number, type: string) => {
     if (type === "page") {
-      return current === currentPage ? <span>{current}</span> : null;
+      return current === currentPage ? <span>{page}</span> : null;
     }
     if (type === "prev") {
       return <Button className={styles.backButton}>Voltar</Button>;
@@ -51,7 +59,7 @@ const Table: React.FC<TableProps> = ({
         {downloadButton && (
           <Button
             className={styles.downloadButton}
-            onClick={handleTemplate}
+            onClick={handleDownloadFile}
             alt="Baixar template"
           >
             <MdDownload size={24} />
@@ -70,8 +78,19 @@ const Table: React.FC<TableProps> = ({
           {data.map((row: any, rowIndex: any) => (
             <div key={rowIndex} className={styles.tableRow}>
               {columns.map((column: any, columnIndex: any) => (
-                <div key={columnIndex} className={styles.tableCell}>
-                  {row[column.property]}
+                <div key={columnIndex} className={styles.row}>
+                  {column.property === "presigned_url" ? (
+                    <Button
+                      onClick={() => handleDownloadFile(row[column.property])}
+                      className={`${styles.button} ${styles.download}`}
+                    >
+                      <MdDownload size={24} />
+                    </Button>
+                  ) : (
+                    <div className={styles.tableCell}>
+                      {row[column.property]}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -82,8 +101,8 @@ const Table: React.FC<TableProps> = ({
         <Pagination
           current={page}
           onChange={handlePageChange}
-          total={data.length}
-          pageSize={1}
+          total={total}
+          pageSize={3} // i think its to allow or not the next button
           className={styles.customPagination}
           itemRender={customItemRender}
         />

@@ -41,7 +41,7 @@ export const { getPublic, getPublicSuccess, getPublicFailure } =
 export default publicSlice.reducer;
 
 export const fetchPublic =
-  () =>
+  (page: string) =>
   async (
     dispatch: (arg0: {
       payload: any;
@@ -53,8 +53,8 @@ export const fetchPublic =
   ) => {
     dispatch(getPublic());
     try {
-      const response = await services.getPublic();
-      dispatch(getPublicSuccess(response.data.posts));
+      const response = await services.getPublic(page);
+      dispatch(getPublicSuccess(response.data));
     } catch (err) {
       console.log("err: ", err);
       dispatch(getPublicFailure());
