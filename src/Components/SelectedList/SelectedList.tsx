@@ -18,25 +18,25 @@ interface iChoiceList {
 }
 
 const ChoiceList: React.FC<iChoiceList> = ({
-  setList,
-  list = [],
-  placeholder,
-  isType,
-  field,
-  onFocus,
-  onBlur,
-  value,
-  readOnly,
-  className,
-  classNameDiv,
-  ...props
-}) => {
+                                             setList,
+                                             list = [],
+                                             placeholder,
+                                             isType,
+                                             field,
+                                             onFocus,
+                                             onBlur,
+                                             value,
+                                             readOnly,
+                                             className,
+                                             classNameDiv,
+                                             ...props
+                                           }) => {
   const handleAddItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const inputValue = e.currentTarget.value.trim();
     if (e.key === "Enter" && inputValue !== "") {
       setList((prev: any) => ({
         ...prev,
-        [field]: [...(prev[field] || []), inputValue],
+        [field]: [...(Array.isArray(prev[field]) ? prev[field] : []), inputValue],
       }));
       e.currentTarget.value = "";
       e.preventDefault();
@@ -46,8 +46,8 @@ const ChoiceList: React.FC<iChoiceList> = ({
   const removeItem = (keyword: string) => {
     setList((prev: any) => {
       const updatedKeywords = Array.isArray(prev[field])
-        ? [...prev[field]]
-        : [];
+          ? [...prev[field]]
+          : [];
       const index = updatedKeywords.indexOf(keyword);
       if (index !== -1) {
         updatedKeywords.splice(index, 1);
@@ -60,36 +60,39 @@ const ChoiceList: React.FC<iChoiceList> = ({
     });
   };
 
-  return (
-    <div>
-      <Input
-        className={`${styles.input} ${className}`}
-        onKeyPress={handleAddItem}
-        name={field}
-        placeholder={placeholder}
-        onFocus={isType ? onFocus : null}
-        onBlur={isType ? onBlur : null}
-        value={value}
-        readOnly={readOnly}
-        {...props}
-      />
+  // Check if list is an array, if not, convert it to an array
+  const listArray = Array.isArray(list) ? list : [list];
 
-      {list.length > 0 && (
-        <div className={styles.selected}>
-          {list.map((item: string) => (
-            <div key={uuidv4()} className={`${styles.item} ${classNameDiv}`}>
-              {item}
-              <button
-                className={styles.remove}
-                onClick={() => removeItem(item)}
-              >
-                X
-              </button>
+  return (
+      <div>
+        <Input
+            className={`${styles.input} ${className}`}
+            onKeyPress={handleAddItem}
+            name={field}
+            placeholder={placeholder}
+            onFocus={isType ? onFocus : null}
+            onBlur={isType ? onBlur : null}
+            value={value}
+            readOnly={readOnly}
+            {...props}
+        />
+
+        {listArray.length > 0 && (
+            <div className={styles.selected}>
+              {listArray.map((item: string) => (
+                  <div key={uuidv4()} className={`${styles.item} ${classNameDiv}`}>
+                    {item}
+                    <button
+                        className={styles.remove}
+                        onClick={() => removeItem(item)}
+                    >
+                      X
+                    </button>
+                  </div>
+              ))}
             </div>
-          ))}
-        </div>
-      )}
-    </div>
+        )}
+      </div>
   );
 };
 

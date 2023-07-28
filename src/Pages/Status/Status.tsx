@@ -9,14 +9,17 @@ import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
 import { MdUpload } from "react-icons/md";
 import { optionsType } from "../../Components/Helper";
+import { fetchPost } from "../../Services/Slices/postSlice";
+import { useDispatch } from "react-redux";
 
 const Status = () => {
+  const dispatch = useDispatch();
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [page, setPage] = useState<number | string>();
   const [selectedRange, setSelectedRange] = useState<any>({
-    file: File,
-    type: [],
-    date: new Date(),
+    file: null,
+    type: "",
+    date: "",
     time: "",
     code: "",
   });
@@ -61,7 +64,7 @@ const Status = () => {
       if (Array.isArray(prev[name])) {
         return {
           ...prev,
-          [name]: [[].concat(...prev[name], value)],
+          [name]: [...prev[name], value],
         };
       }
 
@@ -104,24 +107,40 @@ const Status = () => {
     if (!selectedRange.type.includes(option)) {
       setSelectedRange((prevRange: any) => ({
         ...prevRange,
-        type: [].concat(...selectedRange.type, option),
+        type: [...prevRange.type, option],
       }));
     }
   };
 
-  useEffect(() => {
-    // dispatch(fetchExample(page));
-  }, []);
+  useEffect(() => {}, []);
 
-  const handleSubmit = () => {
-    console.log("selectedRange:", selectedRange);
-    setSelectedRange({
-      file: File,
-      type: [],
-      date: new Date(),
-      time: "",
-      code: "",
-    });
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    setSelectedFile(file);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!selectedFile) {
+      console.error("No file selected");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    formData.append("post_type", "Ato,Portaria");
+    formData.append("date", "28-07-2023");
+    formData.append("time", "08:40");
+    formData.append("number", "01120");
+
+    try {
+      await dispatch<any>(fetchPost(formData));
+    } catch (err) {
+      console.log("err: ", err);
+    }
   };
 
   const loading = false;
@@ -132,90 +151,85 @@ const Status = () => {
   if (error) return <Error size="3rem" label={`Erro ${error}`} />;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.postContainer}>
-        <label className={styles.fakeInput} htmlFor="file">
-          <MdUpload size={24} />
-        </label>
-        <Input
-          className={styles.file}
-          type="file"
-          id="file"
-          name="file"
-          onChange={handleChange}
-        />
-        <ChoiceList
-          placeholder="Tipo"
-          field="type"
-          list={selectedRange.type}
-          setList={setSelectedRange}
-          onFocus={handleInputChange}
-          onBlur={handleBlur}
-          isType
-          readOnly
-        />
-        {showOptions && (
-          <div className={styles.list}>
-            {optionsType.map((option: any) => (
-              <button
-                className={`${styles.option} ${
-                  selectedRange.type.includes(option)
-                    ? styles.selectedOption
-                    : ""
-                }`}
-                key={uuidv4()}
-                value={option}
-                onClick={handleOption}
-              >
-                {option}
-              </button>
-            ))}
+      <div className={styles.container}>
+        <div className={styles.postContainer}>
+          <label className={styles.fakeInput} htmlFor="file">
+            <MdUpload size={24} />
+          </label>
+          <Input
+              className={styles.file}
+              type="file"
+              id="file"
+              name="file"
+              onChange={handleFileChange}
+          />
+          <ChoiceList
+              placeholder="Tipo"
+              field="type"
+              list={selectedRange.type}
+              setList={setSelectedRange}
+              onFocus={handleInputChange}
+              onBlur={handleBlur}
+              isType
+              readOnly
+          />
+          {showOptions && (
+              <div className={styles.list}>
+                {optionsType.map((option: any) => (
+                    <button
+                        className={`${styles.option} ${
+                            selectedRange.type.includes(option) ? styles.selectedOption : ""
+                        }`}
+                        key={uuidv4()}
+                        value={option}
+                        onClick={handleOption}
+                    >
+                      {option}
+                    </button>
+                ))}
+              </div>
+          )}
+          <div>
+            <Input
+                className={styles.date}
+                type="date"
+                name="date"
+                value={selectedRange.date}
+                onChange={handleChange}
+            />
+            <Input
+                className={styles.time}
+                name="time"
+                value={selectedRange.time}
+                onChange={handleTime}
+                placeholder="Horario"
+            />
           </div>
-        )}
-        <div>
-          <Input
-            className={styles.date}
-            type="date"
-            name="date"
-            value={selectedRange.date}
-            onChange={handleChange}
-          />
-          <Input
-            className={styles.time}
-            name="time"
-            value={selectedRange.time}
-            onChange={handleTime}
-            placeholder="Horario"
-          />
+          <div className={styles.lastColumn}>
+            <Input
+                className={`${styles.input} ${styles.code}`}
+                placeholder="Código"
+                value={selectedRange.code}
+                onChange={handleChange}
+                name="code"
+            />
+            <Button className={`${styles.button} ${styles.schedule}`} onClick={handleSubmit}>
+              Agendar
+            </Button>
+          </div>
         </div>
-        <div className={styles.lastColumn}>
-          <Input
-            className={`${styles.input} ${styles.code}`}
-            placeholder="Código"
-            value={selectedRange.code}
-            onChange={handleChange}
-            name="code"
-          />
-          <Button
-            className={`${styles.button} ${styles.schedule}`}
-            onClick={handleSubmit}
-          >
-            Agendar
-          </Button>
-        </div>
-      </div>
 
-      <div className={styles.table}>
-        <Table
-          title="Status dos agendamentos"
-          columns={columns}
-          data={data}
-          setPage={setPage}
-          page={page}
-          downloadButton
-        />
+        <div className={styles.table}>
+          <Table
+              title="Status dos agendamentos"
+              columns={columns}
+              data={data}
+              setPage={setPage}
+              page={page}
+              downloadButton
+          />
+        </div>
       </div>
-    </div>
   );
 };
 

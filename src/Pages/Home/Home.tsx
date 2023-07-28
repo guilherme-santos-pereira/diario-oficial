@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import Search from "../../Components/Search/Search";
 import News from "../../Components/News/News";
-import { useSelector } from "react-redux";
 import Table from "../../Components/Table/Table";
 import Loading from "../../Components/Loading/Loading";
 import Error from "../../Components/Error/Error";
