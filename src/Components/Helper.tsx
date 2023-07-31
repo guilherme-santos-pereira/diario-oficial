@@ -87,3 +87,51 @@ export function handleExtract(data: iContent[], setContent: any) {
     setContent((prev: any) => [...prev, extractedInfo]);
   });
 }
+
+export function handleExtractUrl(urls: string[], setContent: any) {
+  const currentTime = new Date();
+
+  urls?.forEach((presigned_url) => {
+    const dateRegex = /date%3D([^&]+)/;
+    const hourRegex = /hour%3D([^&]+)/;
+    const fileNameRegex = /file%3D([^&]+)/;
+
+    const dateMatch = presigned_url.match(dateRegex);
+    const hourMatch = presigned_url.match(hourRegex);
+    const fileNameMatch = presigned_url.match(fileNameRegex);
+
+    if (dateMatch && fileNameMatch) {
+      let date = decodeURIComponent(dateMatch[1]).replace(/-/g, "/");
+      let hour = hourMatch ? decodeURIComponent(hourMatch[1]) : "";
+      let fileName = decodeURIComponent(fileNameMatch[1]);
+
+      const questionMarkIndex = fileName.indexOf(".pdf");
+      if (questionMarkIndex !== -1) {
+        fileName = fileName.substring(0, questionMarkIndex).replace("_", " ");
+      }
+
+      const tripleDashMarkIndex = hour.indexOf("---");
+      if (tripleDashMarkIndex !== -1) {
+        hour = hour.substring(0, tripleDashMarkIndex);
+      }
+
+      const tripleQuestionMarkIndex = date.indexOf("///");
+      if (tripleQuestionMarkIndex !== -1) {
+        date = date.substring(0, tripleQuestionMarkIndex);
+      }
+
+      const extractedInfo = {
+        date,
+        hour: hour ? hour : "00:00",
+        fileName,
+        presigned_url,
+      };
+
+      const extractedHour = new Date(date + " " + hour);
+
+      if (extractedHour < currentTime) {
+        setContent((prev: any) => [...prev, extractedInfo]);
+      }
+    }
+  });
+}

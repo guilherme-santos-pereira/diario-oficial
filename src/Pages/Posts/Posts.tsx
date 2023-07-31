@@ -4,7 +4,7 @@ import Loading from "../../Components/Loading/Loading";
 import Table from "../../Components/Table/Table";
 import styles from "./Posts.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPublic } from "../../Services/Slices/publicSlice";
+import { fetchAllPosts } from "../../Services/Slices/allPostsSlice";
 import { handleExtract } from "../../Components/Helper";
 
 interface iContent {
@@ -23,9 +23,8 @@ const Posts = () => {
   const [extracted, setExtracted] = useState<iExtracted[]>([]);
   const [page, setPage] = useState<number>(1);
   const { data, loading, error } = useSelector(
-    (state: any) => state.publicSlice
+    (state: any) => state.allPostsSlice
   );
-
   const columns = [
     { title: "Edição", property: "edition" },
     { title: "Data", property: "date" },
@@ -33,7 +32,7 @@ const Posts = () => {
   ];
 
   useEffect(() => {
-    dispatch<any>(fetchPublic(page.toString()));
+    dispatch<any>(fetchAllPosts(page.toString()));
   }, [page]);
 
   useEffect(() => {
