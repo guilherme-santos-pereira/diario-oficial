@@ -23,7 +23,7 @@ const Posts = () => {
   const [extracted, setExtracted] = useState<iExtracted[]>([]);
   const [page, setPage] = useState<number>(1);
   const { data, loading, error } = useSelector(
-    (state: any) => state.AllPostsSlice
+    (state: any) => state.allPostsSlice
   );
   const columns = [
     { title: "Edição", property: "edition" },

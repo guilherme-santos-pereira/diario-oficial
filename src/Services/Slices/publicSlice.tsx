@@ -54,7 +54,7 @@ export const fetchPublic =
     dispatch(getPublic());
     try {
       const response = await services.getPublic(page);
-      dispatch(getPublicSuccess(response));
+      dispatch(getPublicSuccess(response.data));
     } catch (err) {
       console.log("err: ", err);
       dispatch(getPublicFailure());

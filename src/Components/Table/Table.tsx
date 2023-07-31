@@ -26,7 +26,6 @@ const Table: React.FC<TableProps> = ({
 }) => {
   const [currentPage] = useState<number>(1);
 
-  console.log("total: ", total);
   const handleDownloadFile = (file: string) => {
     // Assuming 'file' is the URL you want to download
     const a = document.createElement("a");

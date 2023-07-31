@@ -9,60 +9,78 @@ import { useDispatch } from "react-redux";
 
 const Search = () => {
   const [selectedRange, setSelectedRange] = useState<any>({
-    start: new Date(),
-    end: new Date(),
-    keyword: [],
-    code: "",
-    type: [],
-    searchType: false,
+    start_date: "",
+    end_date: "",
+    post_type: [],
+    post_code: "",
+    words: [],
+    exact_words: false,
   });
   const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
-    const { name, value } = e.target;
-    setSelectedRange((prev: any) => {
-      if (Array.isArray(prev[name])) {
+    const { name, value, type, checked } = e.target;
+    console.log("checked: ", checked);
+    console.log("name: ", name);
+
+    if (type === "checkbox") {
+      setSelectedRange((prev: any) => ({
+        ...prev,
+        [name]: checked,
+      }));
+    } else {
+      setSelectedRange((prev: any) => {
+        if (Array.isArray(prev[name])) {
+          return {
+            ...prev,
+            [name]: [...prev[name], value],
+          };
+        }
+
         return {
           ...prev,
-          [name]: [...prev[name], value],
+          [name]: value,
         };
-      }
-
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
+      });
+    }
   };
 
   const handleSubmit = () => {
     dispatch<any>(fetchPublic(selectedRange));
+    setSelectedRange({
+      start_date: "",
+      end_date: "",
+      post_type: [],
+      post_code: "",
+      words: [],
+      exact_words: false,
+    });
   };
 
   return (
     <div
       className={styles.container}
       onKeyUp={(e) =>
-        handleKeyPress(e, handleSubmit, "Enter", ["keyword", "type"])
+        handleKeyPress(e, handleSubmit, "Enter", ["words", "post_type"])
       }
     >
-      <div className={styles.calendar}>
+      <div className={styles.calend_datear}>
         <Input
           className={styles.date}
           type="date"
-          name="start"
+          name="start_date"
           onChange={handleChange}
         />
         <Input
           className={styles.date}
           type="date"
-          name="end"
+          name="end_date"
           onChange={handleChange}
         />
       </div>
       <SelectedList
         placeholder="Palavra-chave"
-        field="keyword"
+        field="words"
         list={selectedRange}
         setList={setSelectedRange}
       />
@@ -70,7 +88,7 @@ const Search = () => {
       <div className={styles.type}>
         <SelectedList
           placeholder="Tipo"
-          field="type"
+          field="post_type"
           list={selectedRange}
           setList={setSelectedRange}
           options={optionsType}
@@ -78,10 +96,10 @@ const Search = () => {
           readOnly
         />
       </div>
-      <div className={styles.calendar}>
+      <div className={styles.calend_datear}>
         <Input
           className={styles.code}
-          name="code"
+          name="post_code"
           onChange={handleChange}
           placeholder="Código do diário"
         />
@@ -94,14 +112,8 @@ const Search = () => {
           >
             <div className={styles.checkbox}>
               <Input
-                name="searchType"
-                value={selectedRange.searchType}
-                onClick={() =>
-                  setSelectedRange((prev: any) => ({
-                    ...prev,
-                    searchType: !selectedRange.searchType,
-                  }))
-                }
+                name="exact_words"
+                onChange={handleChange}
                 type="checkbox"
               />
               <label>Exato</label>

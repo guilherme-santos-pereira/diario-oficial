@@ -14,7 +14,7 @@ const Footer = () => {
               <br />
               <strong>Objetivo:</strong> Atualizar a comunidade de forma pratica
               sobre as noticias que acontecem na defensoria publica de SC <br />
-              <strong>Novos posts:</strong> Dias úteis: 00:00 <br />
+              <strong>Publicações:</strong> Dias úteis: 00:00 <br />
             </p>
           </div>
           <div className={styles.content}>

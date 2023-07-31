@@ -70,12 +70,37 @@ const services = {
   },
   getPublic: async (body: any) => {
     console.log("body: ", body);
-    // return axios
-    //   .get(`${PATH.base}/search-files/`, defaultHeaders)
-    //   .then((data: any) => {
-    //     return data;
-    //   })
-    //   .catch((err: any) => console.log(err));
+
+    const queryString = [
+      body.start_date && `start_date=${body.start_date}`,
+      body.end_date && `end_date=${body.end_date}`,
+      body.post_type &&
+        Array.isArray(body.post_type) &&
+        body.post_type.length > 0 &&
+        body.post_type.map((type: string) => `post_type=${type}`),
+      body.post_code &&
+        Array.isArray(body.post_code) &&
+        body.post_code.length > 0 &&
+        body.post_code.map((code: string) => `post_code=${code}`),
+      body.words &&
+        Array.isArray(body.words) &&
+        body.words.length > 0 &&
+        body.words.map((word: string) => `words=${word}`),
+      body.exact_words !== undefined && `exact_words=${body.exact_words}`,
+    ]
+      .filter(Boolean)
+      .flat()
+      .join("&");
+    console.log("queryString: ", queryString);
+    const url = `${PATH.base}/search-files/${
+      queryString.length > 0 ? "?" + queryString : ""
+    }`;
+    return axios
+      .get(url, defaultHeaders)
+      .then((data: any) => {
+        return data;
+      })
+      .catch((err: any) => console.log(err));
   },
 };
 
