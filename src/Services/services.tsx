@@ -48,6 +48,17 @@ const services = {
             })
             .catch((err: any) => console.log(err));
     },
+    getFiles: async (page: string) => {
+        return axios
+            .get(
+                `${PATH.base}/all-files/${page ? `?page=${page}` : ""}`,
+                defaultHeaders
+            )
+            .then((data: any) => {
+                return data;
+            })
+            .catch((err: any) => console.log(err));
+    },
     doPost: async (body: FormData, username?: string, password?: string) => {
         const encodedCredentials = btoa(`${username}:${password}`);
         const headers: AxiosRequestConfig["headers"] = {};
