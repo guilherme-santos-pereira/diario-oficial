@@ -41,7 +41,7 @@ export const { getAllPosts, getAllPostsSuccess, getAllPostsFailure } =
 export default allPostsSlice.reducer;
 
 export const fetchAllPosts =
-  (page: string) =>
+  (page: string, auth: boolean) =>
   async (
     dispatch: (arg0: {
       payload: any;
@@ -53,7 +53,7 @@ export const fetchAllPosts =
   ) => {
     dispatch(getAllPosts());
     try {
-      const response = await services.getAllPosts(page);
+      const response = await services.getAllPosts(page, auth);
       dispatch(getAllPostsSuccess(response.data));
     } catch (err) {
       console.log("err: ", err);

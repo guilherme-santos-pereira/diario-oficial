@@ -65,18 +65,24 @@ const Search = () => {
       }
     >
       <div className={styles.calend_datear}>
-        <Input
-          className={styles.date}
-          type="date"
-          name="start_date"
-          onChange={handleChange}
-        />
-        <Input
-          className={styles.date}
-          type="date"
-          name="end_date"
-          onChange={handleChange}
-        />
+        <div>
+          <label>De: </label>
+          <Input
+            className={styles.date}
+            type="date"
+            name="start_date"
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Até: </label>
+          <Input
+            className={styles.date}
+            type="date"
+            name="end_date"
+            onChange={handleChange}
+          />
+        </div>
       </div>
       <SelectedList
         placeholder="Palavra-chave"

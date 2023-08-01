@@ -162,7 +162,7 @@ const Status = () => {
         }
       } catch (err) {}
     };
-    fetchFiles().then(r => {});
+    fetchFiles().then((r) => {});
   }, []);
 
   if (loading) return <Loading size="5rem" type="spin" label="Carregando" />;
@@ -170,72 +170,82 @@ const Status = () => {
   if (error) return <Error size="5rem" label={`Erro ${error}`} />;
 
   return (
-      <div className={styles.container}>
-        <div className={styles.postContainer}>
-          <label style={{ cursor: "pointer" }} className={styles.fakeInput} htmlFor="file">
-            <MdUpload size={24} />
-          </label>
+    <div className={styles.container}>
+      <div className={styles.postContainer}>
+        <label
+          style={{ cursor: "pointer" }}
+          className={styles.fakeInput}
+          htmlFor="file"
+        >
+          <MdUpload size={24} />
+        </label>
+        <Input
+          className={styles.file}
+          type="file"
+          id="file"
+          name="file"
+          onChange={handleFileChange}
+        />
+        {selectedFile && (
+          <div
+            style={{ marginRight: "15px" }}
+            className={styles.selectedFileName}
+          >
+            Arquivo: {selectedFile.name}
+          </div>
+        )}
+        <SelectedList
+          placeholder="Tipo"
+          field="type"
+          list={selectedRange}
+          setList={setSelectedRange}
+          options={optionsType}
+          isType
+          readOnly
+        />
+        <div>
           <Input
-              className={styles.file}
-              type="file"
-              id="file"
-              name="file"
-              onChange={handleFileChange}
+            className={styles.date}
+            type="date"
+            name="date"
+            value={selectedRange.date}
+            onChange={handleChange}
           />
-          {selectedFile && (
-              <div style={{ marginRight: "15px" }} className={styles.selectedFileName}>
-                Arquivo: {selectedFile.name}
-              </div>
-          )}
-          <SelectedList
-              placeholder="Tipo"
-              field="type"
-              list={selectedRange}
-              setList={setSelectedRange}
-              options={optionsType}
-              isType
-              readOnly
+          <Input
+            className={styles.time}
+            name="time"
+            value={selectedRange.time}
+            onChange={handleTime}
+            placeholder="Horario"
           />
-          <div>
-            <Input
-                className={styles.date}
-                type="date"
-                name="date"
-                value={selectedRange.date}
-                onChange={handleChange}
-            />
-            <Input
-                className={styles.time}
-                name="time"
-                value={selectedRange.time}
-                onChange={handleTime}
-                placeholder="Horario"
-            />
-          </div>
-          <div className={styles.lastColumn}>
-            <Input
-                className={`${styles.input} ${styles.code}`}
-                placeholder="Código"
-                value={selectedRange.code}
-                onChange={handleChange}
-                name="code"
-            />
-            <Button className={`${styles.button} ${styles.schedule}`} onClick={handleSubmit}>
-              Agendar
-            </Button>
-          </div>
         </div>
-        <div className={styles.table}>
-          <Table
-              title="Publicacoes Agendadas"
-              columns={columns}
-              data={transformedData}
-              setPage={setPage}
-              page={page}
-              downloadButton
+        <div className={styles.lastColumn}>
+          <Input
+            className={`${styles.input} ${styles.code}`}
+            placeholder="Código"
+            value={selectedRange.code}
+            onChange={handleChange}
+            name="code"
           />
+          <Button
+            className={`${styles.button} ${styles.schedule}`}
+            onClick={handleSubmit}
+          >
+            Agendar
+          </Button>
         </div>
       </div>
+      <div className={styles.table}>
+        <Table
+          title="Publicações Agendadas"
+          columns={columns}
+          data={transformedData}
+          setPage={setPage}
+          page={page}
+          downloadButton
+        />
+      </div>
+    </div>
   );
 };
 
