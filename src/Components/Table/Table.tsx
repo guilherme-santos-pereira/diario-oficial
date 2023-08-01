@@ -3,7 +3,7 @@ import styles from "./Table.module.css";
 import Pagination from "rc-pagination";
 import Button from "../Forms/Button";
 import { MdDownload } from "react-icons/md";
-import { exhibitionDateFormat } from "../Helper";
+import services from "../../Services/services";
 
 interface TableProps {
   title?: string;
@@ -27,10 +27,18 @@ const Table: React.FC<TableProps> = ({
   const [currentPage] = useState<number>(1);
 
   const handleDownloadFile = (file: string) => {
-    // Assuming 'file' is the URL you want to download
     const a = document.createElement("a");
     a.href = file;
-    a.download = "downloadedFile.pdf"; // Change the filename as needed
+    a.download = "downloadedFile.pdf";
+    a.click();
+  };
+
+  const handleDownloadTemplate = async () => {
+    const file_name = "DIÁRIO OFICIAL Modelo.docx"
+    const file = await services.downloadFiles(file_name)
+    const a = document.createElement("a");
+    a.href = file.data.url;
+    a.download = "template.pdf";
     a.click();
   };
 
@@ -58,7 +66,7 @@ const Table: React.FC<TableProps> = ({
         {downloadButton && (
           <Button
             className={styles.downloadButton}
-            onClick={handleDownloadFile}
+            onClick={handleDownloadTemplate}
             alt="Baixar template"
           >
             <MdDownload size={24} />
@@ -101,7 +109,7 @@ const Table: React.FC<TableProps> = ({
           current={page}
           onChange={handlePageChange}
           total={total}
-          pageSize={3} // i think its to allow or not the next button
+          pageSize={3}
           className={styles.customPagination}
           itemRender={customItemRender}
         />
