@@ -126,6 +126,7 @@ const Status = () => {
 
   const handleDeleteFile = async (file: string) => {
     try {
+      setLoading(true);
       await services.deleteFiles(file);
       const response = await services.getFiles("1");
       if (Array.isArray(response.data.results)) {
@@ -133,7 +134,10 @@ const Status = () => {
       } else {
         setData([]);
       }
-    } catch (err) {}
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+    }
   };
 
   const transformedData = data.map((item: any) => {
@@ -200,10 +204,7 @@ const Status = () => {
               onChange={handleFileChange}
           />
           {selectedFile && (
-              <div
-                  style={{ marginRight: "15px" }}
-                  className={styles.selectedFileName}
-              >
+              <div style={{ marginRight: "15px" }} className={styles.selectedFileName}>
                 Arquivo: {selectedFile.name}
               </div>
           )}
@@ -249,14 +250,18 @@ const Status = () => {
           </div>
         </div>
         <div className={styles.table}>
-          <Table
-              title="Publicações Agendadas"
-              columns={columns}
-              data={transformedData}
-              setPage={setPage}
-              page={page}
-              downloadButton
-          />
+          {loading ? (
+              <Loading size="5rem" type="spin" label="Carregando" />
+          ) : (
+              <Table
+                  title="Publicações Agendadas"
+                  columns={columns}
+                  data={transformedData}
+                  setPage={setPage}
+                  page={page}
+                  downloadButton
+              />
+          )}
         </div>
       </div>
   );
