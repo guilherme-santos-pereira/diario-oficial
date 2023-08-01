@@ -31,23 +31,19 @@ const Home = () => {
   useEffect(() => {
     dispatch<any>(fetchAllPosts(page.toString(), false));
   }, [page, dispatch]);
-
+  console.log("response: ", response);
   useEffect(() => {
     if (allPostsResponse.data) {
       setExtracted([]);
       handleExtract(allPostsResponse.data.results, setExtracted);
     }
   }, [allPostsResponse.data, dispatch]);
-  console.log("extracted: ", extracted);
 
   if (response.loading || allPostsResponse.loading)
     return <Loading size="5rem" type="spin" label="Carregando" />;
   if (response.error || allPostsResponse.error)
     return (
-      <Error
-        size="5rem"
-        label={`Erro ${response.error || allPostsResponse.error}`}
-      />
+      <Error size="5rem" label="Erro ao carregar a página. Tente novamente" />
     );
 
   return (
