@@ -6,7 +6,7 @@ import SelectedList from "../../Components/SelectedList/SelectedList";
 import Table from "../../Components/Table/Table";
 import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
-import { MdUpload } from "react-icons/md";
+import { MdUpload, MdDelete } from "react-icons/md";
 import { optionsType } from "../../Components/Helper";
 import { fetchPost } from "../../Services/Slices/postSlice";
 import { useDispatch } from "react-redux";
@@ -28,7 +28,7 @@ const Status = () => {
     { title: "Nome", property: "name" },
     { title: "Data", property: "date" },
     { title: "Arquivo", property: "presigned_url" },
-    { title: "Excluir", property: "" },
+    { title: "Excluir", property: "delete" },
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
@@ -117,6 +117,18 @@ const Status = () => {
   const loading = false;
   const error = false;
 
+  const handleDeleteFile = async (file: string) => {
+    try {
+      await services.deleteFiles(file);
+      const response = await services.getFiles("1");
+      if (Array.isArray(response.data.results)) {
+        setData(response.data.results);
+      } else {
+        setData([]);
+      }
+    } catch (err) {}
+  };
+
   const transformedData = data.map((item: any) => {
     const fileNameMatch = item.file_name.match(/name=(.*?)\./);
     const fileName = fileNameMatch ? fileNameMatch[1] : "Unknown File";
@@ -131,6 +143,11 @@ const Status = () => {
       name: newFileName,
       date: date,
       presigned_url: item.presigned_url,
+      delete: (
+          <label style={{ cursor: "pointer", display: "flex", alignItems: "center" }} className={styles.fakeInput}>
+            <MdDelete onClick={() => handleDeleteFile(item.file_name.replace('files/', ''))} size={24} style={{ marginLeft: "0px" }} />
+          </label>
+      ),
     };
   });
 

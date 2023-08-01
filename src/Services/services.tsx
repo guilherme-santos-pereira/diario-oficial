@@ -20,6 +20,22 @@ const services = {
             })
             .catch((err: any) => console.log(err));
     },
+    deleteFiles: async (file: string) => {
+        return axios
+            .get(`${PATH.base}/delete-files/?file=${file}`, defaultHeaders)
+            .then((data: any) => {
+                return data;
+            })
+            .catch((err: any) => console.log(err));
+    },
+    downloadFiles: async (file: string) => {
+        return axios
+            .get(`${PATH.base}/download-files/?directory=templates&file=${file}`, defaultHeaders)
+            .then((data: any) => {
+                return data;
+            })
+            .catch((err: any) => console.log(err));
+    },
     getMe: async (body: { username: string; password: string }) => {
         const headers = body.username && body.password
             ? {
