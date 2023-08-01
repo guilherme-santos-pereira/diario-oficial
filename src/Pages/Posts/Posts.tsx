@@ -7,11 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllPosts } from "../../Services/Slices/allPostsSlice";
 import { handleExtract } from "../../Components/Helper";
 
-interface iContent {
-  file_name: string;
-  presigned_url: string;
-}
-
 interface iExtracted {
   edition: string;
   date: string;
@@ -32,8 +27,8 @@ const Posts = () => {
   ];
 
   useEffect(() => {
-    dispatch<any>(fetchAllPosts(page.toString()));
-  }, [page]);
+    dispatch<any>(fetchAllPosts(page.toString(), true));
+  }, [page, dispatch]);
 
   useEffect(() => {
     if (data) {

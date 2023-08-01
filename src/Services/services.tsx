@@ -48,11 +48,11 @@ const services = {
       })
       .catch((err: any) => console.log(err));
   },
-  getAllPosts: async (page: string) => {
+  getAllPosts: async (page: string, auth: boolean) => {
     return axios
       .get(
         `${PATH.base}/all-posts/${page ? `?page=${page}` : ""}`,
-        defaultHeaders
+        auth ? defaultHeaders : undefined
       )
       .then((data: any) => {
         return data;
@@ -80,8 +80,6 @@ const services = {
     }
   },
   getPublic: async (body: any) => {
-    console.log("body: ", body);
-
     const queryString = [
       body.start_date && `start_date=${body.start_date}`,
       body.end_date && `end_date=${body.end_date}`,
@@ -102,12 +100,11 @@ const services = {
       .filter(Boolean)
       .flat()
       .join("&");
-    console.log("queryString: ", queryString);
     const url = `${PATH.base}/search-files/${
       queryString.length > 0 ? "?" + queryString : ""
     }`;
     return axios
-      .get(url, defaultHeaders)
+      .get(url)
       .then((data: any) => {
         return data;
       })
