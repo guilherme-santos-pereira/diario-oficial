@@ -23,6 +23,9 @@ const Status = () => {
     code: "",
   });
   const [data, setData] = useState<any[]>([]);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const columns = [
     { title: "Nome", property: "name" },
@@ -81,8 +84,6 @@ const Status = () => {
     }));
   };
 
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
     setSelectedFile(file);
@@ -110,12 +111,18 @@ const Status = () => {
     formData.append("number", selectedRange.code);
 
     try {
-      await dispatch<any>(fetchPost(formData));
-    } catch (err) {}
-  };
+      setLoading(true);
+      setError(false);
 
-  const loading = false;
-  const error = false;
+      await dispatch<any>(fetchPost(formData));
+
+      setLoading(false);
+      window.location.reload();
+    } catch (err) {
+      setLoading(false);
+      setError(true);
+    }
+  };
 
   const handleDeleteFile = async (file: string) => {
     try {
@@ -144,8 +151,15 @@ const Status = () => {
       date: date,
       presigned_url: item.presigned_url,
       delete: (
-          <label style={{ cursor: "pointer", display: "flex", alignItems: "center" }} className={styles.fakeInput}>
-            <MdDelete onClick={() => handleDeleteFile(item.file_name.replace('files/', ''))} size={24} style={{ marginLeft: "0px" }} />
+          <label
+              style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+              className={styles.fakeInput}
+          >
+            <MdDelete
+                onClick={() => handleDeleteFile(item.file_name.replace("files/", ""))}
+                size={24}
+                style={{ marginLeft: "0px" }}
+            />
           </label>
       ),
     };
@@ -166,86 +180,85 @@ const Status = () => {
   }, []);
 
   if (loading) return <Loading size="5rem" type="spin" label="Carregando" />;
-
   if (error) return <Error size="5rem" label={`Erro ${error}`} />;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.postContainer}>
-        <label
-          style={{ cursor: "pointer" }}
-          className={styles.fakeInput}
-          htmlFor="file"
-        >
-          <MdUpload size={24} />
-        </label>
-        <Input
-          className={styles.file}
-          type="file"
-          id="file"
-          name="file"
-          onChange={handleFileChange}
-        />
-        {selectedFile && (
-          <div
-            style={{ marginRight: "15px" }}
-            className={styles.selectedFileName}
+      <div className={styles.container}>
+        <div className={styles.postContainer}>
+          <label
+              style={{ cursor: "pointer" }}
+              className={styles.fakeInput}
+              htmlFor="file"
           >
-            Arquivo: {selectedFile.name}
+            <MdUpload size={24} />
+          </label>
+          <Input
+              className={styles.file}
+              type="file"
+              id="file"
+              name="file"
+              onChange={handleFileChange}
+          />
+          {selectedFile && (
+              <div
+                  style={{ marginRight: "15px" }}
+                  className={styles.selectedFileName}
+              >
+                Arquivo: {selectedFile.name}
+              </div>
+          )}
+          <SelectedList
+              placeholder="Tipo"
+              field="type"
+              list={selectedRange}
+              setList={setSelectedRange}
+              options={optionsType}
+              isType
+              readOnly
+          />
+          <div>
+            <Input
+                className={styles.date}
+                type="date"
+                name="date"
+                value={selectedRange.date}
+                onChange={handleChange}
+            />
+            <Input
+                className={styles.time}
+                name="time"
+                value={selectedRange.time}
+                onChange={handleTime}
+                placeholder="Horario"
+            />
           </div>
-        )}
-        <SelectedList
-          placeholder="Tipo"
-          field="type"
-          list={selectedRange}
-          setList={setSelectedRange}
-          options={optionsType}
-          isType
-          readOnly
-        />
-        <div>
-          <Input
-            className={styles.date}
-            type="date"
-            name="date"
-            value={selectedRange.date}
-            onChange={handleChange}
-          />
-          <Input
-            className={styles.time}
-            name="time"
-            value={selectedRange.time}
-            onChange={handleTime}
-            placeholder="Horario"
+          <div className={styles.lastColumn}>
+            <Input
+                className={`${styles.input} ${styles.code}`}
+                placeholder="Código"
+                value={selectedRange.code}
+                onChange={handleChange}
+                name="code"
+            />
+            <Button
+                className={`${styles.button} ${styles.schedule}`}
+                onClick={handleSubmit}
+            >
+              Agendar
+            </Button>
+          </div>
+        </div>
+        <div className={styles.table}>
+          <Table
+              title="Publicações Agendadas"
+              columns={columns}
+              data={transformedData}
+              setPage={setPage}
+              page={page}
+              downloadButton
           />
         </div>
-        <div className={styles.lastColumn}>
-          <Input
-            className={`${styles.input} ${styles.code}`}
-            placeholder="Código"
-            value={selectedRange.code}
-            onChange={handleChange}
-            name="code"
-          />
-          <Button
-            className={`${styles.button} ${styles.schedule}`}
-            onClick={handleSubmit}
-          >
-            Agendar
-          </Button>
-        </div>
       </div>
-      <div className={styles.table}>
-        <Table
-          title="Publicações Agendadas"
-          columns={columns}
-          data={transformedData}
-          setPage={setPage}
-          page={page}
-          downloadButton
-        />
-      </div>
-    </div>
   );
 };
 
