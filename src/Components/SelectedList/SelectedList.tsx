@@ -103,7 +103,10 @@ const SelectedList: React.FC<iSelectedList> = ({
               }`}
               key={uuidv4()}
               value={option}
-              onClick={handleOption}
+              onClick={(e) => {
+                console.log("clicked");
+                handleOption(e);
+              }}
             >
               {option}
             </button>
