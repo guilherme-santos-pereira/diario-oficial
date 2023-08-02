@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./SelectedList.module.css";
 import Input from "../Forms/Input";
 import { v4 as uuidv4 } from "uuid";
+import { MdDelete } from "react-icons/md";
 
 interface iSelectedList {
   setList: any;
@@ -30,6 +31,27 @@ const SelectedList: React.FC<iSelectedList> = ({
   ...props
 }) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
+  const optionsType = [
+    "Ato",
+    "Avisos",
+    "Circular",
+    "Concursos",
+    "Contrato",
+    "Deliberação",
+    "Dispensa de Licitação",
+    "Edital",
+    "Errata de Publicação",
+    "Extrato",
+    "Inexigibilidade de Licitação",
+    "Licitação",
+    "Manifestação",
+    "Portaria",
+    "Provimento",
+    "Relatório",
+    "Resolução",
+    "Resultados",
+    "Súmulas",
+  ];
 
   const handleAddItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const inputValue = e.currentTarget.value.trim();
@@ -61,7 +83,9 @@ const SelectedList: React.FC<iSelectedList> = ({
   };
 
   const handleInputChange = () => {
-    setShowOptions(true);
+    setTimeout(() => {
+      setShowOptions(true);
+    }, 75);
   };
 
   const handleBlur = () => {
@@ -78,6 +102,7 @@ const SelectedList: React.FC<iSelectedList> = ({
         [field]: [].concat(...prevRange[field], option),
       }));
     }
+    setShowOptions(false);
   };
 
   return (
@@ -87,8 +112,12 @@ const SelectedList: React.FC<iSelectedList> = ({
         onKeyPress={handleAddItem}
         name={field}
         placeholder={placeholder}
-        onFocus={isType && handleInputChange}
-        onBlur={isType && handleBlur}
+        onFocus={
+          isType &&
+          (() => {
+            setShowOptions(true);
+          })
+        }
         value={value}
         readOnly={readOnly}
         {...props}
@@ -96,17 +125,14 @@ const SelectedList: React.FC<iSelectedList> = ({
 
       {showOptions && (
         <div className={styles.list}>
-          {options?.map((option: any) => (
+          {optionsType?.map((option: any) => (
             <button
               className={`${styles.option} ${
                 list[field]?.includes(option) ? styles.selectedOption : ""
               }`}
               key={uuidv4()}
               value={option}
-              onClick={(e) => {
-                console.log("clicked");
-                handleOption(e);
-              }}
+              onClick={handleOption}
             >
               {option}
             </button>
@@ -123,7 +149,7 @@ const SelectedList: React.FC<iSelectedList> = ({
                 className={styles.remove}
                 onClick={() => removeItem(item)}
               >
-                X
+                <MdDelete size={18} />
               </button>
             </div>
           ))}

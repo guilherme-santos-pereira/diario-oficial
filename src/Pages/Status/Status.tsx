@@ -14,7 +14,7 @@ import services from "../../Services/services";
 
 const Status = () => {
   const dispatch = useDispatch();
-  const [page, setPage] = useState<number | string>();
+  const [page, setPage] = useState<number>(1);
   const [selectedRange, setSelectedRange] = useState<any>({
     file: File,
     type: [],
@@ -155,16 +155,18 @@ const Status = () => {
       date: date,
       presigned_url: item.presigned_url,
       delete: (
-          <label
-              style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
-              className={styles.fakeInput}
-          >
-            <MdDelete
-                onClick={() => handleDeleteFile(item.file_name.replace("files/", ""))}
-                size={24}
-                style={{ marginLeft: "0px" }}
-            />
-          </label>
+        <label
+          style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+          className={styles.fakeInput}
+        >
+          <MdDelete
+            onClick={() =>
+              handleDeleteFile(item.file_name.replace("files/", ""))
+            }
+            size={24}
+            style={{ marginLeft: "0px" }}
+          />
+        </label>
       ),
     };
   });
@@ -187,83 +189,86 @@ const Status = () => {
   if (error) return <Error size="5rem" label={`Erro ${error}`} />;
 
   return (
-      <div className={styles.container}>
-        <div className={styles.postContainer}>
-          <label
-              style={{ cursor: "pointer" }}
-              className={styles.fakeInput}
-              htmlFor="file"
+    <div className={styles.container}>
+      <div className={styles.postContainer}>
+        <label
+          style={{ cursor: "pointer" }}
+          className={styles.fakeInput}
+          htmlFor="file"
+        >
+          <MdUpload size={24} />
+        </label>
+        <Input
+          className={styles.file}
+          type="file"
+          id="file"
+          name="file"
+          onChange={handleFileChange}
+        />
+        {selectedFile && (
+          <div
+            style={{ marginRight: "15px" }}
+            className={styles.selectedFileName}
           >
-            <MdUpload size={24} />
-          </label>
+            Arquivo: {selectedFile.name}
+          </div>
+        )}
+        <SelectedList
+          placeholder="Tipo"
+          field="type"
+          list={selectedRange}
+          setList={setSelectedRange}
+          options={optionsType}
+          isType
+          readOnly
+        />
+        <div>
           <Input
-              className={styles.file}
-              type="file"
-              id="file"
-              name="file"
-              onChange={handleFileChange}
+            className={styles.date}
+            type="date"
+            name="date"
+            value={selectedRange.date}
+            onChange={handleChange}
           />
-          {selectedFile && (
-              <div style={{ marginRight: "15px" }} className={styles.selectedFileName}>
-                Arquivo: {selectedFile.name}
-              </div>
-          )}
-          <SelectedList
-              placeholder="Tipo"
-              field="type"
-              list={selectedRange}
-              setList={setSelectedRange}
-              options={optionsType}
-              isType
-              readOnly
+          <Input
+            className={styles.time}
+            name="time"
+            value={selectedRange.time}
+            onChange={handleTime}
+            placeholder="Horario"
           />
-          <div>
-            <Input
-                className={styles.date}
-                type="date"
-                name="date"
-                value={selectedRange.date}
-                onChange={handleChange}
-            />
-            <Input
-                className={styles.time}
-                name="time"
-                value={selectedRange.time}
-                onChange={handleTime}
-                placeholder="Horario"
-            />
-          </div>
-          <div className={styles.lastColumn}>
-            <Input
-                className={`${styles.input} ${styles.code}`}
-                placeholder="Código"
-                value={selectedRange.code}
-                onChange={handleChange}
-                name="code"
-            />
-            <Button
-                className={`${styles.button} ${styles.schedule}`}
-                onClick={handleSubmit}
-            >
-              Agendar
-            </Button>
-          </div>
         </div>
-        <div className={styles.table}>
-          {loading ? (
-              <Loading size="5rem" type="spin" label="Carregando" />
-          ) : (
-              <Table
-                  title="Publicações Agendadas"
-                  columns={columns}
-                  data={transformedData}
-                  setPage={setPage}
-                  page={page}
-                  downloadButton
-              />
-          )}
+        <div className={styles.lastColumn}>
+          <Input
+            className={`${styles.input} ${styles.code}`}
+            placeholder="Código"
+            value={selectedRange.code}
+            onChange={handleChange}
+            name="code"
+          />
+          <Button
+            className={`${styles.button} ${styles.schedule}`}
+            onClick={handleSubmit}
+          >
+            Agendar
+          </Button>
         </div>
       </div>
+      <div className={styles.table}>
+        {loading ? (
+          <Loading size="5rem" type="spin" label="Carregando" />
+        ) : (
+          <Table
+            title="Publicações Agendadas"
+            columns={columns}
+            data={transformedData}
+            setPage={setPage}
+            page={page}
+            downloadButton
+          />
+        )}
+      </div>
+    </div>
   );
 };
 

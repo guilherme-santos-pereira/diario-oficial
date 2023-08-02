@@ -25,13 +25,14 @@ const Home = () => {
 
   useEffect(() => {
     setPage(1);
+    setExtracted([]);
     handleExtractUrl(response.data?.results, setExtracted);
   }, [response.data?.results]);
 
   useEffect(() => {
     dispatch<any>(fetchAllPosts(page.toString(), false));
   }, [page, dispatch]);
-  console.log("response: ", response);
+
   useEffect(() => {
     if (allPostsResponse.data) {
       setExtracted([]);
