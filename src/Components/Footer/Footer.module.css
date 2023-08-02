@@ -1,35 +1,32 @@
 @import "../../colors.css";
 
-/* Hide the scrollbar */
 .footer::-webkit-scrollbar {
-  width: 0.4rem; /* Adjust the width as needed */
-  background-color: transparent; /* Set the background color to match the container */
+  width: 0.4rem;
+  background-color: transparent;
 }
 
-/* Track */
 .footer::-webkit-scrollbar-track {
-  background-color: transparent; /* Set the background color to match the container */
+  background-color: transparent;
 }
 
-/* Handle */
 .footer::-webkit-scrollbar-thumb {
-  background-color: #ddd; /* Set the color of the scrollbar handle */
-  border-radius: 0.2rem; /* Adjust the border radius as needed */
+  background-color: #ddd;
+  border-radius: 0.2rem;
 }
 
-/* On hover */
 .footer::-webkit-scrollbar-thumb:hover {
-  background-color: #bbb; /* Set the color of the scrollbar handle on hover */
+  background-color: #bbb;
 }
 
 .footer {
+  justify-content: space-between;
   background-color: #f1f1f1;
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  max-height: 10rem;
-  box-shadow: 0px -10px 7.5px -10px var(--light-shadow-color);
+  max-height: 5rem;
+  box-shadow: 0 -10px 8px -10px var(--light-shadow-color);
 
   overflow-y: auto;
 }
@@ -37,15 +34,13 @@
 .container {
   max-width: 100%;
   text-align: center;
-}
-
-.copyright {
-  margin: 1.5rem 0 0;
+  padding: 1rem;
 }
 
 .container p {
   font-size: 14px;
   color: #555;
+  margin: 0;
 }
 
 .topics {
@@ -53,11 +48,15 @@
   text-align: center;
   display: flex;
   justify-content: space-between;
-  margin: 0 7.5rem;
+  margin: 0 1rem;
 }
 
 .description {
   max-width: 30rem;
+}
+
+.centeredFooter {
+  padding: 1rem;
 }
 
 .redirect {
