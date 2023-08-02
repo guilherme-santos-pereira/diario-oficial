@@ -31,27 +31,6 @@ const SelectedList: React.FC<iSelectedList> = ({
   ...props
 }) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
-  const optionsType = [
-    "Ato",
-    "Avisos",
-    "Circular",
-    "Concursos",
-    "Contrato",
-    "Deliberação",
-    "Dispensa de Licitação",
-    "Edital",
-    "Errata de Publicação",
-    "Extrato",
-    "Inexigibilidade de Licitação",
-    "Licitação",
-    "Manifestação",
-    "Portaria",
-    "Provimento",
-    "Relatório",
-    "Resolução",
-    "Resultados",
-    "Súmulas",
-  ];
 
   const handleAddItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const inputValue = e.currentTarget.value.trim();
@@ -80,18 +59,6 @@ const SelectedList: React.FC<iSelectedList> = ({
         [field]: updatedKeywords,
       };
     });
-  };
-
-  const handleInputChange = () => {
-    setTimeout(() => {
-      setShowOptions(true);
-    }, 75);
-  };
-
-  const handleBlur = () => {
-    setTimeout(() => {
-      setShowOptions(false);
-    }, 75);
   };
 
   const handleOption = (e: any) => {
@@ -125,7 +92,10 @@ const SelectedList: React.FC<iSelectedList> = ({
 
       {showOptions && (
         <div className={styles.list}>
-          {optionsType?.map((option: any) => (
+          <div className={styles.trash} onClick={() => setShowOptions(false)}>
+            X
+          </div>
+          {options?.map((option: any) => (
             <button
               className={`${styles.option} ${
                 list[field]?.includes(option) ? styles.selectedOption : ""

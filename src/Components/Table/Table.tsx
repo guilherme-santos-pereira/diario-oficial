@@ -34,8 +34,8 @@ const Table: React.FC<TableProps> = ({
   };
 
   const handleDownloadTemplate = async () => {
-    const file_name = "DIÁRIO OFICIAL Modelo.docx"
-    const file = await services.downloadFiles(file_name)
+    const file_name = "DIÁRIO OFICIAL Modelo.docx";
+    const file = await services.downloadFiles(file_name);
     const a = document.createElement("a");
     a.href = file.data.url;
     a.download = "template.pdf";
@@ -54,7 +54,7 @@ const Table: React.FC<TableProps> = ({
       return <Button className={styles.backButton}>Voltar</Button>;
     }
     if (type === "next") {
-      return <Button className={styles.button}>Avançar</Button>;
+      return <Button className={styles.backButton}>Avançar</Button>;
     }
     return null;
   };
