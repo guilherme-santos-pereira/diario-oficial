@@ -72,12 +72,6 @@
   overflow-y: auto;
 }
 
-.trash {
-  display: flex;
-  margin: 1rem 1rem 0 auto;
-  cursor: pointer;
-}
-
 .item {
   padding: 0 0.25rem 0;
   margin: 0 0.125rem;

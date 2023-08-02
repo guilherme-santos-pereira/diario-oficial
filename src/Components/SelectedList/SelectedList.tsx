@@ -92,9 +92,6 @@ const SelectedList: React.FC<iSelectedList> = ({
 
       {showOptions && (
         <div className={styles.list}>
-          <div className={styles.trash} onClick={() => setShowOptions(false)}>
-            X
-          </div>
           {options?.map((option: any) => (
             <button
               className={`${styles.option} ${

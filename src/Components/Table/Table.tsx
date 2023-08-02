@@ -61,7 +61,7 @@ const Table: React.FC<TableProps> = ({
     }
     return null;
   };
-  console.log("data: ", data);
+
   return (
     <div className={styles.content}>
       <div className={styles.header}>
@@ -119,7 +119,7 @@ const Table: React.FC<TableProps> = ({
           current={page}
           onChange={handlePageChange}
           total={total}
-          pageSize={3}
+          pageSize={5}
           className={styles.customPagination}
           itemRender={customItemRender}
         />

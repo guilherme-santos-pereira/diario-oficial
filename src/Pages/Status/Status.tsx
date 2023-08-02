@@ -6,7 +6,7 @@ import SelectedList from "../../Components/SelectedList/SelectedList";
 import Table from "../../Components/Table/Table";
 import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
-import { MdUpload, MdDelete } from "react-icons/md";
+import { MdUpload } from "react-icons/md";
 import { optionsType } from "../../Components/Helper";
 import { fetchPost } from "../../Services/Slices/postSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -133,12 +133,12 @@ const Status = () => {
 
   useEffect(() => {
     dispatch<any>(fetchGetFiles(page.toString()));
-  }, [dispatch, deleteFile?.data?.response]);
+  }, [dispatch, page, deleteFile?.data?.response]);
 
   if (post.loading || getFiles.loading)
     return <Loading size="5rem" type="spin" label="Carregando" />;
   if (post.error || getFiles.error)
-    return <Error size="5rem" label={`Erro ${post.error || getFiles.error}`} />;
+    return <Error size="5rem" label="Erro ao carregar o conteúdo" />;
 
   return (
     <div className={styles.container}>
@@ -150,21 +150,23 @@ const Status = () => {
         >
           <MdUpload size={24} />
         </label>
-        <Input
-          className={styles.file}
-          type="file"
-          id="file"
-          name="file"
-          onChange={handleFileChange}
-        />
-        {selectedFile && (
-          <div
-            style={{ marginRight: "15px" }}
-            className={styles.selectedFileName}
-          >
-            Arquivo: {selectedFile.name}
-          </div>
-        )}
+        <div className={styles.fileContainer}>
+          <Input
+            className={styles.file}
+            type="file"
+            id="file"
+            name="file"
+            onChange={handleFileChange}
+          />
+          {selectedFile && (
+            <div
+              style={{ marginRight: "15px" }}
+              className={styles.selectedFileName}
+            >
+              Arquivo: {selectedFile.name}
+            </div>
+          )}
+        </div>
         <SelectedList
           placeholder="Tipo"
           field="type"
