@@ -116,7 +116,7 @@
   border: none;
   border-radius: 0.5rem;
   background-color: var(--first-button-color);
-  box-shadow: 0.1rem 0.1rem 0.1rem rgb(0 0 0, 0.1);
+  box-shadow: 0.1rem 0.1rem 0.1rem rgb(0, 0, 0, 0.1);
   font-size: medium;
 }
 .downloadButton {
@@ -143,4 +143,8 @@
 .backButton:disabled,
 .downloadButton:disabled {
   background-color: var(--first-button-color-disabled);
+}
+
+.tableRow:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
