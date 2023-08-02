@@ -3,7 +3,6 @@ import styles from "./Home.module.css";
 import Search from "../../Components/Search/Search";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "../../Components/Table/Table";
-import Loading from "../../Components/Loading/Loading";
 import Error from "../../Components/Error/Error";
 import { handleExtract, handleExtractUrl } from "../../Components/Helper";
 import { fetchAllPosts } from "../../Services/Slices/allPostsSlice";
@@ -40,8 +39,6 @@ const Home = () => {
     }
   }, [allPostsResponse.data, dispatch]);
 
-  if (response.loading || allPostsResponse.loading)
-    return <Loading size="5rem" type="spin" label="Carregando" />;
   if (response.error || allPostsResponse.error)
     return (
       <Error size="5rem" label="Erro ao carregar a página. Tente novamente" />
