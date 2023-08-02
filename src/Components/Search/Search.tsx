@@ -20,8 +20,6 @@ const Search = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value, type, checked } = e.target;
-    console.log("checked: ", checked);
-    console.log("name: ", name);
 
     if (type === "checkbox") {
       setSelectedRange((prev: any) => ({
@@ -75,7 +73,7 @@ const Search = () => {
           />
         </div>
         <div>
-          <label>Até: </label>
+          <label>Até:</label>
           <Input
             className={styles.date}
             type="date"
@@ -102,7 +100,9 @@ const Search = () => {
           readOnly
         />
       </div>
-      <div className={styles.calend_datear}>
+      <div style={{
+        marginLeft: "15px",
+      }} className={styles.calend_datear}>
         <Input
           className={styles.code}
           name="post_code"
@@ -110,7 +110,7 @@ const Search = () => {
           placeholder="Código do diário"
         />
         <div className={styles.info}>
-          <label>Busca exata?</label>
+          <label>Palavras exatas?</label>
           <div
             style={{
               display: "flex",
@@ -122,7 +122,7 @@ const Search = () => {
                 onChange={handleChange}
                 type="checkbox"
               />
-              <label>Exato</label>
+              <label>Sim</label>
             </div>
           </div>
         </div>
