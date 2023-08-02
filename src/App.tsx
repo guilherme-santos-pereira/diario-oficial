@@ -6,7 +6,6 @@ import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import Login from "./Pages/Login/Login";
 import Status from "./Pages/Status/Status";
-import Posts from "./Pages/Posts/Posts";
 import ProtectedRoute from "./Auth/protectedRoute";
 
 function App() {
@@ -21,10 +20,6 @@ function App() {
             <Route
               path="/status"
               element={<ProtectedRoute Component={Status} path="/status" />}
-            />
-            <Route
-              path="/posts"
-              element={<ProtectedRoute Component={Posts} path="/posts" />}
             />
           </Routes>
         </main>
