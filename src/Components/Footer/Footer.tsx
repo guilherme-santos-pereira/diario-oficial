@@ -12,7 +12,6 @@ const Footer = () => {
 
   return (
       <footer className={styles.footer}>
-        <div className={styles.container}>
           <div className={styles.topics}>
             <div className={styles.content}>
               <p className={styles.description}>
@@ -20,6 +19,9 @@ const Footer = () => {
                 Publicações: Dias úteis: 00:00<br />
               </p>
             </div>
+            <p className={styles.description}>
+              &copy; {new Date().getFullYear()} diário oficial. Todos os direitos reservados.
+            </p>
             <div className={styles.content}>
               <h4>Contato</h4>
               <p className={styles.description}>
@@ -28,12 +30,6 @@ const Footer = () => {
               </p>
             </div>
           </div>
-          <div className={styles.centeredFooter}>
-            <p className={styles.description}>
-              &copy; {new Date().getFullYear()} diário oficial. Todos os direitos reservados.
-            </p>
-          </div>
-        </div>
       </footer>
   );
 };
