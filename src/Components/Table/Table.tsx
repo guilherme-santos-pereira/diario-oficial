@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import styles from "./Table.module.css";
 import Pagination from "rc-pagination";
 import Button from "../Forms/Button";
-import { MdDownload } from "react-icons/md";
+import { MdDelete, MdDownload } from "react-icons/md";
 import services from "../../Services/services";
+import { fetchDeleteFile } from "../../Services/Slices/deleteFileSlice";
+import { useDispatch } from "react-redux";
 
 interface TableProps {
   title?: string;
@@ -25,6 +27,7 @@ const Table: React.FC<TableProps> = ({
   total,
 }) => {
   const [currentPage] = useState<number>(1);
+  const dispatch = useDispatch();
 
   const handleDownloadFile = (file: string) => {
     const a = document.createElement("a");
@@ -58,7 +61,7 @@ const Table: React.FC<TableProps> = ({
     }
     return null;
   };
-
+  console.log("data: ", data);
   return (
     <div className={styles.content}>
       <div className={styles.header}>
@@ -92,6 +95,13 @@ const Table: React.FC<TableProps> = ({
                       className={`${styles.button} ${styles.download}`}
                     >
                       <MdDownload size={24} />
+                    </Button>
+                  ) : column.property === "delete" ? (
+                    <Button
+                      onClick={() => dispatch<any>(fetchDeleteFile(row.delete))}
+                      className={`${styles.button} ${styles.download}`}
+                    >
+                      <MdDelete size={24} />
                     </Button>
                   ) : (
                     <div className={styles.tableCell}>

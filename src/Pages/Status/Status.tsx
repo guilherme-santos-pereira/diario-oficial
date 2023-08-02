@@ -9,8 +9,8 @@ import Loading from "../../Components/Loading/Loading";
 import { MdUpload, MdDelete } from "react-icons/md";
 import { optionsType } from "../../Components/Helper";
 import { fetchPost } from "../../Services/Slices/postSlice";
-import { useDispatch } from "react-redux";
-import services from "../../Services/services";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchGetFiles } from "../../Services/Slices/getFilesSlice";
 
 const Status = () => {
   const dispatch = useDispatch();
@@ -22,11 +22,10 @@ const Status = () => {
     time: "",
     code: "",
   });
-  const [data, setData] = useState<any[]>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
+  const post = useSelector((state: any) => state.postSlice);
+  const getFiles = useSelector((state: any) => state.getFilesSlice);
+  const deleteFile = useSelector((state: any) => state.deleteFileSlice);
   const columns = [
     { title: "Nome", property: "name" },
     { title: "Data", property: "date" },
@@ -106,87 +105,40 @@ const Status = () => {
 
     const postType = selectedRange.type.join(",");
     formData.append("post_type", postType);
-    formData.append("date", formatDate(selectedRange.date));
+    formData.append("date", formatDate(selectedRange?.date));
     formData.append("hour", selectedRange.time);
     formData.append("number", selectedRange.code);
-
-    try {
-      setLoading(true);
-      setError(false);
-
-      await dispatch<any>(fetchPost(formData));
-
-      setLoading(false);
-      window.location.reload();
-    } catch (err) {
-      setLoading(false);
-      setError(true);
-    }
+    dispatch<any>(fetchPost(formData));
   };
 
-  const handleDeleteFile = async (file: string) => {
-    try {
-      setLoading(true);
-      await services.deleteFiles(file);
-      const response = await services.getFiles("1");
-      if (Array.isArray(response.data.results)) {
-        setData(response.data.results);
-      } else {
-        setData([]);
-      }
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-    }
-  };
-
-  const transformedData = data.map((item: any) => {
+  const transformedData = getFiles?.data?.results?.map((item: any) => {
     const fileNameMatch = item.file_name.match(/name=(.*?)\./);
     const fileName = fileNameMatch ? fileNameMatch[1] : "Unknown File";
 
     const dateMatch = fileName.match(/date=(.*?)---/);
-    const date = dateMatch ? dateMatch[1] : "Unknown Date";
+    const date = dateMatch ? dateMatch[1].replace(/-/g, "/") : "Unknown Date";
 
     const newFileNameMatch = item.file_name.match(/file=(.*?)\./);
-    const newFileName = newFileNameMatch ? newFileNameMatch[1] : "Unknown File";
+    const newFileName = newFileNameMatch
+      ? newFileNameMatch[1].replace("_", " ")
+      : "Unknown File";
 
     return {
       name: newFileName,
       date: date,
       presigned_url: item.presigned_url,
-      delete: (
-        <label
-          style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
-          className={styles.fakeInput}
-        >
-          <MdDelete
-            onClick={() =>
-              handleDeleteFile(item.file_name.replace("files/", ""))
-            }
-            size={24}
-            style={{ marginLeft: "0px" }}
-          />
-        </label>
-      ),
+      delete: item.file_name.replace("files/", ""),
     };
   });
 
   useEffect(() => {
-    const fetchFiles = async () => {
-      try {
-        const response = await services.getFiles("1");
-        if (Array.isArray(response.data.results)) {
-          setData(response.data.results);
-        } else {
-          setData([]);
-        }
-      } catch (err) {}
-    };
-    fetchFiles().then((r) => {});
-  }, []);
+    dispatch<any>(fetchGetFiles(page.toString()));
+  }, [dispatch, deleteFile?.data?.response]);
 
-  if (loading) return <Loading size="5rem" type="spin" label="Carregando" />;
-  if (error) return <Error size="5rem" label={`Erro ${error}`} />;
+  if (post.loading || getFiles.loading)
+    return <Loading size="5rem" type="spin" label="Carregando" />;
+  if (post.error || getFiles.error)
+    return <Error size="5rem" label={`Erro ${post.error || getFiles.error}`} />;
 
   return (
     <div className={styles.container}>
@@ -254,10 +206,8 @@ const Status = () => {
           </Button>
         </div>
       </div>
-      <div className={styles.table}>
-        {loading ? (
-          <Loading size="5rem" type="spin" label="Carregando" />
-        ) : (
+      {transformedData && (
+        <div className={styles.table}>
           <Table
             title="Publicações Agendadas"
             columns={columns}
@@ -266,8 +216,8 @@ const Status = () => {
             page={page}
             downloadButton
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
