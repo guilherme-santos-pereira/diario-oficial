@@ -7,7 +7,6 @@
 }
 
 .postContainer {
-  margin: 0 0 3rem 0;
   display: flex;
   justify-content: center;
   width: 60vw;
@@ -99,7 +98,7 @@
   border-radius: 0.5rem;
   margin: 0 1.5rem;
   background-color: var(--first-button-color);
-  box-shadow: 0.1rem 0.1rem 0.1rem rgb(0 0 0, 0.1);
+  box-shadow: 0.1rem 0.1rem 0.1rem rgb(0, 0, 0, 0.1);
   font-size: medium;
 }
 
@@ -113,7 +112,7 @@
   border-radius: 5rem;
   margin: 0 1.5rem;
   background-color: var(--first-button-color);
-  box-shadow: 0.1rem 0.1rem 0.1rem rgb(0 0 0, 0.1);
+  box-shadow: 0.1rem 0.1rem 0.1rem rgb(0, 0, 0, 0.1);
   font-size: medium;
 }
 
