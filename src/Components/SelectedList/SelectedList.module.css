@@ -28,6 +28,7 @@
   position: absolute;
   z-index: 1;
   overflow-y: auto;
+  margin: 0.05rem 0 0 0;
 }
 
 .list::-webkit-scrollbar {
