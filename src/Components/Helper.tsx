@@ -70,7 +70,7 @@ export function handleExtract(data: iContent[], setContent: any) {
     let date, edition, hour;
     if (split.length === 3) {
       date = split[1].split("=")[1].replace(/-/g, "/");
-      edition = split[2].split("=")[1].replace(".pdf", "");
+      edition = split[2].split("=")[1].replace(".pdf", "").replace("_", " ");
       hour = split[0].split("=")[1];
     } else if (split.length === 2) {
       date = split[0].split("=")[1].replace(/-/g, "/");
@@ -103,11 +103,11 @@ export function handleExtractUrl(urls: string[], setContent: any) {
     if (dateMatch && fileNameMatch) {
       let date = decodeURIComponent(dateMatch[1]).replace(/-/g, "/");
       let hour = hourMatch ? decodeURIComponent(hourMatch[1]) : "";
-      let fileName = decodeURIComponent(fileNameMatch[1]);
+      let edition = decodeURIComponent(fileNameMatch[1]);
 
-      const questionMarkIndex = fileName.indexOf(".pdf");
+      const questionMarkIndex = edition.indexOf(".pdf");
       if (questionMarkIndex !== -1) {
-        fileName = fileName.substring(0, questionMarkIndex).replace("_", " ");
+        edition = edition.substring(0, questionMarkIndex).replace("_", " ");
       }
 
       const tripleDashMarkIndex = hour.indexOf("---");
@@ -123,7 +123,7 @@ export function handleExtractUrl(urls: string[], setContent: any) {
       const extractedInfo = {
         date,
         hour: hour ? hour : "00:00",
-        fileName,
+        edition,
         presigned_url,
       };
 
