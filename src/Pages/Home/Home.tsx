@@ -50,7 +50,7 @@ const Home = () => {
       <Search />
       <div className={styles.table}>
         <Table
-          title={response.data.count ? "Posts encontrados" : "Últimos diários"}
+          title={response.data.count ? "Diários encontrados" : "Últimos diários"}
           data={extracted}
           columns={columns}
           setPage={setPage}

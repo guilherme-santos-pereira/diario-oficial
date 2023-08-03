@@ -136,7 +136,7 @@ const Status = () => {
   }, [dispatch, page, deleteFile?.data?.response]);
 
   if (post.loading || getFiles.loading)
-    return <Loading size="5rem" type="spin" label="Carregando" />;
+    return <Loading size="5rem" type="spin" />;
   if (post.error || getFiles.error)
     return <Error size="5rem" label="Erro ao carregar o conteúdo" />;
 
