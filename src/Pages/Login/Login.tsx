@@ -46,7 +46,7 @@ const Login = () => {
 
   const loading = false;
   const error = false;
-  if (loading) return <Loading size="5rem" type="spin" label="Carregando" />;
+  if (loading) return <Loading size="5rem" type="spin" />;
 
   if (error) return <Error size="5rem" label={`Erro ${error}`} />;
 

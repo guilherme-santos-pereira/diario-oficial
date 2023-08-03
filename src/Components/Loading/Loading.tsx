@@ -10,7 +10,7 @@ interface iLoading {
 const Loading: React.FC<iLoading> = ({ size, type, label }) => {
   return (
     <div className={styles.container}>
-      <ReactLoading type={type} color="#007dff" height={size} width={size} />
+      <ReactLoading type={type} color="#9fc54d" height={size} width={size} />
       {label && <p>{label}</p>}
     </div>
   );
