@@ -40,6 +40,11 @@
 
 .navigation {
   display: flex;
+  align-items: center;
+}
+
+.logout {
+  font-size: 0.5rem;
 }
 
 .route {

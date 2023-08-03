@@ -136,7 +136,18 @@ const Status = () => {
   }, [dispatch, page, deleteFile?.data?.response]);
 
   if (post.loading || getFiles.loading)
-    return <Loading size="5rem" type="spin" />;
+    return (
+      <div
+        style={{
+          display: "flex",
+          height: "50vw",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Loading size="5rem" type="spin" label="carregando..." />
+      </div>
+    );
   if (post.error || getFiles.error)
     return <Error size="5rem" label="Erro ao carregar o conteúdo" />;
 
@@ -215,6 +226,7 @@ const Status = () => {
             data={transformedData}
             setPage={setPage}
             page={page}
+            total={getFiles.data.count}
             downloadButton
           />
         </div>

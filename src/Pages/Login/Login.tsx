@@ -46,7 +46,19 @@ const Login = () => {
 
   const loading = false;
   const error = false;
-  if (loading) return <Loading size="5rem" type="spin" />;
+  if (loading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          height: "50vw",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Loading size="5rem" type="spin" label="carregando..." />
+      </div>
+    );
 
   if (error) return <Error size="5rem" label={`Erro ${error}`} />;
 

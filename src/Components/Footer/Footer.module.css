@@ -27,8 +27,7 @@
   width: 100%;
   max-height: 5rem;
   box-shadow: 0 -10px 8px -10px var(--light-shadow-color);
-
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .container {

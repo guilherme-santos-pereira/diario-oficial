@@ -5,5 +5,4 @@ export const logout = (navigate: any) => {
 
 export const isLoggedIn = (isLogged?: boolean) => {
   return sessionStorage.getItem("credentials") || isLogged ? true : false;
-  // return true;
 };

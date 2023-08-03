@@ -100,9 +100,12 @@ const Search = () => {
           readOnly
         />
       </div>
-      <div style={{
-        marginLeft: "15px",
-      }} className={styles.calend_datear}>
+      <div
+        style={{
+          marginLeft: "15px",
+        }}
+        className={styles.calend_datear}
+      >
         <Input
           className={styles.code}
           name="post_code"

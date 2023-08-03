@@ -107,9 +107,8 @@ const services = {
         body.post_type.length > 0 &&
         body.post_type.map((type: string) => `post_type=${type}`),
       body.post_code &&
-        Array.isArray(body.post_code) &&
         body.post_code.length > 0 &&
-        body.post_code.map((code: string) => `post_code=${code}`),
+        `post_code=${body.post_code}`,
       body.words &&
         Array.isArray(body.words) &&
         body.words.length > 0 &&
@@ -119,6 +118,7 @@ const services = {
       .filter(Boolean)
       .flat()
       .join("&");
+    console.log("queryString:", queryString);
     const url = `${PATH.base}/search-files/${
       queryString.length > 0 ? "?" + queryString : ""
     }`;

@@ -74,7 +74,7 @@ export function handleExtract(data: iContent[], setContent: any) {
       hour = split[0].split("=")[1];
     } else if (split.length === 2) {
       date = split[0].split("=")[1].replace(/-/g, "/");
-      edition = split[1].split("=")[1].replace(".pdf", "");
+      edition = split[1].split("=")[1].replace(".pdf", "").replace("_", " ");
       hour = "";
     }
     const extractedInfo = {

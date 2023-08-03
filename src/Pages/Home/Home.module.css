@@ -13,7 +13,7 @@
   text-align: center;
   line-height: 1.75rem;
   color: #505050;
-  margin: 0 auto;
+  margin: 1rem auto;
 }
 
 .table {
@@ -28,6 +28,7 @@
 @media (max-width: 767px) {
   .regulation {
     width: 90%;
+    height: 0.5rem;
   }
 
   .table {
