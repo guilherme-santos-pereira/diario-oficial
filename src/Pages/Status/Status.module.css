@@ -1,4 +1,3 @@
-@import "../../colors.css";
 .container {
   display: flex;
   flex-direction: column;
@@ -9,6 +8,8 @@
 .postContainer {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
   width: 60vw;
 }
 
@@ -85,6 +86,7 @@
 .time:hover {
   background-color: var(--second-button-color-hover);
 }
+
 .input:disabled,
 .date:disabled,
 .time:disabled {
@@ -129,7 +131,7 @@
 .table {
   display: flex;
   justify-content: center;
-  width: 60vw;
+  width: 80vw;
   margin: 5rem 0 3rem 0;
 }
 
@@ -142,4 +144,26 @@
 .schedule {
   padding: 0 0.75rem;
   margin: 0.75rem 0;
+}
+
+@media screen and (max-width: 1175px) {
+  .input,
+  .date,
+  .time,
+  .fakeInput {
+    margin: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .postContainer {
+    flex-direction: column;
+  }
+  .input,
+  .date,
+  .time,
+  .button,
+  .fakeInput {
+    margin: 0.5rem 0;
+  }
 }

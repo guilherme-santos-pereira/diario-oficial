@@ -4,14 +4,16 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin: 1rem 0 0;
+  margin: 1rem auto 0;
 }
 
 .regulation {
   width: 50vw;
+  max-width: 800px;
   text-align: center;
   line-height: 1.75rem;
   color: #505050;
+  margin: 0 auto;
 }
 
 .table {
@@ -19,4 +21,54 @@
   justify-content: center;
   flex-direction: column;
   width: 50vw;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+  .regulation {
+    width: 90%;
+  }
+
+  .table {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    width: 50vw;
+  }
+
+  .regulation {
+    width: 80%;
+  }
+
+  .table {
+    width: 90%;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1360px) {
+  .container {
+    width: 70vw;
+  }
+
+  .regulation {
+    width: 80%;
+  }
+
+  .table {
+    width: 90%;
+  }
+}
+
+@media (min-width: 1361px) {
+  .regulation {
+    width: 50%;
+  }
+
+  .table {
+    width: 60%;
+  }
 }

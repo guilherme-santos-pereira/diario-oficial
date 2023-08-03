@@ -79,5 +79,3 @@
 .button:disabled {
   background-color: var(--first-button-color-disabled);
 }
-
-/* Additional styles can be added as needed. */

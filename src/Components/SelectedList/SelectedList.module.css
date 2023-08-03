@@ -86,3 +86,50 @@
   align-items: end;
   cursor: pointer;
 }
+
+@media screen and (max-width: 1200px) {
+  .input {
+    width: 80%;
+    min-width: 100px;
+  }
+
+  .list {
+    min-height: 8rem;
+    max-height: 12rem;
+  }
+
+  .option {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .input {
+    width: 100%;
+    min-width: 100px;
+  }
+
+  .list {
+    min-height: 8rem;
+    max-height: 12rem;
+  }
+
+  .option {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .input {
+    font-size: small;
+  }
+
+  .list {
+    min-height: 8rem;
+    max-height: 12rem;
+  }
+
+  .option {
+    width: 100%;
+  }
+}
