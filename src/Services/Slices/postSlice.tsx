@@ -40,8 +40,9 @@ export const { getPost, getPostSuccess, getPostFailure } = postSlice.actions;
 export const fetchPost = (formData: FormData) => async (dispatch: any) => {
   dispatch(getPost());
   try {
-    const response = await services.doPost(formData);
+    await services.doPost(formData);
     dispatch(getPostSuccess({ response: "Agendamento efetuado com sucesso" }));
+    window.location.reload();
   } catch (err) {
     console.log("err: ", err);
     dispatch(getPostFailure());
