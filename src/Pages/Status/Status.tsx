@@ -143,14 +143,14 @@ const Status = () => {
   return (
     <div className={styles.container}>
       <div className={styles.postContainer}>
-        <label
-          style={{ cursor: "pointer" }}
-          className={styles.fakeInput}
-          htmlFor="file"
-        >
-          <MdUpload size={24} />
-        </label>
-        <div className={styles.fileContainer}>
+        <div className={`${selectedFile ? styles.fileContainer : ""}`}>
+          <label
+            style={{ cursor: "pointer" }}
+            className={styles.fakeInput}
+            htmlFor="file"
+          >
+            <MdUpload size={24} />
+          </label>
           <Input
             className={styles.file}
             type="file"
@@ -159,12 +159,11 @@ const Status = () => {
             onChange={handleFileChange}
           />
           {selectedFile && (
-            <div
-              style={{ marginRight: "15px" }}
-              className={styles.selectedFileName}
-            >
-              Arquivo: {selectedFile.name}
-            </div>
+            <>
+              <div className={styles.fileText}>
+                Arquivo: {selectedFile.name}
+              </div>
+            </>
           )}
         </div>
         <SelectedList

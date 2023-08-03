@@ -72,6 +72,12 @@ const SelectedList: React.FC<iSelectedList> = ({
     setShowOptions(false);
   };
 
+  const handleBlur = () => {
+    setTimeout(() => {
+      setShowOptions(false);
+    }, 100);
+  };
+
   return (
     <div>
       <Input
@@ -85,6 +91,7 @@ const SelectedList: React.FC<iSelectedList> = ({
             setShowOptions(true);
           })
         }
+        onBlur={isType && handleBlur}
         value={value}
         readOnly={readOnly}
         {...props}
