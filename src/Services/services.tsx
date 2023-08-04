@@ -129,6 +129,14 @@ const services = {
       })
       .catch((err: any) => console.log(err));
   },
+  resetPassword: async (body: any) => {
+    return axios
+      .post(`${PATH.base}/password-reset/`, body)
+      .then((data: any) => {
+        return data;
+      })
+      .catch((err: any) => console.log(err));
+  },
 };
 
 export default services;
