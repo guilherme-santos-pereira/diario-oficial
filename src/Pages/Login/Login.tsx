@@ -30,10 +30,6 @@ const Login = () => {
   };
 
   const handleSubmit = () => {
-    setForm({
-      username: "",
-      password: "",
-    });
     dispatch<any>(fetchMe(form));
   };
 
@@ -71,7 +67,7 @@ const Login = () => {
         className={styles.loginForm}
         onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
       >
-        <h2 className={styles.title}>Login</h2>
+        <h2 className={styles.title}>Bem vindo(a)</h2>
         <div className={styles.formGroup}>
           <label className={styles.label} htmlFor="username">
             Username:
@@ -98,7 +94,7 @@ const Login = () => {
           />
         </div>
         <a href="/forgot-password" className={styles.forgotPassword}>
-          Forgot password?
+          Esqueceu a senha?
         </a>
         <div className={styles.formButton}>
           <Button className={styles.button} onClick={handleSubmit}>
