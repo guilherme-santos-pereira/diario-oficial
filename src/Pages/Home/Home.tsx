@@ -68,7 +68,7 @@ const Home = () => {
           setPage={setPage}
           page={page}
           backup={backup}
-          total={isSearched ? allPostsResponse.data.count : response.data.count}
+          total={isSearched ? response.data.count : allPostsResponse.data.count}
         />
       </div>
     </div>
