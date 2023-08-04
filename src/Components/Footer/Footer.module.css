@@ -57,6 +57,7 @@
 .copyright {
   display: flex;
   align-items: end;
+  font-size: 12px;
 }
 
 .centeredFooter {

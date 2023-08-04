@@ -23,8 +23,8 @@ const Footer = () => {
           </p>
         </div>
         <p className={styles.copyright}>
-          &copy; {new Date().getFullYear()} diário oficial. Todos os direitos
-          reservados.
+          &copy; Desenvolvido pela Gerência de Tecnologia da Informação da Defensoria Pública do Estado de Santa Catarina. Todos os direitos
+          reservados {new Date().getFullYear()}.
         </p>
         <div className={styles.content}>
           <p className={styles.description}>
