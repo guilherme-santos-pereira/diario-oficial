@@ -11,6 +11,7 @@ import { handleResetResponse, optionsType } from "../../Components/Helper";
 import { fetchPost } from "../../Services/Slices/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGetFiles } from "../../Services/Slices/getFilesSlice";
+import loading from "../../Components/Loading/Loading";
 
 const Status = () => {
   const dispatch = useDispatch();
@@ -149,8 +150,9 @@ const Status = () => {
       </div>
     );
   if (post.error || getFiles.error) {
-    handleResetResponse();
-    return <Error size="5rem" label="Erro ao carregar o conteúdo" />;
+    setTimeout(() => {
+      window.location.reload();
+    }, 0.000001)
   }
 
   return (
