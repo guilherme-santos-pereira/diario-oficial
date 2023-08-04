@@ -54,6 +54,11 @@
   max-width: 30rem;
 }
 
+.copyright {
+  display: flex;
+  align-items: end;
+}
+
 .centeredFooter {
   padding: 1rem;
 }

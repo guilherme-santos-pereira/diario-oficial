@@ -7,7 +7,7 @@ import Error from "../../Components/Error/Error";
 import {
   handleExtract,
   handleExtractUrl,
-  // handleResetResponse,
+  handleResetResponse,
   regulation,
 } from "../../Components/Helper";
 import { fetchAllPosts } from "../../Services/Slices/allPostsSlice";
@@ -50,7 +50,7 @@ const Home = () => {
   }, [dispatch, allPostsResponse.data]);
 
   if (response.error || allPostsResponse.error) {
-    // handleResetResponse();
+    handleResetResponse();
     return (
       <Error size="5rem" label="Erro ao carregar a página. Tente novamente" />
     );
@@ -62,19 +62,13 @@ const Home = () => {
       <Search setBackup={setBackup} setSearch={setIsSearched} />
       <div className={styles.table}>
         <Table
-          title={
-            response.data.count ? "Diários encontrados" : "Últimos diários"
-          }
+          title={isSearched ? "Diários encontrados" : "Últimos diários"}
           data={extracted}
           columns={columns}
           setPage={setPage}
           page={page}
           backup={backup}
-          total={
-            response.data.count
-              ? allPostsResponse.data.count
-              : response.data.count
-          }
+          total={isSearched ? allPostsResponse.data.count : response.data.count}
         />
       </div>
     </div>

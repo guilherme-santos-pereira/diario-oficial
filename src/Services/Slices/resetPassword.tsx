@@ -57,7 +57,11 @@ export const fetchResetPassword =
     dispatch(getResetPassword());
     try {
       const response = await services.resetPassword(form);
-      dispatch(getResetPasswordSuccess(response.data));
+      dispatch(
+        getResetPasswordSuccess({
+          message: "Acessar email para resetar a senha",
+        })
+      );
     } catch (err) {
       console.log("err: ", err);
       dispatch(getResetPasswordFailure());

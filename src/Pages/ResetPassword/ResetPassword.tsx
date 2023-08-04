@@ -4,9 +4,10 @@ import styles from "./ResetPassword.module.css";
 import { useDispatch } from "react-redux";
 import Button from "../../Components/Forms/Button";
 import { fetchResetPassword } from "../../Services/Slices/resetPassword";
+import { handleKeyPress } from "../../Components/Helper";
 
 const ResetPassword = () => {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const [form, setForm] = useState<any>({
     email: "",
   });
@@ -33,17 +34,22 @@ const ResetPassword = () => {
 
   return (
     <div className={styles.container}>
-      <label className={styles.title}>Resetar senha:</label>
-      <Input
-        className={styles.input}
-        placeholder="Email"
-        name="email"
-        value={form.email}
-        onChange={handleChange}
-      />
-      <Button className={styles.button} onClick={handleSubmit}>
-        Enviar email
-      </Button>
+      <div
+        className={styles.form}
+        onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
+      >
+        <label className={styles.title}>Resetar senha:</label>
+        <Input
+          className={styles.input}
+          placeholder="Email"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+        />
+        <Button className={styles.button} onClick={handleSubmit}>
+          Enviar email
+        </Button>
+      </div>
     </div>
   );
 };

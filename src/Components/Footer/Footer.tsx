@@ -22,12 +22,11 @@ const Footer = () => {
             <br />
           </p>
         </div>
-        <p className={styles.description}>
+        <p className={styles.copyright}>
           &copy; {new Date().getFullYear()} diário oficial. Todos os direitos
           reservados.
         </p>
         <div className={styles.content}>
-          {/* <h4>Contato</h4> */}
           <p className={styles.description}>
             <strong>Endereço:</strong> Av. Rio Branco, nº 919, Ed. Centro
             Executivo Rio Branco, Centro, Florianópolis/SC, 88015-205
