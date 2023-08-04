@@ -4,9 +4,9 @@ import styles from "./Footer.module.css";
 
 const Footer = () => {
   const location = useLocation();
-  const isStatusPage = location.pathname === "/status";
+  const isHomePage = location.pathname === "/";
 
-  if (isStatusPage) {
+  if (!isHomePage) {
     return null;
   }
 
