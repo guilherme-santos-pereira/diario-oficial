@@ -146,7 +146,7 @@ const Status = () => {
           justifyContent: "center",
         }}
       >
-        <Loading size="5rem" type="spin" label="carregando..." />
+        <Loading size="5rem" type="spin" />
       </div>
     );
   if (post.error || getFiles.error) {
