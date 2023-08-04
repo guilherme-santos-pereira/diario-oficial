@@ -7,7 +7,12 @@ import { handleKeyPress, optionsType } from "../Helper";
 import { fetchPublic } from "../../Services/Slices/publicSlice";
 import { useDispatch } from "react-redux";
 
-const Search = () => {
+interface iSearch {
+  setBackup?: any;
+  setSearch?: any;
+}
+
+const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
   const [selectedRange, setSelectedRange] = useState<any>({
     start_date: "",
     end_date: "",
@@ -45,6 +50,8 @@ const Search = () => {
 
   const handleSubmit = () => {
     dispatch<any>(fetchPublic(selectedRange));
+    setBackup(selectedRange);
+    setSearch(true);
     setSelectedRange({
       start_date: "",
       end_date: "",

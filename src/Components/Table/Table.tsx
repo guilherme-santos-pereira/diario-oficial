@@ -15,6 +15,7 @@ interface TableProps {
   page: any;
   downloadButton?: boolean;
   total?: number;
+  backup?: any;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -25,6 +26,7 @@ const Table: React.FC<TableProps> = ({
   page,
   downloadButton,
   total,
+  backup,
 }) => {
   const [currentPage] = useState<number>(1);
   const dispatch = useDispatch();

@@ -4,14 +4,22 @@ import Search from "../../Components/Search/Search";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "../../Components/Table/Table";
 import Error from "../../Components/Error/Error";
-import { handleExtract, handleExtractUrl } from "../../Components/Helper";
+import {
+  handleExtract,
+  handleExtractUrl,
+  // handleResetResponse,
+  regulation,
+} from "../../Components/Helper";
 import { fetchAllPosts } from "../../Services/Slices/allPostsSlice";
+import { fetchPublic } from "../../Services/Slices/publicSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
   const response = useSelector((state: any) => state.publicSlice);
   const allPostsResponse = useSelector((state: any) => state.allPostsSlice);
   const [page, setPage] = useState<number>(1);
+  const [backup, setBackup] = useState<any>({});
+  const [isSearched, setIsSearched] = useState<boolean>(false);
   const [extracted, setExtracted] = useState<any>([]);
   const columns = [
     { title: "Edição", property: "edition" },
@@ -19,35 +27,39 @@ const Home = () => {
     { title: "Arquivo", property: "presigned_url" },
   ];
 
-  const regulation =
-    "O Diário Oficial Eletrônico da Defensoria Pública do Estado de Santa Catarina é o instrumento oficial de publicação, divulgação e comunicação dos seus atos processuais e administrativos. Foi instituído pela Lei Complementar nº 805/202 de 1º de julho de 2022, e regulamentado pelos Atos DPG nº 059/2022, de 04 de outubro de 2022 e nº 072/2022, de 21 de novembro de 2022.";
-
   useEffect(() => {
-    setPage(1);
     setExtracted([]);
     handleExtractUrl(response.data?.results, setExtracted);
   }, [response.data?.results]);
 
   useEffect(() => {
-    dispatch<any>(fetchAllPosts(page.toString(), false));
-  }, [page, dispatch]);
+    if (!isSearched) {
+      dispatch<any>(fetchAllPosts(page.toString(), false));
+    }
+  }, [dispatch, page, isSearched]);
+
+  useEffect(() => {
+    if (isSearched) dispatch<any>(fetchPublic(backup, page.toString()));
+  }, [dispatch, page, isSearched, backup]);
 
   useEffect(() => {
     if (allPostsResponse.data) {
       setExtracted([]);
       handleExtract(allPostsResponse.data.results, setExtracted);
     }
-  }, [allPostsResponse.data, dispatch]);
+  }, [dispatch, allPostsResponse.data]);
 
-  if (response.error || allPostsResponse.error)
+  if (response.error || allPostsResponse.error) {
+    // handleResetResponse();
     return (
       <Error size="5rem" label="Erro ao carregar a página. Tente novamente" />
     );
+  }
 
   return (
     <div className={styles.container}>
       <p className={styles.regulation}>{regulation}</p>
-      <Search />
+      <Search setBackup={setBackup} setSearch={setIsSearched} />
       <div className={styles.table}>
         <Table
           title={
@@ -57,6 +69,7 @@ const Home = () => {
           columns={columns}
           setPage={setPage}
           page={page}
+          backup={backup}
           total={
             response.data.count
               ? allPostsResponse.data.count

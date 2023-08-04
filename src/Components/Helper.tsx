@@ -25,6 +25,9 @@ export const optionsType = [
   "Súmulas",
 ];
 
+export const regulation =
+  "O Diário Oficial Eletrônico da Defensoria Pública do Estado de Santa Catarina é o instrumento oficial de publicação, divulgação e comunicação dos seus atos processuais e administrativos. Foi instituído pela Lei Complementar nº 805/202 de 1º de julho de 2022, e regulamentado pelos Atos DPG nº 059/2022, de 04 de outubro de 2022 e nº 072/2022, de 21 de novembro de 2022.";
+
 export function dateFormat(dateString: string) {
   const date = new Date(dateString);
 
@@ -134,4 +137,10 @@ export function handleExtractUrl(urls: string[], setContent: any) {
       }
     }
   });
+}
+
+export function handleResetResponse() {
+  setTimeout(() => {
+    window.location.reload();
+  }, 2 * 1000);
 }

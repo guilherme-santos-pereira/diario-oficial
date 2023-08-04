@@ -98,7 +98,7 @@ const services = {
       })
       .catch((err: any) => console.log(err));
   },
-  getPublic: async (body: any) => {
+  getPublic: async (body: any, page?: string) => {
     const queryString = [
       body.start_date && `start_date=${body.start_date}`,
       body.end_date && `end_date=${body.end_date}`,
@@ -113,12 +113,12 @@ const services = {
         Array.isArray(body.words) &&
         body.words.length > 0 &&
         body.words.map((word: string) => `words=${word}`),
-      body.exact_words !== undefined && `exact_words=${body.exact_words}`,
+      body.exact_words === true && `exact_words=${body.exact_words}`,
+      page && `page=${page}`,
     ]
       .filter(Boolean)
       .flat()
       .join("&");
-    console.log("queryString:", queryString);
     const url = `${PATH.base}/search-files/${
       queryString.length > 0 ? "?" + queryString : ""
     }`;

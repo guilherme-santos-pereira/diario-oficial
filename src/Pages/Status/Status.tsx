@@ -7,7 +7,7 @@ import Table from "../../Components/Table/Table";
 import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
 import { MdUpload } from "react-icons/md";
-import { optionsType } from "../../Components/Helper";
+import { handleResetResponse, optionsType } from "../../Components/Helper";
 import { fetchPost } from "../../Services/Slices/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGetFiles } from "../../Services/Slices/getFilesSlice";
@@ -148,8 +148,10 @@ const Status = () => {
         <Loading size="5rem" type="spin" label="carregando..." />
       </div>
     );
-  if (post.error || getFiles.error)
+  if (post.error || getFiles.error) {
+    handleResetResponse();
     return <Error size="5rem" label="Erro ao carregar o conteúdo" />;
+  }
 
   return (
     <div className={styles.container}>

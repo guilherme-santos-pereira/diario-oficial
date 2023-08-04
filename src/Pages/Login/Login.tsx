@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMe } from "../../Services/Slices/meSlice";
 import { useNavigate } from "react-router-dom";
 import { isLoggedIn } from "../../Auth/auth";
-import { handleKeyPress } from "../../Components/Helper";
+import { handleKeyPress, handleResetResponse } from "../../Components/Helper";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -60,7 +60,10 @@ const Login = () => {
       </div>
     );
 
-  if (error) return <Error size="5rem" label={`Erro ${error}`} />;
+  if (error) {
+    handleResetResponse();
+    return <Error size="5rem" label={`Erro ${error}`} />;
+  }
 
   return (
     <div className={styles.container}>
