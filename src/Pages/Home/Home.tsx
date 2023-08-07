@@ -47,6 +47,7 @@ const Home = () => {
     if (allPostsResponse.data) {
       setExtracted([]);
       handleExtract(allPostsResponse.data.results, setExtracted);
+      setIsDispatched(true);
     }
   }, [dispatch, allPostsResponse.data]);
 
@@ -72,8 +73,8 @@ const Home = () => {
           backup={backup}
           total={isSearched ? response.data.count : allPostsResponse.data.count}
           isEmpty={
-            (isDispatched && response.data.length === 0) ||
-            (isDispatched && allPostsResponse.data.length === 0)
+            (isSearched && response?.data?.results?.length === 0) ||
+            (isDispatched && allPostsResponse?.data?.results?.length === 0)
           }
         />
       </div>
