@@ -16,6 +16,7 @@ interface TableProps {
   downloadButton?: boolean;
   total?: number;
   backup?: any;
+  isEmpty?: boolean;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -26,7 +27,7 @@ const Table: React.FC<TableProps> = ({
   page,
   downloadButton,
   total,
-  backup,
+  isEmpty,
 }) => {
   const [currentPage] = useState<number>(1);
   const dispatch = useDispatch();
@@ -87,33 +88,45 @@ const Table: React.FC<TableProps> = ({
           ))}
         </div>
         <div className={styles.tableBody}>
-          {data.map((row: any, rowIndex: any) => (
-            <div key={rowIndex} className={styles.tableRow}>
-              {columns.map((column: any, columnIndex: any) => (
-                <div key={columnIndex} className={styles.row}>
-                  {column.property === "presigned_url" ? (
-                    <Button
-                      onClick={() => handleDownloadFile(row[column.property])}
-                      className={`${styles.button} ${styles.download}`}
-                    >
-                      <MdDownload size={24} />
-                    </Button>
-                  ) : column.property === "delete" ? (
-                    <Button
-                      onClick={() => dispatch<any>(fetchDeleteFile(row.delete))}
-                      className={`${styles.button} ${styles.download}`}
-                    >
-                      <MdDelete size={24} />
-                    </Button>
-                  ) : (
-                    <div className={styles.tableCell}>
-                      {row[column.property]}
+          {isEmpty ? (
+            <div className={styles.empty}>
+              Não foi encontrado nenhum conteúdo
+            </div>
+          ) : (
+            <>
+              {data.map((row: any, rowIndex: any) => (
+                <div key={rowIndex} className={styles.tableRow}>
+                  {columns.map((column: any, columnIndex: any) => (
+                    <div key={columnIndex} className={styles.row}>
+                      {column.property === "presigned_url" ? (
+                        <Button
+                          onClick={() =>
+                            handleDownloadFile(row[column.property])
+                          }
+                          className={`${styles.button} ${styles.download}`}
+                        >
+                          <MdDownload size={24} />
+                        </Button>
+                      ) : column.property === "delete" ? (
+                        <Button
+                          onClick={() =>
+                            dispatch<any>(fetchDeleteFile(row.delete))
+                          }
+                          className={`${styles.button} ${styles.download}`}
+                        >
+                          <MdDelete size={24} />
+                        </Button>
+                      ) : (
+                        <div className={styles.tableCell}>
+                          {row[column.property]}
+                        </div>
+                      )}
                     </div>
-                  )}
+                  ))}
                 </div>
               ))}
-            </div>
-          ))}
+            </>
+          )}
         </div>
       </div>
       <div className={styles.pagination}>

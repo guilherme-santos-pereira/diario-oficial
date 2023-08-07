@@ -40,13 +40,23 @@ const ResetPassword = () => {
       >
         <label className={styles.title}>Resetar senha:</label>
         <Input
+          type="email"
           className={styles.input}
           placeholder="Email"
           name="email"
           value={form.email}
           onChange={handleChange}
         />
-        <Button className={styles.button} onClick={handleSubmit}>
+        <Button
+          className={styles.button}
+          onClick={handleSubmit}
+          disabled={
+            !(
+              form.email.includes("@defensoria.sc.gov.br") ||
+              form.email.includes("@defensoria.sc.def.br")
+            )
+          }
+        >
           Enviar email
         </Button>
       </div>

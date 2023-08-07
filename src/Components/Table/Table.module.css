@@ -50,6 +50,12 @@
   flex-direction: column;
 }
 
+.empty {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
 .tableRow {
   display: flex;
   justify-content: space-between;

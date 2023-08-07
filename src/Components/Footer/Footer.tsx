@@ -3,8 +3,7 @@ import styles from "./Footer.module.css";
 
 const Footer = () => {
   const location = useLocation();
-  const isPublicPage =
-    location.pathname === "/" || location.pathname === "/resetar-senha";
+  const isPublicPage = location.pathname === "/";
 
   if (!isPublicPage) {
     return null;
