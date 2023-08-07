@@ -57,8 +57,7 @@ const Home = () => {
       <Error size="5rem" label="Erro ao carregar a página. Tente novamente" />
     );
   }
-  console.log("response: ", response);
-  console.log("allPostsResponse: ", allPostsResponse);
+
   return (
     <div className={styles.container}>
       <p className={styles.regulation}>{regulation}</p>

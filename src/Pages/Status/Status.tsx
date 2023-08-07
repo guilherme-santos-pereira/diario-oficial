@@ -4,14 +4,12 @@ import Input from "../../Components/Forms/Input";
 import Button from "../../Components/Forms/Button";
 import SelectedList from "../../Components/SelectedList/SelectedList";
 import Table from "../../Components/Table/Table";
-import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
 import { MdUpload } from "react-icons/md";
-import { handleResetResponse, optionsType } from "../../Components/Helper";
+import { optionsType } from "../../Components/Helper";
 import { fetchPost } from "../../Services/Slices/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGetFiles } from "../../Services/Slices/getFilesSlice";
-import loading from "../../Components/Loading/Loading";
 
 const Status = () => {
   const dispatch = useDispatch();
@@ -176,11 +174,7 @@ const Status = () => {
             onChange={handleFileChange}
           />
           {selectedFile && (
-            <>
-              <div className={styles.fileText}>
-                Arquivo: {selectedFile.name}
-              </div>
-            </>
+            <div className={styles.fileText}>Arquivo: {selectedFile.name}</div>
           )}
         </div>
         <SelectedList
