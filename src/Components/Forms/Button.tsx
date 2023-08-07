@@ -9,6 +9,7 @@ interface iButton {
   type?: any;
   htmlFor?: any;
   alt?: string;
+  title?: string;
 }
 
 const Button: React.FC<iButton> = ({

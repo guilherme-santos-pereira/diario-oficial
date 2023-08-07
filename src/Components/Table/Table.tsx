@@ -53,13 +53,21 @@ const Table: React.FC<TableProps> = ({
 
   const customItemRender = (current: number, type: string) => {
     if (type === "page") {
-      return current === currentPage ? <span>{page}</span> : null;
+      return current === currentPage && <span>{page}</span>;
     }
     if (type === "prev") {
-      return <Button className={styles.backButton}>Voltar</Button>;
+      return (
+        <Button className={styles.backButton} title="Voltar">
+          Voltar
+        </Button>
+      );
     }
     if (type === "next") {
-      return <Button className={styles.backButton}>Avançar</Button>;
+      return (
+        <Button className={styles.backButton} title="Avançar">
+          Avançar
+        </Button>
+      );
     }
     return null;
   };

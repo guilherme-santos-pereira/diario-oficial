@@ -105,7 +105,8 @@
 .customPagination li {
   display: flex;
   list-style-type: none;
-  margin-right: 10px;
+  /* margin-right: 10px; */
+  margin: 0 0.5rem;
 }
 
 .button,
@@ -145,7 +146,7 @@
 }
 
 .backButton {
-  margin: 0 1.5rem 0 0;
+  margin: 0 0.75rem 0 0;
 }
 
 .button:hover,
