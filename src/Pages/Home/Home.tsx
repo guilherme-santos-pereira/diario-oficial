@@ -17,6 +17,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const response = useSelector((state: any) => state.publicSlice);
   const allPostsResponse = useSelector((state: any) => state.allPostsSlice);
+  const [isDispatched, setIsDispatched] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [backup, setBackup] = useState<any>({});
   const [isSearched, setIsSearched] = useState<boolean>(false);
@@ -55,7 +56,8 @@ const Home = () => {
       <Error size="5rem" label="Erro ao carregar a página. Tente novamente" />
     );
   }
-
+  console.log("response: ", response);
+  console.log("allPostsResponse: ", allPostsResponse);
   return (
     <div className={styles.container}>
       <p className={styles.regulation}>{regulation}</p>
@@ -69,6 +71,10 @@ const Home = () => {
           page={page}
           backup={backup}
           total={isSearched ? response.data.count : allPostsResponse.data.count}
+          isEmpty={
+            (isDispatched && response.data.length === 0) ||
+            (isDispatched && allPostsResponse.data.length === 0)
+          }
         />
       </div>
     </div>

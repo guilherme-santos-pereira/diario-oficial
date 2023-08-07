@@ -23,9 +23,9 @@ const Header = () => {
           {isLoggedIn() && (
             <span
               className={`${styles.route} ${styles.logout}`}
-              onClick={logout}
+              onClick={() => logout(navigate)}
             >
-              Logout
+              Sair
             </span>
           )}
           <div>

@@ -10,6 +10,7 @@ interface iButton {
   htmlFor?: any;
   alt?: string;
   title?: string;
+  disabled?: any;
 }
 
 const Button: React.FC<iButton> = ({

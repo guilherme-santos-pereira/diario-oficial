@@ -21,6 +21,17 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
     words: [],
     exact_words: false,
   });
+
+  const [startDate, setStartDate] = useState<string | undefined>(
+      selectedRange.start_date
+  );
+  const [endDate, setEndDate] = useState<string | undefined>(
+      selectedRange.end_date
+  );
+  const [postCode, setPostCode] = useState<string | undefined>(
+      selectedRange.end_date
+  );
+
   const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
@@ -32,19 +43,18 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
         [name]: checked,
       }));
     } else {
-      setSelectedRange((prev: any) => {
-        if (Array.isArray(prev[name])) {
-          return {
-            ...prev,
-            [name]: [...prev[name], value],
-          };
-        }
+      setSelectedRange((prev: any) => ({
+        ...prev,
+        [name]: value,
+      }));
 
-        return {
-          ...prev,
-          [name]: value,
-        };
-      });
+      if (name === "start_date") {
+        setStartDate(value);
+      } else if (name === "end_date") {
+        setEndDate(value);
+      } else if (name === "post_code") {
+        setPostCode(value);
+      }
     }
   };
 
@@ -60,87 +70,43 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
       words: [],
       exact_words: false,
     });
+    setStartDate("");
+    setEndDate("");
+    setPostCode("");
   };
 
   return (
-    <div
-      className={styles.container}
-      onKeyUp={(e) =>
-        handleKeyPress(e, handleSubmit, "Enter", ["words", "post_type"])
-      }
-    >
-      <div className={styles.calend_datear}>
-        <div>
-          <label>De: </label>
-          <Input
-            className={styles.date}
-            type="date"
-            name="start_date"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Até:</label>
-          <Input
-            className={styles.date}
-            type="date"
-            name="end_date"
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-      <SelectedList
-        placeholder="Palavra-chave"
-        field="words"
-        list={selectedRange}
-        setList={setSelectedRange}
-      />
-
-      <div className={styles.type}>
-        <SelectedList
-          placeholder="Tipo"
-          field="post_type"
-          list={selectedRange}
-          setList={setSelectedRange}
-          options={optionsType}
-          isType
-          readOnly
-        />
-      </div>
-      <div
-        style={{
-          marginLeft: "15px",
-        }}
-        className={styles.calend_datear}
-      >
-        <Input
-          className={styles.code}
-          name="post_code"
-          onChange={handleChange}
-          placeholder="Código do diário"
-        />
-        <div className={styles.info}>
-          <label>Palavras exatas?</label>
-          <div
-            style={{
-              display: "flex",
-            }}
-          >
-            <div className={styles.checkbox}>
-              <Input
-                name="exact_words"
-                onChange={handleChange}
-                type="checkbox"
-              />
-              <label>Sim</label>
-            </div>
+      <div className={styles.container} onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter", ["words", "post_type"])}>
+        <div className={styles.calend_datear}>
+          <div>
+            <label>De: </label>
+            <Input className={styles.date} type="date" name="start_date" value={startDate} onChange={handleChange} />
+          </div>
+          <div>
+            <label>Até:</label>
+            <Input className={styles.date} type="date" name="end_date" value={endDate} onChange={handleChange} />
           </div>
         </div>
-        <Button className={styles.button} onClick={handleSubmit}>
-          Pesquisar
-        </Button>
+        <SelectedList placeholder="Palavra-chave" field="words" list={selectedRange} setList={setSelectedRange} />
+        <div className={styles.type}>
+          <SelectedList placeholder="Tipo" field="post_type" list={selectedRange} setList={setSelectedRange} options={optionsType} isType readOnly />
+        </div>
+        <div style={{ marginLeft: "15px" }} className={styles.calend_datear}>
+          <Input className={styles.code} name="post_code" value={postCode} onChange={handleChange} placeholder="Código do diário" />
+          <div className={styles.info}>
+            <label>Palavras exatas?</label>
+            <div style={{ display: "flex" }}>
+              <div className={styles.checkbox}>
+                <Input name="exact_words" onChange={handleChange} type="checkbox" />
+                <label>Sim</label>
+              </div>
+            </div>
+          </div>
+          <Button className={styles.button} onClick={handleSubmit}>
+            Pesquisar
+          </Button>
+        </div>
       </div>
-    </div>
   );
 };
 

@@ -23,6 +23,7 @@ const Status = () => {
     time: "",
     code: "",
   });
+  const [isDispatched, setIsDispatched] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const post = useSelector((state: any) => state.postSlice);
   const getFiles = useSelector((state: any) => state.getFilesSlice);
@@ -134,6 +135,7 @@ const Status = () => {
 
   useEffect(() => {
     dispatch<any>(fetchGetFiles(page.toString()));
+    setIsDispatched(true);
   }, [dispatch, page, deleteFile?.data?.response]);
 
   if (post.loading || getFiles.loading)
@@ -146,13 +148,13 @@ const Status = () => {
           justifyContent: "center",
         }}
       >
-        <Loading size="5rem" type="spin" label="carregando..." />
+        <Loading size="5rem" type="spin" />
       </div>
     );
   if (post.error || getFiles.error) {
     setTimeout(() => {
       window.location.reload();
-    }, 0.000001)
+    }, 0.000001);
   }
 
   return (
@@ -232,6 +234,7 @@ const Status = () => {
             page={page}
             total={getFiles.data.count}
             downloadButton
+            isEmpty={isDispatched && getFiles.data.length === 0}
           />
         </div>
       )}
