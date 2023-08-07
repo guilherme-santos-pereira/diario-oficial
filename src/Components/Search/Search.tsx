@@ -31,6 +31,7 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
   const [postCode, setPostCode] = useState<string | undefined>(
       selectedRange.end_date
   );
+  const [exactWordsChecked, setExactWordsChecked] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -42,6 +43,9 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
         ...prev,
         [name]: checked,
       }));
+      if (name === "exact_words") {
+        setExactWordsChecked(checked);
+      }
     } else {
       setSelectedRange((prev: any) => ({
         ...prev,
@@ -73,6 +77,7 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
     setStartDate("");
     setEndDate("");
     setPostCode("");
+    setExactWordsChecked(false);
   };
 
   return (
@@ -97,7 +102,7 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
             <label>Palavras exatas?</label>
             <div style={{ display: "flex" }}>
               <div className={styles.checkbox}>
-                <Input name="exact_words" onChange={handleChange} type="checkbox" />
+                <Input name="exact_words" checked={exactWordsChecked} onChange={handleChange} type="checkbox" />
                 <label>Sim</label>
               </div>
             </div>
