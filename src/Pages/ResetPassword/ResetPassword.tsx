@@ -60,7 +60,9 @@ const ResetPassword = () => {
           className={styles.button}
           onClick={handleSubmit}
           disabled={
-            !form.email || !form.email.includes("@defensoria.sc.gov.br")
+            !form.email ||
+            !form.email.includes("@defensoria.sc.gov.br") ||
+            !form.email.includes("@defensoria.sc.def.br")
           }
         >
           Enviar E-mail
