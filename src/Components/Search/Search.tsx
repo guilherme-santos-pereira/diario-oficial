@@ -6,6 +6,8 @@ import SelectedList from "../SelectedList/SelectedList";
 import { handleKeyPress, optionsType } from "../Helper";
 import { fetchPublic } from "../../Services/Slices/publicSlice";
 import { useDispatch } from "react-redux";
+import {Calendar, DayRange} from "react-modern-calendar-datepicker";
+import "react-modern-calendar-datepicker/lib/DatePicker.css";
 
 interface iSearch {
   setBackup?: any;
@@ -22,16 +24,15 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
     exact_words: false,
   });
 
-  const [startDate, setStartDate] = useState<string | undefined>(
-      selectedRange.start_date
-  );
-  const [endDate, setEndDate] = useState<string | undefined>(
-      selectedRange.end_date
-  );
   const [postCode, setPostCode] = useState<string | undefined>(
       selectedRange.end_date
   );
   const [exactWordsChecked, setExactWordsChecked] = useState<boolean>(false);
+
+  const [dayRange, setDayRange] = React.useState<DayRange>({
+    from: null,
+    to: null
+  });
 
   const dispatch = useDispatch();
 
@@ -52,19 +53,30 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
         [name]: value,
       }));
 
-      if (name === "start_date") {
-        setStartDate(value);
-      } else if (name === "end_date") {
-        setEndDate(value);
-      } else if (name === "post_code") {
+      if (name === "post_code") {
         setPostCode(value);
       }
     }
   };
 
+  const formatDate = (date: any) => {
+    const year = String(date.year).padStart(2, "0");
+    const month = String(date.month).padStart(2, "0");
+    const day = String(date.day).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   const handleSubmit = () => {
-    dispatch<any>(fetchPublic(selectedRange));
-    setBackup(selectedRange);
+    const formattedStartDate = formatDate(dayRange.from);
+    const formattedEndDate = formatDate(dayRange.to) ;
+
+    const updatedRange = {
+      ...selectedRange,
+      start_date: formattedStartDate,
+      end_date: formattedEndDate,
+    };
+    dispatch<any>(fetchPublic(updatedRange));
+    setBackup(updatedRange);
     setSearch(true);
     setSelectedRange({
       start_date: "",
@@ -74,29 +86,20 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
       words: [],
       exact_words: false,
     });
-    setStartDate("");
-    setEndDate("");
     setPostCode("");
     setExactWordsChecked(false);
   };
 
   return (
       <div className={styles.container} onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter", ["words", "post_type"])}>
-        <div className={styles.calend_datear}>
-          <div>
-            <label>De: </label>
-            <Input className={styles.date} type="date" name="start_date" value={startDate} onChange={handleChange} />
-          </div>
-          <div>
-            <label>Até:</label>
-            <Input className={styles.date} type="date" name="end_date" value={endDate} onChange={handleChange} />
-          </div>
+        <div className={styles.calendar}>
+          <Calendar value={dayRange} onChange={setDayRange} shouldHighlightWeekends />
         </div>
         <SelectedList placeholder="Palavra-chave" field="words" list={selectedRange} setList={setSelectedRange} />
         <div className={styles.type}>
           <SelectedList placeholder="Tipo" field="post_type" list={selectedRange} setList={setSelectedRange} options={optionsType} isType readOnly />
         </div>
-        <div style={{ marginLeft: "15px" }} className={styles.calend_datear}>
+        <div style={{ marginLeft: "15px" }} className={styles.calendar}>
           <Input className={styles.code} name="post_code" value={postCode} onChange={handleChange} placeholder="Código da edição" />
           <div className={styles.info}>
             <label>Palavras exatas?</label>
