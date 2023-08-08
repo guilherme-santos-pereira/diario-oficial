@@ -97,7 +97,7 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
           <SelectedList placeholder="Tipo" field="post_type" list={selectedRange} setList={setSelectedRange} options={optionsType} isType readOnly />
         </div>
         <div style={{ marginLeft: "15px" }} className={styles.calend_datear}>
-          <Input className={styles.code} name="post_code" value={postCode} onChange={handleChange} placeholder="Código do diário" />
+          <Input className={styles.code} name="post_code" value={postCode} onChange={handleChange} placeholder="Código da edição" />
           <div className={styles.info}>
             <label>Palavras exatas?</label>
             <div style={{ display: "flex" }}>

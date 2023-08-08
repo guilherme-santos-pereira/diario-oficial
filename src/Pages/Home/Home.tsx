@@ -56,7 +56,7 @@ const Home = () => {
       <Search setBackup={setBackup} setSearch={setIsSearched} />
       <div className={styles.table}>
         <Table
-          title={isSearched ? "Diários encontrados" : "Últimos diários"}
+          title={isSearched ? "Edições encontradas" : "Últimas edições"}
           data={extracted}
           columns={columns}
           setPage={setPage}

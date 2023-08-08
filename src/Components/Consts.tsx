@@ -2,7 +2,7 @@ export const handleTypeService = {
   success: {
     title: "Requisição feita com sucesso!",
     description:
-      "Requisição feita com sucesso! preenchendo mais campos da descrição da notificação a a a a a",
+      "Requisição feita com sucesso!",
     color: "#9fc54d",
   },
   error: {
@@ -12,16 +12,16 @@ export const handleTypeService = {
   },
   loginError: {
     title: "Erro ao tentar entrar na sessão!",
-    description: "Usuario e/ou senha podem estar errados.",
+    description: "Usuário e/ou senha podem estar errados.",
     color: "#ff6464",
   },
   resetError: {
-    title: "Erro ao resetar senha!",
-    description: "Confira se o email esta correto e tente novamente.",
+    title: "Erro ao redefinir senha!",
+    description: "Confira se o email está correto e tente novamente.",
     color: "#ff6464",
   },
   postError: {
-    title: "Erro ao agendar diário!",
+    title: "Erro ao agendar edição!",
     description: "Tente novamente mais tarde.",
     color: "#ff6464",
   },
