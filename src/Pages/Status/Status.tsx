@@ -231,6 +231,7 @@ const Status = () => {
             total={getFiles.data.count}
             downloadButton
             isEmpty={isDispatched && getFiles.data.length === 0}
+            isStatus
           />
         </div>
       )}

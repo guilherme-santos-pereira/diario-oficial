@@ -17,6 +17,7 @@ interface TableProps {
   total?: number;
   backup?: any;
   isEmpty?: boolean;
+  isStatus?: boolean;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -28,6 +29,7 @@ const Table: React.FC<TableProps> = ({
   downloadButton,
   total,
   isEmpty,
+  isStatus,
 }) => {
   const [currentPage] = useState<number>(1);
   const dispatch = useDispatch();
@@ -65,7 +67,10 @@ const Table: React.FC<TableProps> = ({
     }
     if (type === "next") {
       return (
-        <Button className={styles.backButton} title="Avançar">
+        <Button
+          className={`${styles.backButton} ${isStatus ? styles.status : ""}`}
+          title="Avançar"
+        >
           Avançar
         </Button>
       );

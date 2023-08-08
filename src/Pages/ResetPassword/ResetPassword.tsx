@@ -10,6 +10,14 @@ import Loading from "../../Components/Loading/Loading";
 
 const ResetPassword = () => {
   const dispatch = useDispatch();
+  const handleDisabled = () => {
+    return (
+      form.email === "" ||
+      !form.email.includes("@defensoria.sc.gov.br") ||
+      !form.email.includes("@defensoria.sc.def.br")
+    );
+  };
+
   const [form, setForm] = useState<any>({
     email: "",
   });
@@ -60,9 +68,10 @@ const ResetPassword = () => {
           className={styles.button}
           onClick={handleSubmit}
           disabled={
-            !form.email ||
-            !form.email.includes("@defensoria.sc.gov.br") ||
-            !form.email.includes("@defensoria.sc.def.br")
+            !(
+              form.email.includes("@defensoria.sc.gov.br") ||
+              form.email.includes("@defensoria.sc.def.br")
+            )
           }
         >
           Enviar E-mail

@@ -155,6 +155,10 @@
   margin: 0 0.75rem 0 0;
 }
 
+.status {
+  margin: 0 0.75rem;
+}
+
 .button:hover,
 .backButton:hover,
 .downloadButton:hover {
