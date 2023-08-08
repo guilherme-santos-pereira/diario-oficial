@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import Search from "../../Components/Search/Search";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "../../Components/Table/Table";
-import Error from "../../Components/Error/Error";
 import {
   handleExtract,
   handleExtractUrl,
-  handleResetResponse,
   regulation,
 } from "../../Components/Helper";
 import { fetchAllPosts } from "../../Services/Slices/allPostsSlice";
 import { fetchPublic } from "../../Services/Slices/publicSlice";
+import Snackbar from "../../Components/Snackbar/Snackbar";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -37,9 +36,6 @@ const Home = () => {
     if (!isSearched) {
       dispatch<any>(fetchAllPosts(page.toString(), false));
     }
-  }, [dispatch, page, isSearched]);
-
-  useEffect(() => {
     if (isSearched) dispatch<any>(fetchPublic(backup, page.toString()));
   }, [dispatch, page, isSearched, backup]);
 
@@ -51,15 +47,11 @@ const Home = () => {
     }
   }, [dispatch, allPostsResponse.data]);
 
-  if (response.error || allPostsResponse.error) {
-    handleResetResponse();
-    return (
-      <Error size="5rem" label="Erro ao carregar a página. Tente novamente" />
-    );
-  }
-
   return (
     <div className={styles.container}>
+      {isSearched && (response.error || allPostsResponse.error) && (
+        <Snackbar type="error" />
+      )}
       <p className={styles.regulation}>{regulation}</p>
       <Search setBackup={setBackup} setSearch={setIsSearched} />
       <div className={styles.table}>

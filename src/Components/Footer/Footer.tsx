@@ -14,7 +14,7 @@ const Footer = () => {
       <div className={styles.topics}>
         <div className={styles.content}>
           <p className={styles.description}>
-            <strong>Objetivo:</strong> Atualizar a comunidade de forma pratica
+            <strong>Objetivo:</strong> Atualizar a comunidade de forma prática
             sobre as noticias que acontecem na defensoria publica de SC
             <br />
             Publicações nos dias úteis: 00:00
@@ -22,7 +22,8 @@ const Footer = () => {
           </p>
         </div>
         <p className={styles.copyright}>
-          &copy; Desenvolvido pela Gerência de Tecnologia da Informação da Defensoria Pública do Estado de Santa Catarina. Todos os direitos
+          &copy; Desenvolvido pela Gerência de Tecnologia da Informação da
+          Defensoria Pública do Estado de Santa Catarina. Todos os direitos
           reservados {new Date().getFullYear()}.
         </p>
         <div className={styles.content}>

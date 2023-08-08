@@ -10,6 +10,7 @@ import { optionsType } from "../../Components/Helper";
 import { fetchPost } from "../../Services/Slices/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGetFiles } from "../../Services/Slices/getFilesSlice";
+import Snackbar from "../../Components/Snackbar/Snackbar";
 
 const Status = () => {
   const dispatch = useDispatch();
@@ -157,6 +158,7 @@ const Status = () => {
 
   return (
     <div className={styles.container}>
+      {post.error && <Snackbar type="postError" />}
       <div className={styles.postContainer}>
         <div className={`${selectedFile ? styles.fileContainer : ""}`}>
           <label

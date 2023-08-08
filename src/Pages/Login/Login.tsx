@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./Login.module.css";
 import Input from "../../Components/Forms/Input";
 import Button from "../../Components/Forms/Button";
-import Error from "../../Components/Error/Error";
 import Loading from "../../Components/Loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMe } from "../../Services/Slices/meSlice";
 import { useNavigate } from "react-router-dom";
 import { isLoggedIn } from "../../Auth/auth";
-import { handleKeyPress, handleResetResponse } from "../../Components/Helper";
+import { handleKeyPress } from "../../Components/Helper";
+import Snackbar from "../../Components/Snackbar/Snackbar";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Login = () => {
     username: "",
     password: "",
   });
-  const { data } = useSelector((state: any) => state.meSlice);
+  const { data, error, loading } = useSelector((state: any) => state.meSlice);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value } = e.target;
@@ -40,8 +40,6 @@ const Login = () => {
     }
   }, [data.results, navigate]);
 
-  const loading = false;
-  const error = false;
   if (loading)
     return (
       <div
@@ -56,13 +54,9 @@ const Login = () => {
       </div>
     );
 
-  if (error) {
-    handleResetResponse();
-    return <Error size="5rem" label={`Erro ${error}`} />;
-  }
-
   return (
     <div className={styles.container}>
+      {error && <Snackbar type="loginError" />}
       <div
         className={styles.loginForm}
         onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
@@ -70,11 +64,10 @@ const Login = () => {
         <h2 className={styles.title}>Bem vindo(a)</h2>
         <div className={styles.formGroup}>
           <label className={styles.label} htmlFor="username">
-            Username:
+            Usuário:
           </label>
           <Input
             className={styles.input}
-            id="username"
             name="username"
             onChange={handleChange}
             value={form.username}
@@ -82,12 +75,11 @@ const Login = () => {
         </div>
         <div className={styles.formGroup}>
           <label className={styles.label} htmlFor="password">
-            Password:
+            Senha:
           </label>
           <Input
             className={styles.input}
             type="password"
-            id="password"
             name="password"
             onChange={handleChange}
             value={form.password}
