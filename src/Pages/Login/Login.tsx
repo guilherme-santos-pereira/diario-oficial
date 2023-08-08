@@ -70,7 +70,7 @@ const Login = () => {
         <h2 className={styles.title}>Bem vindo(a)</h2>
         <div className={styles.formGroup}>
           <label className={styles.label} htmlFor="username">
-            Username:
+            Usuário:
           </label>
           <Input
             className={styles.input}
@@ -82,7 +82,7 @@ const Login = () => {
         </div>
         <div className={styles.formGroup}>
           <label className={styles.label} htmlFor="password">
-            Password:
+            Senha:
           </label>
           <Input
             className={styles.input}
