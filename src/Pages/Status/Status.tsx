@@ -211,6 +211,7 @@ const Status = () => {
             value={selectedRange.code}
             onChange={handleChange}
             name="code"
+            max={5}
           />
           <Button
             className={`${styles.button} ${styles.schedule}`}
