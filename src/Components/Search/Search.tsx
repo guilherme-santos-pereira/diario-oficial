@@ -23,13 +23,13 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
   });
 
   const [startDate, setStartDate] = useState<string | undefined>(
-      selectedRange.start_date
+    selectedRange.start_date
   );
   const [endDate, setEndDate] = useState<string | undefined>(
-      selectedRange.end_date
+    selectedRange.end_date
   );
   const [postCode, setPostCode] = useState<string | undefined>(
-      selectedRange.end_date
+    selectedRange.end_date
   );
   const [exactWordsChecked, setExactWordsChecked] = useState<boolean>(false);
 
@@ -81,37 +81,76 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
   };
 
   return (
-      <div className={styles.container} onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter", ["words", "post_type"])}>
-        <div className={styles.calend_datear}>
-          <div>
-            <label>De: </label>
-            <Input className={styles.date} type="date" name="start_date" value={startDate} onChange={handleChange} />
-          </div>
-          <div>
-            <label>Até:</label>
-            <Input className={styles.date} type="date" name="end_date" value={endDate} onChange={handleChange} />
-          </div>
+    <div
+      className={styles.container}
+      onKeyUp={(e) =>
+        handleKeyPress(e, handleSubmit, "Enter", ["words", "post_type"])
+      }
+    >
+      <div className={styles.calend_datear}>
+        <div>
+          <label>De: </label>
+          <Input
+            className={styles.date}
+            type="date"
+            name="start_date"
+            value={startDate}
+            onChange={handleChange}
+          />
         </div>
-        <SelectedList placeholder="Palavra-chave" field="words" list={selectedRange} setList={setSelectedRange} />
-        <div className={styles.type}>
-          <SelectedList placeholder="Tipo" field="post_type" list={selectedRange} setList={setSelectedRange} options={optionsType} isType readOnly />
-        </div>
-        <div style={{ marginLeft: "15px" }} className={styles.calend_datear}>
-          <Input className={styles.code} name="post_code" value={postCode} onChange={handleChange} placeholder="Código da edição" />
-          <div className={styles.info}>
-            <label>Palavras exatas?</label>
-            <div style={{ display: "flex" }}>
-              <div className={styles.checkbox}>
-                <Input name="exact_words" checked={exactWordsChecked} onChange={handleChange} type="checkbox" />
-                <label>Sim</label>
-              </div>
-            </div>
-          </div>
-          <Button className={styles.button} onClick={handleSubmit}>
-            Pesquisar
-          </Button>
+        <div>
+          <label>Até:</label>
+          <Input
+            className={styles.date}
+            type="date"
+            name="end_date"
+            value={endDate}
+            onChange={handleChange}
+          />
         </div>
       </div>
+      <SelectedList
+        placeholder="Palavra-chave"
+        field="words"
+        list={selectedRange}
+        setList={setSelectedRange}
+      />
+      <div className={styles.type}>
+        <SelectedList
+          placeholder="Tipo"
+          field="post_type"
+          list={selectedRange}
+          setList={setSelectedRange}
+          options={optionsType}
+          isType
+          readOnly
+        />
+      </div>
+      <div className={styles.calend_datear}>
+        <Input
+          className={styles.code}
+          name="post_code"
+          value={postCode}
+          onChange={handleChange}
+          placeholder="Código da edição"
+        />
+        <div className={styles.info}>
+          <label>Palavras exatas?</label>
+          <div>
+            <Input
+              name="exact_words"
+              checked={exactWordsChecked}
+              onChange={handleChange}
+              type="checkbox"
+            />
+            <label>Sim</label>
+          </div>
+        </div>
+        <Button className={styles.button} onClick={handleSubmit}>
+          Pesquisar
+        </Button>
+      </div>
+    </div>
   );
 };
 
