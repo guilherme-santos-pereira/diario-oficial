@@ -201,13 +201,13 @@ const Status = () => {
             name="time"
             value={selectedRange.time}
             onChange={handleTime}
-            placeholder="Horario"
+            placeholder="Horário"
           />
         </div>
         <div className={styles.lastColumn}>
           <Input
             className={`${styles.input} ${styles.code}`}
-            placeholder="Código"
+            placeholder="Número"
             value={selectedRange.code}
             onChange={handleChange}
             name="code"
@@ -223,7 +223,7 @@ const Status = () => {
       {transformedData && (
         <div className={styles.table}>
           <Table
-            title="Publicações Agendadas"
+            title="Edições Agendadas"
             columns={columns}
             data={transformedData}
             setPage={setPage}
