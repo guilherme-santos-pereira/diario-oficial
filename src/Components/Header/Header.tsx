@@ -28,6 +28,22 @@ const Header = () => {
               Sair
             </span>
           )}
+          {isLoggedIn() && (
+              <span
+                  className={`${styles.route} ${styles.logout}`}
+                  onClick={() => navigate("/resetar-senha")}
+              >
+              Redefinir Senha
+            </span>
+          )}
+          {isLoggedIn() && (
+              <span
+                  className={`${styles.route} ${styles.logout}`}
+                  onClick={() => navigate("/status")}
+              >
+              Agendar
+            </span>
+          )}
           <div>
             <a
               className={styles.route}

@@ -19,13 +19,15 @@ interface iInput {
   max?: string;
   step?: string;
   pattern?: string;
+  checked?: boolean
 }
 
-const Input: React.FC<iInput> = ({ className, onClick, ...props }) => {
+const Input: React.FC<iInput> = ({ className, onClick, checked, ...props }) => {
   return (
     <input
       className={`${styles.container} ${className}`}
       onClick={onClick}
+      checked={checked}
       {...props}
     ></input>
   );

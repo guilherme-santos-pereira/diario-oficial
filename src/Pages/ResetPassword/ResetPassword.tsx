@@ -16,18 +16,10 @@ const ResetPassword = () => {
   const { error, loading } = useSelector((state: any) => state.resetPassword);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value } = e.target;
-    setForm((prev: any) => {
-      if (Array.isArray(prev[name])) {
-        return {
-          ...prev,
-          [name]: [...prev[name], value],
-        };
-      }
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
+    setForm((prev: any) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = () => {
@@ -55,11 +47,11 @@ const ResetPassword = () => {
         className={styles.form}
         onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
       >
-        <label className={styles.title}>Resetar senha:</label>
+        <h2 className={styles.title}>Redefinir Senha</h2>
         <Input
           type="email"
           className={styles.input}
-          placeholder="Email"
+          placeholder="Seu endereço de e-mail"
           name="email"
           value={form.email}
           onChange={handleChange}
@@ -68,13 +60,10 @@ const ResetPassword = () => {
           className={styles.button}
           onClick={handleSubmit}
           disabled={
-            !(
-              form.email.includes("@defensoria.sc.gov.br") ||
-              form.email.includes("@defensoria.sc.def.br")
-            )
+            !form.email || !form.email.includes("@defensoria.sc.gov.br")
           }
         >
-          Enviar email
+          Enviar E-mail
         </Button>
       </div>
     </div>
