@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { fetchPublic } from "../../Services/Slices/publicSlice";
 import { Calendar, DayRange } from "react-modern-calendar-datepicker";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
+import "@taak/react-modern-calendar-datepicker/lib/DatePicker.css";
 
 interface iSearch {
   setBackup?: any;
