@@ -67,23 +67,22 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
   };
 
   const handleSubmit = () => {
-    const formattedStartDate = dayRange.from
-      ? formatDate(dayRange.from)
-      : selectedRange.start_date;
-    const formattedEndDate = dayRange.to
-      ? formatDate(dayRange.to)
-      : selectedRange.end_date;
-
-    const updatedRange = {
-      ...selectedRange,
-      start_date: formattedStartDate,
-      end_date: formattedEndDate,
-    };
-
-    dispatch<any>(fetchPublic(updatedRange));
-    setBackup(updatedRange);
-    setSearch(true);
-
+    if (dayRange.from && dayRange.to) {
+      const formattedStartDate = formatDate(dayRange.from);
+      const formattedEndDate = formatDate(dayRange.to);
+      const updatedRange = {
+        ...selectedRange,
+        start_date: formattedStartDate,
+        end_date: formattedEndDate,
+      };
+      dispatch<any>(fetchPublic(updatedRange));
+      setBackup(updatedRange);
+      setSearch(true);
+    } else {
+      dispatch<any>(fetchPublic(selectedRange));
+      setBackup(selectedRange);
+      setSearch(true);
+    }
     setSelectedRange({
       start_date: "",
       end_date: "",
@@ -94,6 +93,58 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
     });
     setPostCode("");
     setExactWordsChecked(false);
+    setDayRange({ from: null, to: null });
+  };
+
+  const ptLocale = {
+    months: [
+      "Janeiro",
+      "Fevereiro",
+      "Março",
+      "Abril",
+      "Maio",
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outubro",
+      "Novembro",
+      "Dezembro",
+    ],
+    weekDays: [
+      { name: "Domingo", short: "D", isWeekend: true },
+      { name: "Segunda-feira", short: "S" },
+      { name: "Terça-feira", short: "T" },
+      { name: "Quarta-feira", short: "Q" },
+      { name: "Quinta-feira", short: "Q" },
+      { name: "Sexta-feira", short: "S" },
+      { name: "Sábado", short: "S", isWeekend: true },
+    ],
+    weekStartingIndex: 0,
+    getToday(gregorainTodayObject: any) {
+      return gregorainTodayObject;
+    },
+    toNativeDate(date: any) {
+      return new Date(date.year, date.month - 1, date.day);
+    },
+    getMonthLength(date: any) {
+      return new Date(date.year, date.month, 0).getDate();
+    },
+    transformDigit(digit: any) {
+      return digit;
+    },
+    nextMonth: "Próximo Mês",
+    previousMonth: "Mês Anterior",
+    openMonthSelector: "Abrir Selecionador de Mês",
+    openYearSelector: "Abrir Selecionador de Ano",
+    closeMonthSelector: "Fechar Selecionador de Mês",
+    closeYearSelector: "Fechar Selecionador de Ano",
+    defaultPlaceholder: "Selecionar...",
+    from: "de",
+    to: "até",
+    digitSeparator: ",",
+    yearLetterSkip: 0,
+    isRtl: false,
   };
 
   return (
@@ -108,10 +159,36 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
           value={dayRange}
           onChange={setDayRange}
           shouldHighlightWeekends
-          calendarClassName={styles.CalendarContainer}
+          colorPrimary="#9fc54d"
+          colorPrimaryLight="#d7ecbd"
+          locale={ptLocale}
+          renderFooter={() => (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "1rem 2rem",
+              }}
+            >
+              <button
+                type="button"
+                onClick={() => {
+                  setDayRange({ from: null, to: null });
+                }}
+                style={{
+                  border: "#0fbcf9",
+                  color: "#000",
+                  borderRadius: "0.5rem",
+                  padding: "1rem 2rem",
+                  cursor: "pointer",
+                }}
+              >
+                Limpar
+              </button>
+            </div>
+          )}
         />
       </div>
-
       <SelectedList
         placeholder="Palavra-chave"
         field="words"
