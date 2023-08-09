@@ -154,34 +154,23 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
         handleKeyPress(e, handleSubmit, "Enter", ["words", "post_type"])
       }
     >
-      <div className={styles.calendar}>
+      <div className={styles.calendarContainer}>
         <Calendar
           value={dayRange}
           onChange={setDayRange}
           shouldHighlightWeekends
           colorPrimary="#9fc54d"
           colorPrimaryLight="#d7ecbd"
+          calendarClassName={styles.calendar}
           locale={ptLocale}
           renderFooter={() => (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                padding: "1rem 2rem",
-              }}
-            >
+            <div className={styles.renderFooter}>
               <button
                 type="button"
                 onClick={() => {
                   setDayRange({ from: null, to: null });
                 }}
-                style={{
-                  border: "#0fbcf9",
-                  color: "#000",
-                  borderRadius: "0.5rem",
-                  padding: "1rem 2rem",
-                  cursor: "pointer",
-                }}
+                className={styles.clearButton}
               >
                 Limpar
               </button>
