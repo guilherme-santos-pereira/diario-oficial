@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styles from "./Search.module.css";
 import Input from "../Forms/Input";
 import Button from "../Forms/Button";
@@ -6,8 +6,8 @@ import SelectedList from "../SelectedList/SelectedList";
 import { handleKeyPress, optionsType } from "../Helper";
 import { fetchPublic } from "../../Services/Slices/publicSlice";
 import { useDispatch } from "react-redux";
-import {Calendar, DayRange} from "react-modern-calendar-datepicker";
-import "react-modern-calendar-datepicker/lib/DatePicker.css";
+import "@taak/react-modern-calendar-datepicker/lib/DatePicker.css";
+import {DayRange, Calendar} from "@taak/react-modern-calendar-datepicker";
 
 interface iSearch {
   setBackup?: any;
@@ -190,7 +190,6 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
 
     isRtl: false,
   };
-
 
   return (
       <div className={styles.container} onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter", ["words", "post_type"])}>
