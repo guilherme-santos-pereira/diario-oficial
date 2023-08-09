@@ -67,27 +67,43 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
   };
 
   const handleSubmit = () => {
-    const formattedStartDate = formatDate(dayRange.from);
-    const formattedEndDate = formatDate(dayRange.to) ;
-
-    const updatedRange = {
-      ...selectedRange,
-      start_date: formattedStartDate,
-      end_date: formattedEndDate,
-    };
-    dispatch<any>(fetchPublic(updatedRange));
-    setBackup(updatedRange);
-    setSearch(true);
-    setSelectedRange({
-      start_date: "",
-      end_date: "",
-      post_type: [],
-      post_code: "",
-      words: [],
-      exact_words: false,
-    });
-    setPostCode("");
-    setExactWordsChecked(false);
+    if (dayRange.from && dayRange.to) {
+      const formattedStartDate = formatDate(dayRange.from);
+      const formattedEndDate = formatDate(dayRange.to) ;
+      const updatedRange = {
+        ...selectedRange,
+        start_date: formattedStartDate,
+        end_date: formattedEndDate,
+      };
+      dispatch<any>(fetchPublic(updatedRange));
+      setBackup(updatedRange);
+      setSearch(true);
+      setSelectedRange({
+        start_date: "",
+        end_date: "",
+        post_type: [],
+        post_code: "",
+        words: [],
+        exact_words: false,
+      });
+      setPostCode("");
+      setExactWordsChecked(false);
+    }
+    else {
+      dispatch<any>(fetchPublic(selectedRange));
+      setBackup(selectedRange);
+      setSearch(true);
+      setSelectedRange({
+        start_date: "",
+        end_date: "",
+        post_type: [],
+        post_code: "",
+        words: [],
+        exact_words: false,
+      });
+      setPostCode("");
+      setExactWordsChecked(false);
+    }
   };
 
   const ptLocale = {
