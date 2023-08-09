@@ -61,6 +61,14 @@ const Status = () => {
     const { value } = event.target;
     const numericValue = value.replace(/\D/g, "").toString();
 
+    if (numericValue.length > 0 && parseInt(numericValue[0], 10) > 2) {
+      return;
+    }
+
+    if (numericValue.length > 0 && parseInt(numericValue[2], 10) > 5) {
+      return;
+    }
+
     if (numericValue === "") {
       setSelectedRange((prev: any) => ({
         ...prev,
@@ -211,6 +219,7 @@ const Status = () => {
             value={selectedRange.code}
             onChange={handleChange}
             name="code"
+            max={5}
           />
           <Button
             className={`${styles.button} ${styles.schedule}`}
