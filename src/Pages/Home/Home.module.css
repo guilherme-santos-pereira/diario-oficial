@@ -5,6 +5,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 1rem auto 0;
+  width: 100vw;
 }
 
 .regulation {

@@ -9,7 +9,12 @@ import { fetchPublic } from "../../Services/Slices/publicSlice";
 import { Calendar, DayRange } from "react-modern-calendar-datepicker";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 
-const Search: React.FC = () => {
+interface iSearch {
+  setBackup?: any;
+  setSearch?: any;
+}
+
+const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
   const [selectedRange, setSelectedRange] = useState({
     start_date: "",
     end_date: "",
@@ -76,6 +81,8 @@ const Search: React.FC = () => {
     };
 
     dispatch<any>(fetchPublic(updatedRange));
+    setBackup(updatedRange);
+    setSearch(true);
 
     setSelectedRange({
       start_date: "",
@@ -101,6 +108,7 @@ const Search: React.FC = () => {
           value={dayRange}
           onChange={setDayRange}
           shouldHighlightWeekends
+          calendarClassName={styles.CalendarContainer}
         />
       </div>
 
