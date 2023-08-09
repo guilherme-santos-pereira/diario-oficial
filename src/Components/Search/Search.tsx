@@ -186,6 +186,25 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
               colorPrimary="#9fc54d"
               colorPrimaryLight="#d7ecbd"
               locale={ptLocale}
+              renderFooter={() => (
+                  <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 2rem' }}>
+                    <button
+                        type="button"
+                        onClick={() => {
+                          setDayRange({from: null, to: null})
+                        }}
+                        style={{
+                          border: '#0fbcf9',
+                          color: '#000',
+                          borderRadius: '0.5rem',
+                          padding: '1rem 2rem',
+                          cursor: "pointer"
+                        }}
+                    >
+                      Limpar
+                    </button>
+                  </div>
+              )}
           />
         </div>
         <SelectedList placeholder="Palavra-chave" field="words" list={selectedRange} setList={setSelectedRange} />
