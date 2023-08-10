@@ -5,6 +5,7 @@
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  max-height: 10rem;
 }
 
 .calendarContainer {
@@ -12,12 +13,12 @@
   flex-direction: column;
   align-items: flex-start;
   position: relative;
-  max-width: 1rem;
+  width: 0;
 }
 
 .calendar {
   position: absolute;
-  left: -29rem;
+  left: -27.5rem;
   top: -5rem;
   z-index: 1;
 }
@@ -25,7 +26,6 @@
 .renderFooter {
   display: flex;
   justify-content: center;
-  margin: 0 0 1rem 0;
 }
 
 .clearButton {
@@ -35,6 +35,7 @@
   width: 5rem;
   height: 2.5rem;
   cursor: pointer;
+  margin: 0 0 1rem 0;
 }
 
 .input,
@@ -44,28 +45,18 @@
 }
 
 .keyword {
-  display: flex;
-  align-items: center;
-  background-color: var(--second-button-color);
-  border: none;
-  margin: 0.5rem 0 0;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  box-shadow: 0 10px 10px -10px var(--shadow-color);
-  min-height: 3rem;
-  width: 100%;
-  overflow-x: auto;
+  margin: 0 0 0 -5rem;
 }
 
 .type {
   display: flex;
   width: 7rem;
-  margin: 0 0 0 1rem;
+  margin: 0 0 0 -5rem;
 }
 
 .code {
   background-color: var(--second-button-color);
-  margin: 0 0.5rem 0 0;
+  margin: 0 0.5rem 0.5rem 0;
   border: none;
   width: 10rem;
   height: 3rem;
@@ -167,5 +158,20 @@
   .type {
     padding: 0;
     margin: 0;
+  }
+  @media screen and (max-width: 768px) {
+    .calendarContainer {
+      max-width: 100%; /* Use the full width on smaller screens */
+    }
+
+    .calendar {
+      left: auto;
+      right: 0; /* Position the calendar on the right side */
+      top: auto;
+      bottom: -10rem; /* Adjust the positioning as needed */
+    }
+    .type {
+      margin: 0;
+    }
   }
 }

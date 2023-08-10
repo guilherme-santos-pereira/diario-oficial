@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { fetchPublic } from "../../Services/Slices/publicSlice";
 import { Calendar, DayRange } from "react-modern-calendar-datepicker";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import "@taak/react-modern-calendar-datepicker/lib/DatePicker.css";
 
 interface iSearch {
   setBackup?: any;
@@ -179,12 +178,14 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
           )}
         />
       </div>
-      <SelectedList
-        placeholder="Palavra-chave"
-        field="words"
-        list={selectedRange}
-        setList={setSelectedRange}
-      />
+      <div className={styles.keyword}>
+        <SelectedList
+          placeholder="Palavra-chave"
+          field="words"
+          list={selectedRange}
+          setList={setSelectedRange}
+        />
+      </div>
       <div className={styles.type}>
         <SelectedList
           placeholder="Tipo"
@@ -196,7 +197,7 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
           readOnly
         />
       </div>
-      <div className={styles.calend_datear}>
+      <div>
         <Input
           className={styles.code}
           name="post_code"
