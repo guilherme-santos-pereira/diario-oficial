@@ -1,3 +1,7 @@
+.listContainer {
+  position: relative;
+}
+
 .input {
   background-color: var(--second-button-color);
   display: flex;
@@ -25,10 +29,9 @@
   width: 13rem;
   min-height: 10rem;
   max-height: 20rem;
-  position: absolute;
-  z-index: 1;
   overflow-y: auto;
   margin: 0.05rem 0 0 0;
+  z-index: 5;
 }
 
 .list::-webkit-scrollbar {
@@ -61,7 +64,6 @@
 .selected {
   display: flex;
   background-color: var(--second-button-color);
-  position: absolute;
   border: none;
   margin: 0.75rem 0 0 0;
   border-radius: 0.5rem;
@@ -71,6 +73,7 @@
   max-height: 30rem;
   width: 11rem;
   overflow-y: auto;
+  z-index: 10;
 }
 
 .item {

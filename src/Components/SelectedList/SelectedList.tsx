@@ -79,7 +79,7 @@ const SelectedList: React.FC<iSelectedList> = ({
   };
 
   return (
-    <div>
+    <div className={styles.listContainer}>
       <Input
         className={`${styles.input} ${className}`}
         onKeyPress={handleAddItem}
@@ -114,7 +114,7 @@ const SelectedList: React.FC<iSelectedList> = ({
         </div>
       )}
 
-      {list[field]?.length > 0 && (
+      {!showOptions && list[field]?.length > 0 && (
         <div className={styles.selected}>
           {list[field]?.map((item: string) => (
             <div key={uuidv4()} className={`${styles.item} ${classNameDiv}`}>
