@@ -80,16 +80,25 @@ export function handleExtract(data: iContent[], setContent: any) {
       edition = split[1].split("=")[1].replace(".pdf", "").replace("_", " ");
       hour = "";
     }
-    const extractedInfo = {
-      date,
-      edition,
-      hour,
-      presigned_url: content.presigned_url,
-    };
 
-    setContent((prev: any) => [...prev, extractedInfo]);
+    if (date) {
+      const extractedHour = new Date(
+          `${date.split('/')[1]}/${date.split('/')[0]}/${date.split('/')[2]} ${hour}`
+      );
+      if (extractedHour < new Date()) {
+        const extractedInfo = {
+          date,
+          edition,
+          hour,
+          presigned_url: content.presigned_url,
+        };
+
+        setContent((prev: any) => [...prev, extractedInfo]);
+      }
+    }
   });
 }
+
 
 export function handleExtractUrl(urls: string[], setContent: any) {
   const currentTime = new Date();
@@ -129,9 +138,9 @@ export function handleExtractUrl(urls: string[], setContent: any) {
         edition,
         presigned_url,
       };
-
-      const extractedHour = new Date(date + " " + hour);
-
+      const extractedHour = new Date(
+          `${date.split('/')[1]}/${date.split('/')[0]}/${date.split('/')[2]} ${hour}`
+      );
       if (extractedHour < currentTime) {
         setContent((prev: any) => [...prev, extractedInfo]);
       }
