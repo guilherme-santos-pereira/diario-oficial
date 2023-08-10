@@ -11,6 +11,7 @@ import { fetchPost } from "../../Services/Slices/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGetFiles } from "../../Services/Slices/getFilesSlice";
 import Snackbar from "../../Components/Snackbar/Snackbar";
+import {Calendar, DayValue} from "@taak/react-modern-calendar-datepicker";
 
 const Status = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,6 @@ const Status = () => {
   const [selectedRange, setSelectedRange] = useState<any>({
     file: File,
     type: [],
-    date: "",
     time: "",
     code: "",
   });
@@ -27,6 +27,7 @@ const Status = () => {
   const post = useSelector((state: any) => state.postSlice);
   const getFiles = useSelector((state: any) => state.getFilesSlice);
   const deleteFile = useSelector((state: any) => state.deleteFileSlice);
+  const [day, setDay] = React.useState<DayValue>(null);
   const columns = [
     { title: "Nome", property: "name" },
     { title: "Data", property: "date" },
@@ -97,9 +98,10 @@ const Status = () => {
     setSelectedFile(file);
   };
 
-  const formatDate = (dateString: any) => {
-    const [year, month, day] = dateString.split("-");
-    return `${day}-${month}-${year}`;
+  const formatDate = (date: any) => {
+    const day = date.day < 10 ? `0${date.day}` : date.day;
+    const month = date.month < 10 ? `0${date.month}` : date.month;
+    return `${day}-${month}-${date.year}`;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -114,7 +116,7 @@ const Status = () => {
 
     const postType = selectedRange.type.join(",");
     formData.append("post_type", postType);
-    formData.append("date", formatDate(selectedRange?.date));
+    formData.append("date", formatDate(day));
     formData.append("hour", selectedRange.time);
     formData.append("number", selectedRange.code);
     dispatch<any>(fetchPost(formData));
@@ -164,6 +166,91 @@ const Status = () => {
     }, 0.000001);
   }
 
+  const ptLocale = {
+    months: [
+      'Janeiro',
+      'Fevereiro',
+      'Março',
+      'Abril',
+      'Maio',
+      'Junho',
+      'Julho',
+      'Agosto',
+      'Setembro',
+      'Outubro',
+      'Novembro',
+      'Dezembro',
+    ],
+
+    weekDays: [
+      {
+        name: 'Domingo',
+        short: 'D',
+        isWeekend: true,
+      },
+      {
+        name: 'Segunda-feira',
+        short: 'S',
+      },
+      {
+        name: 'Terça-feira',
+        short: 'T',
+      },
+      {
+        name: 'Quarta-feira',
+        short: 'Q',
+      },
+      {
+        name: 'Quinta-feira',
+        short: 'Q',
+      },
+      {
+        name: 'Sexta-feira',
+        short: 'S',
+      },
+      {
+        name: 'Sábado',
+        short: 'S',
+        isWeekend: true,
+      },
+    ],
+
+    weekStartingIndex: 0,
+
+    getToday(gregorainTodayObject: any) {
+      return gregorainTodayObject;
+    },
+
+    toNativeDate(date: any) {
+      return new Date(date.year, date.month - 1, date.day);
+    },
+
+    getMonthLength(date: any) {
+      return new Date(date.year, date.month, 0).getDate();
+    },
+
+    transformDigit(digit: any) {
+      return digit;
+    },
+
+    nextMonth: 'Próximo Mês',
+    previousMonth: 'Mês Anterior',
+    openMonthSelector: 'Abrir Selecionador de Mês',
+    openYearSelector: 'Abrir Selecionador de Ano',
+    closeMonthSelector: 'Fechar Selecionador de Mês',
+    closeYearSelector: 'Fechar Selecionador de Ano',
+    defaultPlaceholder: 'Selecionar...',
+
+    from: 'de',
+    to: 'até',
+
+    digitSeparator: ',',
+
+    yearLetterSkip: 0,
+
+    isRtl: false,
+  };
+
   return (
     <div className={styles.container}>
       {post.error && <Snackbar type="postError" />}
@@ -198,13 +285,6 @@ const Status = () => {
         />
         <div>
           <Input
-            className={styles.date}
-            type="date"
-            name="date"
-            value={selectedRange.date}
-            onChange={handleChange}
-          />
-          <Input
             className={styles.time}
             name="time"
             value={selectedRange.time}
@@ -212,6 +292,15 @@ const Status = () => {
             placeholder="Horário"
           />
         </div>
+        <Calendar
+            value={day}
+            onChange={setDay}
+            shouldHighlightWeekends
+            colorPrimary="#9fc54d"
+            colorPrimaryLight="#d7ecbd"
+            locale={ptLocale}
+            calendarClassName={styles.compactCalendar}
+        />
         <div className={styles.lastColumn}>
           <Input
             className={`${styles.input} ${styles.code}`}
