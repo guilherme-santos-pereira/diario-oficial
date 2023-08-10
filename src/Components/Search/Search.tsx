@@ -6,10 +6,7 @@ import SelectedList from "../SelectedList/SelectedList";
 import { handleKeyPress, optionsType } from "../Helper";
 import { useDispatch } from "react-redux";
 import { fetchPublic } from "../../Services/Slices/publicSlice";
-import DatePicker, {
-  Calendar,
-  DayRange,
-} from "react-modern-calendar-datepicker";
+import { Calendar, DayRange } from "react-modern-calendar-datepicker";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import { ptLocale } from "../Consts";
 
@@ -108,7 +105,7 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
       }
     >
       <div className={styles.calendarContainer}>
-        <DatePicker
+        <Calendar
           value={dayRange}
           onChange={setDayRange}
           shouldHighlightWeekends

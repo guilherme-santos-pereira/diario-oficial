@@ -11,9 +11,9 @@ import { fetchPost } from "../../Services/Slices/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGetFiles } from "../../Services/Slices/getFilesSlice";
 import Snackbar from "../../Components/Snackbar/Snackbar";
-import { Calendar, DayValue } from "@taak/react-modern-calendar-datepicker";
+import { DayValue } from "@taak/react-modern-calendar-datepicker";
 import { ptLocale } from "../../Components/Consts";
-import DatePicker from "react-modern-calendar-datepicker";
+import DatePicker from "@taak/react-modern-calendar-datepicker";
 
 const Status = () => {
   const dispatch = useDispatch();
