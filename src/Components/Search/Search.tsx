@@ -6,8 +6,8 @@ import SelectedList from "../SelectedList/SelectedList";
 import { handleKeyPress, optionsType } from "../Helper";
 import { useDispatch } from "react-redux";
 import { fetchPublic } from "../../Services/Slices/publicSlice";
-import { Calendar, DayRange } from "react-modern-calendar-datepicker";
-import "react-modern-calendar-datepicker/lib/DatePicker.css";
+import { Calendar, DayRange } from "@taak/react-modern-calendar-datepicker";
+import "@taak/react-modern-calendar-datepicker/lib/DatePicker.css";
 import { ptLocale } from "../Consts";
 
 interface iSearch {
