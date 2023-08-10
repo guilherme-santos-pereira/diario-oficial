@@ -191,15 +191,17 @@ const Status = () => {
             <div className={styles.fileText}>Arquivo: {selectedFile.name}</div>
           )}
         </div>
-        <DatePicker
-          value={day}
-          onChange={setDay}
-          shouldHighlightWeekends
-          colorPrimary="#9fc54d"
-          colorPrimaryLight="#d7ecbd"
-          locale={ptLocale}
-          calendarClassName={styles.calendar}
-        />
+        <div className={styles.calendarContainer}>
+          <DatePicker
+            value={day}
+            onChange={setDay}
+            shouldHighlightWeekends
+            colorPrimary="#9fc54d"
+            colorPrimaryLight="#d7ecbd"
+            locale={ptLocale}
+            calendarClassName={styles.calendar}
+          />
+        </div>
         <SelectedList
           placeholder="Tipo"
           field="type"

@@ -2,7 +2,7 @@
   background-color: var(--second-button-color);
   display: flex;
   border: none;
-  width: 10rem;
+  width: 12rem;
   height: 3rem;
   border-radius: 0.5rem;
   padding: 0 0 0 1rem;
@@ -22,8 +22,8 @@
   flex-direction: column;
   background-color: var(--second-button-color);
   border-radius: 0 0 0.5rem 0.5rem;
-  width: 26rem;
-  min-height: 15rem;
+  width: 13rem;
+  min-height: 10rem;
   max-height: 20rem;
   position: absolute;
   z-index: 1;
@@ -37,7 +37,7 @@
 }
 
 .option {
-  width: 16rem;
+  width: 85%;
   min-height: 2.5rem;
   margin: 0.5rem 0;
   border: none;
@@ -69,7 +69,7 @@
   padding: 1rem;
   min-height: 3rem;
   max-height: 30rem;
-  width: 24rem;
+  width: 11rem;
   overflow-y: auto;
 }
 
@@ -89,15 +89,18 @@
 
 @media screen and (max-width: 1350px) {
   .input {
-    width: 80%;
+    width: 100%;
     min-width: 100px;
   }
 
   .list {
     min-height: 8rem;
     max-height: 12rem;
+    width: 100%;
   }
-
+  .selected {
+    width: 100%;
+  }
   .option {
     width: 100%;
   }
@@ -105,15 +108,18 @@
 
 @media screen and (max-width: 768px) {
   .input {
-    width: 100%;
+    width: 65%;
     min-width: 100px;
   }
 
   .list {
+    width: 65%;
     min-height: 8rem;
     max-height: 12rem;
   }
-
+  .selected {
+    width: 65%;
+  }
   .option {
     width: 100%;
   }
@@ -122,14 +128,20 @@
 @media screen and (max-width: 576px) {
   .input {
     font-size: small;
+    width: 50%;
   }
 
   .list {
     min-height: 8rem;
     max-height: 12rem;
+    width: 50%;
   }
-
+  .selected {
+    width: 100%;
+    width: 50%;
+  }
   .option {
     width: 100%;
   }
 }
+/* input list selected */
