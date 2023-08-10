@@ -149,6 +149,7 @@
 
 .backButton {
   margin: 0 0.75rem 0 0;
+  min-height: 2.5rem;
 }
 
 .button:hover,
