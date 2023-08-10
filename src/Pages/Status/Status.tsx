@@ -11,7 +11,9 @@ import { fetchPost } from "../../Services/Slices/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGetFiles } from "../../Services/Slices/getFilesSlice";
 import Snackbar from "../../Components/Snackbar/Snackbar";
-import {Calendar, DayValue} from "@taak/react-modern-calendar-datepicker";
+import { Calendar, DayValue } from "@taak/react-modern-calendar-datepicker";
+import { ptLocale } from "../../Components/Consts";
+import DatePicker from "react-modern-calendar-datepicker";
 
 const Status = () => {
   const dispatch = useDispatch();
@@ -166,91 +168,6 @@ const Status = () => {
     }, 0.000001);
   }
 
-  const ptLocale = {
-    months: [
-      'Janeiro',
-      'Fevereiro',
-      'Março',
-      'Abril',
-      'Maio',
-      'Junho',
-      'Julho',
-      'Agosto',
-      'Setembro',
-      'Outubro',
-      'Novembro',
-      'Dezembro',
-    ],
-
-    weekDays: [
-      {
-        name: 'Domingo',
-        short: 'D',
-        isWeekend: true,
-      },
-      {
-        name: 'Segunda-feira',
-        short: 'S',
-      },
-      {
-        name: 'Terça-feira',
-        short: 'T',
-      },
-      {
-        name: 'Quarta-feira',
-        short: 'Q',
-      },
-      {
-        name: 'Quinta-feira',
-        short: 'Q',
-      },
-      {
-        name: 'Sexta-feira',
-        short: 'S',
-      },
-      {
-        name: 'Sábado',
-        short: 'S',
-        isWeekend: true,
-      },
-    ],
-
-    weekStartingIndex: 0,
-
-    getToday(gregorainTodayObject: any) {
-      return gregorainTodayObject;
-    },
-
-    toNativeDate(date: any) {
-      return new Date(date.year, date.month - 1, date.day);
-    },
-
-    getMonthLength(date: any) {
-      return new Date(date.year, date.month, 0).getDate();
-    },
-
-    transformDigit(digit: any) {
-      return digit;
-    },
-
-    nextMonth: 'Próximo Mês',
-    previousMonth: 'Mês Anterior',
-    openMonthSelector: 'Abrir Selecionador de Mês',
-    openYearSelector: 'Abrir Selecionador de Ano',
-    closeMonthSelector: 'Fechar Selecionador de Mês',
-    closeYearSelector: 'Fechar Selecionador de Ano',
-    defaultPlaceholder: 'Selecionar...',
-
-    from: 'de',
-    to: 'até',
-
-    digitSeparator: ',',
-
-    yearLetterSkip: 0,
-
-    isRtl: false,
-  };
-
   return (
     <div className={styles.container}>
       {post.error && <Snackbar type="postError" />}
@@ -274,6 +191,15 @@ const Status = () => {
             <div className={styles.fileText}>Arquivo: {selectedFile.name}</div>
           )}
         </div>
+        <DatePicker
+          value={day}
+          onChange={setDay}
+          shouldHighlightWeekends
+          colorPrimary="#9fc54d"
+          colorPrimaryLight="#d7ecbd"
+          locale={ptLocale}
+          calendarClassName={styles.calendar}
+        />
         <SelectedList
           placeholder="Tipo"
           field="type"
@@ -292,15 +218,7 @@ const Status = () => {
             placeholder="Horário"
           />
         </div>
-        <Calendar
-            value={day}
-            onChange={setDay}
-            shouldHighlightWeekends
-            colorPrimary="#9fc54d"
-            colorPrimaryLight="#d7ecbd"
-            locale={ptLocale}
-            calendarClassName={styles.compactCalendar}
-        />
+
         <div className={styles.lastColumn}>
           <Input
             className={`${styles.input} ${styles.code}`}

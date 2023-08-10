@@ -6,8 +6,12 @@ import SelectedList from "../SelectedList/SelectedList";
 import { handleKeyPress, optionsType } from "../Helper";
 import { useDispatch } from "react-redux";
 import { fetchPublic } from "../../Services/Slices/publicSlice";
-import { Calendar, DayRange } from "react-modern-calendar-datepicker";
+import DatePicker, {
+  Calendar,
+  DayRange,
+} from "react-modern-calendar-datepicker";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
+import { ptLocale } from "../Consts";
 
 interface iSearch {
   setBackup?: any;
@@ -96,57 +100,6 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
     setDayRange({ from: null, to: null });
   };
 
-  const ptLocale = {
-    months: [
-      "Janeiro",
-      "Fevereiro",
-      "Março",
-      "Abril",
-      "Maio",
-      "Junho",
-      "Julho",
-      "Agosto",
-      "Setembro",
-      "Outubro",
-      "Novembro",
-      "Dezembro",
-    ],
-    weekDays: [
-      { name: "Domingo", short: "D", isWeekend: true },
-      { name: "Segunda-feira", short: "S" },
-      { name: "Terça-feira", short: "T" },
-      { name: "Quarta-feira", short: "Q" },
-      { name: "Quinta-feira", short: "Q" },
-      { name: "Sexta-feira", short: "S" },
-      { name: "Sábado", short: "S", isWeekend: true },
-    ],
-    weekStartingIndex: 0,
-    getToday(gregorainTodayObject: any) {
-      return gregorainTodayObject;
-    },
-    toNativeDate(date: any) {
-      return new Date(date.year, date.month - 1, date.day);
-    },
-    getMonthLength(date: any) {
-      return new Date(date.year, date.month, 0).getDate();
-    },
-    transformDigit(digit: any) {
-      return digit;
-    },
-    nextMonth: "Próximo Mês",
-    previousMonth: "Mês Anterior",
-    openMonthSelector: "Abrir Selecionador de Mês",
-    openYearSelector: "Abrir Selecionador de Ano",
-    closeMonthSelector: "Fechar Selecionador de Mês",
-    closeYearSelector: "Fechar Selecionador de Ano",
-    defaultPlaceholder: "Selecionar...",
-    from: "de",
-    to: "até",
-    digitSeparator: ",",
-    yearLetterSkip: 0,
-    isRtl: false,
-  };
-
   return (
     <div
       className={styles.container}
@@ -155,7 +108,7 @@ const Search: React.FC<iSearch> = ({ setBackup, setSearch }) => {
       }
     >
       <div className={styles.calendarContainer}>
-        <Calendar
+        <DatePicker
           value={dayRange}
           onChange={setDayRange}
           shouldHighlightWeekends
