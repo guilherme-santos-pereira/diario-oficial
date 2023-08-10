@@ -191,26 +191,29 @@ const Status = () => {
             <div className={styles.fileText}>Arquivo: {selectedFile.name}</div>
           )}
         </div>
-        <div className={styles.calendarContainer}>
-          <DatePicker
-            value={day}
-            onChange={setDay}
-            shouldHighlightWeekends
-            colorPrimary="#9fc54d"
-            colorPrimaryLight="#d7ecbd"
-            locale={ptLocale}
-            calendarClassName={styles.calendar}
-          />
+        <div className={styles.responsiveness}>
+          <div className={styles.calendarContainer}>
+            <DatePicker
+              value={day}
+              onChange={setDay}
+              shouldHighlightWeekends
+              colorPrimary="#9fc54d"
+              colorPrimaryLight="#d7ecbd"
+              locale={ptLocale}
+            />
+          </div>
+          <div className={styles.type}>
+            <SelectedList
+              placeholder="Tipo"
+              field="type"
+              list={selectedRange}
+              setList={setSelectedRange}
+              options={optionsType}
+              isType
+              readOnly
+            />
+          </div>
         </div>
-        <SelectedList
-          placeholder="Tipo"
-          field="type"
-          list={selectedRange}
-          setList={setSelectedRange}
-          options={optionsType}
-          isType
-          readOnly
-        />
         <div>
           <Input
             className={styles.time}

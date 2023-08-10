@@ -13,11 +13,14 @@
   width: 100%;
 }
 
-.calendarContainer {
-  margin: 0 1rem;
+.responsiveness {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.calendar {
+.calendarContainer {
+  margin: 0 1rem 0.5rem 1rem;
 }
 
 .tableContainer {
@@ -161,6 +164,15 @@
   }
   .lastColumn {
     flex-direction: column;
+  }
+  .responsiveness {
+    display: block;
+  }
+  .type {
+    margin: 0 0 0 1.5rem;
+  }
+  .button {
+    margin: 0;
   }
 }
 

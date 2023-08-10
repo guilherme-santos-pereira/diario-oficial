@@ -2,7 +2,6 @@
 
 .container {
   width: 40vw;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   max-height: 10rem;
@@ -128,7 +127,9 @@
   .info {
     flex-direction: row;
   }
-  .code,
+  .code {
+    max-width: 8rem;
+  }
   .type {
     padding: 0;
     margin: 0;
